@@ -38,12 +38,14 @@ namespace Library.Persistence.Repositories
                 .Take(pageSize)
                 .ToListAsync();
         }
+
         public async Task<BookEntity?> AlreadyExist(string ISBN)
         {
             return await _context.Books
                 .AsNoTracking()
-                .FirstOrDefaultAsync(x => x.ISBN == ISBN);
+                .FirstOrDefaultAsync(x => x.ISBN.Equals(ISBN));
         }
+
         public async Task<Guid> Create(BookEntity bookEntity)
         {
             await _context.Books.AddAsync(bookEntity);

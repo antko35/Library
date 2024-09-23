@@ -8,5 +8,6 @@ namespace Library.Application.Servises
         Task<ResponseBookDto?> Create(RequestBookDto CreateBookDto);
         Task<List<ResponseBookDto>> GetAll();
         Task<ResponseBookDto> GetById(Guid id);
+        Task<ResponseBookDto> GetByIsbn(string isbn);
     }
 }

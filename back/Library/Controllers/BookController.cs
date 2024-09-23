@@ -16,6 +16,7 @@ namespace Library.API.Controllers
         {
             _bookServise = service;
         }
+
         [HttpGet]
         public async Task<ActionResult<List<ResponseBookDto>>> GetAll()
         {
@@ -37,6 +38,20 @@ namespace Library.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpGet]
+        [Route("{isbn}")]
+        public async Task<ActionResult<ResponseBookDto>> GetByIsbn([FromRoute] string isbn)
+        {
+            try
+            {
+                var book = await _bookServise.GetByIsbn(isbn);
+                return Ok(book);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPost]
         public async Task<ActionResult<ResponseBookDto>> Create([FromBody] RequestBookDto createBookDto)
@@ -51,6 +66,8 @@ namespace Library.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        
 
        
     }

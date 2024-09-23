@@ -39,6 +39,17 @@ namespace Library.Application.Servises
             return bookResponse;
         }
 
+        public async Task<ResponseBookDto> GetByIsbn(string isbn)
+        {
+            var bookEntity = await _booksRepository.AlreadyExist(isbn);
+            if (bookEntity == null)
+            {
+                throw new Exception("Book doesn't exist");
+            }
+            var bookResponse = _mapper.Map<ResponseBookDto>(bookEntity);
+            return bookResponse;
+        }
+
         public async Task<ResponseBookDto?> Create(RequestBookDto requestBookDto)
         {
             var alreadyExist = await _booksRepository.AlreadyExist(requestBookDto.ISBN);
@@ -63,7 +74,7 @@ namespace Library.Application.Servises
             }
             else
             {
-                throw new Exception("already exist");
+                throw new Exception("Book already exist");
             }
         }
     }
