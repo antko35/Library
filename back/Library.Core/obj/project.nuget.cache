@@ -1,8 +1,16 @@
 {
   "version": 2,
-  "dgSpecHash": "7sSq3CctLFdp2S8wgU2082TaZRqaIpOMzzbNqcbWPPC1GNh57Amchm9LzJW3N4J7t4mS8IypLS+kcNz4hQgbHw==",
+  "dgSpecHash": "ZAnWz/2+G7JyInUz7XwJwr+3ltXlei1PitJ0Gcp+UkXqSJeN3O7DESZR59t+gL2YIMdgvAhkirYW6LVdWjRSbA==",
   "success": true,
   "projectFilePath": "C:\\Users\\antko\\projects\\Library\\back\\Library.Core\\Library.Core.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\antko\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
+    "C:\\Users\\antko\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\6.0.0\\microsoft.extensions.dependencyinjection.abstractions.6.0.0.nupkg.sha512",
+    "C:\\Users\\antko\\.nuget\\packages\\microsoft.extensions.options\\6.0.0\\microsoft.extensions.options.6.0.0.nupkg.sha512",
+    "C:\\Users\\antko\\.nuget\\packages\\microsoft.extensions.primitives\\6.0.0\\microsoft.extensions.primitives.6.0.0.nupkg.sha512",
+    "C:\\Users\\antko\\.nuget\\packages\\microsoft.openapi\\1.6.14\\microsoft.openapi.1.6.14.nupkg.sha512",
+    "C:\\Users\\antko\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.7.3\\swashbuckle.aspnetcore.swagger.6.7.3.nupkg.sha512",
+    "C:\\Users\\antko\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
+  ],
   "logs": []
 }

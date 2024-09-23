@@ -18,7 +18,7 @@ namespace Library.Persistence.Configurations
             builder.
                 HasOne(b => b.Author)
                 .WithMany(a => a.Books)
-                .HasForeignKey(a => a.GenreId);
+                .HasForeignKey(a => a.AuthorId);
 
             builder
                 .HasOne(b => b.Genre)

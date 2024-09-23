@@ -80,6 +80,8 @@ namespace Library.Persistence.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AuthorId");
+
                     b.HasIndex("GenreId");
 
                     b.ToTable("Books");
@@ -104,7 +106,7 @@ namespace Library.Persistence.Migrations
                 {
                     b.HasOne("Library.Persistence.Entities.AuthorEntity", "Author")
                         .WithMany("Books")
-                        .HasForeignKey("GenreId")
+                        .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

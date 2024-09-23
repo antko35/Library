@@ -3,8 +3,6 @@ C:\Users\antko\projects\Library\back\Library\obj\Debug\net8.0\Library.API.Assemb
 C:\Users\antko\projects\Library\back\Library\obj\Debug\net8.0\Library.API.AssemblyInfo.cs
 C:\Users\antko\projects\Library\back\Library\obj\Debug\net8.0\Library.API.csproj.CoreCompileInputs.cache
 C:\Users\antko\projects\Library\back\Library\obj\Debug\net8.0\Library.API.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\antko\projects\Library\back\Library\obj\Debug\net8.0\Library.API.RazorAssemblyInfo.cache
-C:\Users\antko\projects\Library\back\Library\obj\Debug\net8.0\Library.API.RazorAssemblyInfo.cs
 C:\Users\antko\projects\Library\back\Library\bin\Debug\net8.0\appsettings.Development.json
 C:\Users\antko\projects\Library\back\Library\bin\Debug\net8.0\appsettings.json
 C:\Users\antko\projects\Library\back\Library\bin\Debug\net8.0\Library.API.staticwebassets.runtime.json
@@ -32,9 +30,7 @@ C:\Users\antko\projects\Library\back\Library\obj\Debug\net8.0\staticwebassets\ms
 C:\Users\antko\projects\Library\back\Library\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.Library.API.props
 C:\Users\antko\projects\Library\back\Library\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.Library.API.props
 C:\Users\antko\projects\Library\back\Library\obj\Debug\net8.0\staticwebassets.pack.json
-C:\Users\antko\projects\Library\back\Library\obj\Debug\net8.0\scopedcss\Pages\Shared\_Layout.cshtml.rz.scp.css
 C:\Users\antko\projects\Library\back\Library\obj\Debug\net8.0\scopedcss\bundle\Library.API.styles.css
-C:\Users\antko\projects\Library\back\Library\obj\Debug\net8.0\scopedcss\projectbundle\Library.API.bundle.scp.css
 C:\Users\antko\projects\Library\back\Library\obj\Debug\net8.0\Library.API.csproj.CopyComplete
 C:\Users\antko\projects\Library\back\Library\obj\Debug\net8.0\Library.API.dll
 C:\Users\antko\projects\Library\back\Library\obj\Debug\net8.0\refint\Library.API.dll
@@ -109,3 +105,9 @@ C:\Users\antko\projects\Library\back\Library\bin\Debug\net8.0\ru\Microsoft.CodeA
 C:\Users\antko\projects\Library\back\Library\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\antko\projects\Library\back\Library\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\antko\projects\Library\back\Library\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\antko\projects\Library\back\Library\bin\Debug\net8.0\Microsoft.OpenApi.dll
+C:\Users\antko\projects\Library\back\Library\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\antko\projects\Library\back\Library\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\antko\projects\Library\back\Library\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\antko\projects\Library\back\Library\obj\Debug\net8.0\Library.API.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\antko\projects\Library\back\Library\bin\Debug\net8.0\AutoMapper.dll
