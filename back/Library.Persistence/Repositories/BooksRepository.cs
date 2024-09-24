@@ -51,7 +51,25 @@ namespace Library.Persistence.Repositories
             await _context.Books.AddAsync(bookEntity);
             await _context.SaveChangesAsync();
             return bookEntity.Id;
+        }
 
+        public async Task Update(Guid existingId, BookEntity forUpdate)
+        {
+            await _context.Books
+                .Where(x => x.Id == existingId)
+                .ExecuteUpdateAsync(setters =>setters
+                    .SetProperty(b => b.GenreId, forUpdate.GenreId)
+                    .SetProperty(b => b.AuthorId, forUpdate.AuthorId)
+                    .SetProperty(b => b.Description, forUpdate.Description)
+                    .SetProperty(b => b.Title, forUpdate.Title)
+                );
+        }
+        public async Task<int> Delete(Guid id)
+        {
+            var count = await _context.Books
+                .Where (x => x.Id == id)
+                .ExecuteDeleteAsync();
+            return count;
         }
     }
 }

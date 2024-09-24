@@ -67,8 +67,31 @@ namespace Library.API.Controllers
             }
         }
 
-        
-
-       
+        [HttpPut]
+        public async Task<ActionResult<ResponseBookDto>> Update([FromBody] RequestBookDto requestBookDto)
+        {
+            try
+            {
+                var book = await _bookServise.Update(requestBookDto);
+                return Ok(book);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpDelete("{id:Guid}")]
+        public async Task<ActionResult> Delete([FromRoute] Guid id)
+        {
+            try
+            {
+                await _bookServise.Delete(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

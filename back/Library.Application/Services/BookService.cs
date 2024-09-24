@@ -77,5 +77,45 @@ namespace Library.Application.Servises
                 throw new Exception("Book already exist");
             }
         }
+
+        public async Task<ResponseBookDto> Update(RequestBookDto requestBookDto)
+        {
+            var existing = await _booksRepository.AlreadyExist(requestBookDto.ISBN);
+            if(existing == null)
+            {
+                throw new Exception("Book does not exist");
+            }
+
+            bool genre = await _genreRepository.IsExist(requestBookDto.GenreId);
+            if (!genre)
+            {
+                throw new Exception("Genre does not exist");
+            }
+
+            bool author = await _authorRepository.IsExist(requestBookDto.AuthorId);
+            if (!author)
+            {
+                throw new Exception("Author does not exist");
+            }
+
+            var bookEntityUpd= _mapper.Map<BookEntity>(requestBookDto);
+
+            await _booksRepository.Update(existing.Id , bookEntityUpd);
+
+            var updatedBook = await _booksRepository.GetById(existing.Id);
+
+            var bookResponse = _mapper.Map<ResponseBookDto>(updatedBook);
+
+            return bookResponse;
+        }
+
+        public async Task Delete(Guid id)
+        {
+            var deleteCount = await _booksRepository.Delete(id);
+            if(deleteCount == 0)
+            {
+                throw new Exception("Nothing wos deleted");
+            }
+        }
     }
 }

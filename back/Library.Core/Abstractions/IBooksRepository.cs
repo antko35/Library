@@ -6,8 +6,10 @@ namespace Library.Persistence.Repositories
     {
         Task<BookEntity?> AlreadyExist(string ISBN);
         Task<Guid> Create(BookEntity bookEntity);
+        Task<int> Delete(Guid id);
         Task<List<BookEntity>> GetAll();
         Task<BookEntity?> GetById(Guid id);
         Task<List<BookEntity>> GetByPage(int page, int pageSize);
+        Task Update(Guid existingId, BookEntity forUpdate);
     }
 }
