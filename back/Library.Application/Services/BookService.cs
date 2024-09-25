@@ -108,6 +108,15 @@ namespace Library.Application.Servises
 
             return bookResponse;
         }
+        public async Task BorrowBook(Guid bookId)
+        {
+            var book = _booksRepository.GetById(bookId);
+            if(book == null)
+            {
+                throw new Exception("Book doesnt exisi");
+            }
+            await _booksRepository.BorrowBook(bookId);
+        }
 
         public async Task Delete(Guid id)
         {

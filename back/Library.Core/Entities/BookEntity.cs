@@ -16,7 +16,7 @@ namespace Library.Persistence.Entities
         public string Description { get; set; } = string.Empty;
         public Guid AuthorId { get; set; }
         public AuthorEntity? Author { get; set; }
-        public DateTime? BorrowDate { get; set; } 
-        public DateTime? ReturnDate { get; set;}
+        public DateOnly? BorrowDate { get; set; } 
+        public DateOnly? ReturnDate { get; set;}
     }
 }

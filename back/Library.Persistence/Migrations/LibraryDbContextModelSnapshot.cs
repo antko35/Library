@@ -57,8 +57,8 @@ namespace Library.Persistence.Migrations
                     b.Property<Guid>("AuthorId")
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime?>("BorrowDate")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateOnly?>("BorrowDate")
+                        .HasColumnType("date");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -71,8 +71,8 @@ namespace Library.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTime?>("ReturnDate")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateOnly?>("ReturnDate")
+                        .HasColumnType("date");
 
                     b.Property<string>("Title")
                         .IsRequired()

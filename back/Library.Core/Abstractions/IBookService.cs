@@ -5,6 +5,7 @@ namespace Library.Application.Servises
 {
     public interface IBookService
     {
+        Task BorrowBook(Guid bookId);
         Task<ResponseBookDto?> Create(RequestBookDto CreateBookDto);
         Task Delete(Guid id);
         Task<List<ResponseBookDto>> GetAll();
