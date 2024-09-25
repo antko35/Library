@@ -46,8 +46,35 @@ namespace Library.API.Controllers
             {
                 return BadRequest(ex.Message);
             }
-            
         }
-        
+
+        [HttpPut]
+        public async Task<ActionResult<ResponseAuthorDto>> Update([FromBody] RequestUpdateAuthorDto requestUpdateAuthorDto)
+        {
+            try
+            {
+                var author = await _authorService.Update(requestUpdateAuthorDto);
+                return Ok(author);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
+        [HttpDelete("{Id:Guid}")]
+        public async Task<ActionResult> Delete(Guid Id)
+        {
+            try
+            {
+                await _authorService.Delete(Id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
+
+        }
     }
 }

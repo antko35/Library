@@ -17,6 +17,8 @@ namespace Library.Application.Mapping
              .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.NewGuid()));
 
             CreateMap<AuthorEntity, ResponseAuthorDto>().ReverseMap();
+
+            CreateMap<RequestUpdateAuthorDto, AuthorEntity>();
         }
        
     }

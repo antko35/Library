@@ -17,11 +17,24 @@ namespace Library.Persistence.Repositories
             _context = context;
 
         }
+        
+        public async Task<List<AuthorEntity>> GetAll()
+        {
+            return await _context.Authors
+                .AsNoTracking()
+                .ToListAsync();
+        }
         public async Task<bool> IsExist(Guid id)
         {
             return await _context.Authors
                 .AsNoTracking()
                 .AnyAsync(x => x.Id == id);
+        }
+        public async Task<bool> IsExist(string name, string surname, DateOnly birthDate)
+        {
+            return await _context.Authors
+                .AsNoTracking()
+                .AnyAsync(x => x.Name == name && x.Surname == surname && x.BirthDate == birthDate);
         }
         public async Task<AuthorEntity?> GetById(Guid id)
         {
@@ -34,17 +47,26 @@ namespace Library.Persistence.Repositories
             await _context.Authors.AddAsync(author);
             await _context.SaveChangesAsync();
         }
-        public async Task<List<AuthorEntity>> GetAll()
+        
+        public async Task Update(AuthorEntity forUpdate)
         {
-            return await _context.Authors
-                .AsNoTracking()
-                .ToListAsync();
+            await _context.Authors
+                .Where(a => a.Id == forUpdate.Id)
+                .ExecuteUpdateAsync(setters => setters
+                    .SetProperty(a => a.Name, forUpdate.Name)
+                    .SetProperty(a => a.Surname, forUpdate.Surname)
+                    .SetProperty(a => a.BirthDate, forUpdate.BirthDate)
+                    .SetProperty(a => a.Country, forUpdate.Country)
+                    );
         }
-        public async Task<bool> IsExist(string name, string surname, DateTime birthDate)
+
+        public async Task<int> Delete(Guid id)
         {
-            return await _context.Authors
-                .AsNoTracking()
-                .AnyAsync(x => x.Name == name && x.Surname == surname && x.BirthDate == birthDate);
+            var count = await _context.Authors
+                .Where (a => a.Id == id)
+                .ExecuteDeleteAsync();
+            return count;
         }
+        
     }
 }

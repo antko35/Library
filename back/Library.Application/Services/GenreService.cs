@@ -41,7 +41,15 @@ namespace Library.Application.Services
             var genreResponse = _mapper.Map<ResponseGenreDto>(genreEntity);
 
             return genreResponse;
-               
+        }
+
+        public async Task Delete(Guid Id)
+        {
+            var count = await _genreRepository.Delete(Id);
+            if (count == 0)
+            {
+                throw new Exception("Genre doesnt exist");
+            }
         }
     }
 }

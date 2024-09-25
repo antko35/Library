@@ -38,5 +38,13 @@ namespace Library.Persistence.Repositories
             await _context.Genres.AddAsync(genreEntity);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<int> Delete(Guid id)
+        {
+            var count = await _context.Genres
+                .Where(x => x.Id == id)
+                .ExecuteDeleteAsync();
+            return count;
+        }
     }
 }

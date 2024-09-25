@@ -32,5 +32,18 @@ namespace Library.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpDelete("{id:Guid}")]
+        public async Task<ActionResult> Delete(Guid id)
+        {
+            try
+            {
+                await _genreService.Delete(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
     }
 }

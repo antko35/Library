@@ -55,7 +55,31 @@ namespace Library.Application.Services
             return authorResponse;
         }
 
-        
+        public async Task<ResponseAuthorDto> Update(RequestUpdateAuthorDto requestUpdateAuthorDto)
+        {
+            var authorEntity = await _authorRepository.GetById(requestUpdateAuthorDto.Id);
+            if (authorEntity == null)
+            {
+                throw new Exception("Author doesn`t exist");
+            }
 
+            var authorForUpdate = _mapper.Map<AuthorEntity>(requestUpdateAuthorDto);
+            await _authorRepository.Update(authorForUpdate);
+
+            var updatedAuthor = await _authorRepository.GetById(authorEntity.Id);
+            var authorResponse = _mapper.Map<ResponseAuthorDto>(updatedAuthor);
+
+            return authorResponse;
+        }
+
+        public async Task Delete(Guid Id)
+        {
+            var count = await _authorRepository.Delete(Id);
+
+            if (count == 0)
+            {
+                throw new Exception("Author doesnt exist");
+            }
+        }
     }
 }
