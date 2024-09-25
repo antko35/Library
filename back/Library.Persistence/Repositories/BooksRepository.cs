@@ -73,6 +73,13 @@ namespace Library.Persistence.Repositories
                 .SetProperty(b => b.ReturnDate, DateOnly.FromDateTime(DateTime.Now.AddDays(7)))
                 );
         }
+        public async Task UploadCover(Guid bookd, string fileName)
+        {
+            await _context.Books
+                .Where(x => x.Id == bookd)
+                .ExecuteUpdateAsync(setter => setter
+                .SetProperty(b => b.CoverImagePath, fileName));
+        }
         public async Task<int> Delete(Guid id)
         {
             var count = await _context.Books

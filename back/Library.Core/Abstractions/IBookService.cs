@@ -1,5 +1,6 @@
 ﻿using Library.Core.Contracts.Book;
 using Library.Persistence.Entities;
+using Microsoft.AspNetCore.Http;
 
 namespace Library.Application.Servises
 {
@@ -12,5 +13,6 @@ namespace Library.Application.Servises
         Task<ResponseBookDto> GetById(Guid id);
         Task<ResponseBookDto> GetByIsbn(string isbn);
         Task<ResponseBookDto> Update(RequestBookDto requestBookDto);
+        Task UploadCover(Guid bookId, IFormFile file);
     }
 }

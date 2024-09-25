@@ -80,6 +80,7 @@ namespace Library.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
         [HttpPost("{bookId:Guid}")]
         public async Task<ActionResult> BorrowBook([FromRoute] Guid bookId)
         {
@@ -93,6 +94,25 @@ namespace Library.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("upload-cover/{bookId}")]
+        public async Task<ActionResult> UploadCover(Guid bookId, IFormFile file)
+        {
+            try
+            {
+                if (file == null || file.Length == 0)
+                    return BadRequest("Invalid file.");
+
+                await _bookServise.UploadCover(bookId, file);
+                return Ok();
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+
         [HttpDelete("{id:Guid}")]
         public async Task<ActionResult> Delete([FromRoute] Guid id)
         {

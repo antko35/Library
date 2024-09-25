@@ -2,6 +2,7 @@
 using Library.Core.Contracts.Book;
 using Library.Persistence.Entities;
 using Library.Persistence.Repositories;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -116,6 +117,37 @@ namespace Library.Application.Servises
                 throw new Exception("Book doesnt exisi");
             }
             await _booksRepository.BorrowBook(bookId);
+        }
+        public async Task UploadCover(Guid bookId, IFormFile file)
+        { 
+            var book = await _booksRepository.GetById(bookId);
+            if(book == null)
+            {
+                throw new Exception("Book doesnt exist");
+            }
+            if (!string.IsNullOrEmpty(book.CoverImagePath))
+            {
+                var oldFilePath = Path.Combine("wwwroot", "uploads", book.CoverImagePath);
+
+                // Удаляем старую фотографию, если она существует
+                if (System.IO.File.Exists(oldFilePath))
+                {
+                    System.IO.File.Delete(oldFilePath);
+                }
+            }
+
+            var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+            var filePath = Path.Combine("wwwroot", "uploads", fileName);
+
+            // Сохранение файла на сервере
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+
+           
+            await _booksRepository.UploadCover(book.Id, fileName);
+
         }
 
         public async Task Delete(Guid id)
