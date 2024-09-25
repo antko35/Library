@@ -111,3 +111,6 @@ C:\Users\antko\projects\Library\back\Library\bin\Debug\net8.0\Swashbuckle.AspNet
 C:\Users\antko\projects\Library\back\Library\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 C:\Users\antko\projects\Library\back\Library\obj\Debug\net8.0\Library.API.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\antko\projects\Library\back\Library\bin\Debug\net8.0\AutoMapper.dll
+C:\Users\antko\projects\Library\back\Library\bin\Debug\net8.0\FluentValidation.dll
+C:\Users\antko\projects\Library\back\Library\bin\Debug\net8.0\FluentValidation.AspNetCore.dll
+C:\Users\antko\projects\Library\back\Library\bin\Debug\net8.0\FluentValidation.DependencyInjectionExtensions.dll

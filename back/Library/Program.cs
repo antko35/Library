@@ -1,7 +1,12 @@
 using AutoMapper;
+using FluentValidation;
 using Library.Application.Mapping;
 using Library.Application.Services;
 using Library.Application.Servises;
+using Library.Core.Contracts.Author;
+using Library.Core.Contracts.Book;
+using Library.Core.Contracts.Genre;
+using Library.Core.Contracts.RequestValidation;
 using Library.Persistence;
 using Library.Persistence.Entities;
 using Library.Persistence.Repositories;
@@ -29,6 +34,14 @@ builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
 builder.Services.AddScoped<IAuthorService, AuthorService>();
 
 builder.Services.AddControllers();
+
+builder.Services.AddScoped<IValidator<RequestAuthorDto>, RequestAuthorDtoValidator>();
+builder.Services.AddScoped<IValidator<RequestUpdateAuthorDto>, RequestUpdateAuthorDtoValidator>();
+
+builder.Services.AddScoped<IValidator<RequestBookDto>, RequestBookDtoValidator>();
+
+builder.Services.AddScoped<IValidator<RequestGenreDto>, RequestGenreDtoValidator>();
+
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddAutoMapper(typeof(MappingBook), typeof(MappingAuthor),typeof(MappingGenres));

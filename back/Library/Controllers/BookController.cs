@@ -4,6 +4,9 @@ using Library.Persistence.Configurations;
 using Microsoft.AspNetCore.Mvc;
 using Library.Core.Contracts.Book;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Query.Expressions.Internal;
+using FluentValidation;
+using Library.Core.Contracts.Author;
+using FluentValidation.Results;
 
 namespace Library.API.Controllers
 {
@@ -12,9 +15,11 @@ namespace Library.API.Controllers
     public class BookController : ControllerBase
     {
         private readonly IBookService _bookServise;
-        public BookController(IBookService service)
+        private readonly IValidator<RequestBookDto> _validator;
+        public BookController(IBookService service, IValidator<RequestBookDto> validator)
         {
             _bookServise = service;
+            _validator = validator;
         }
 
         [HttpGet]
@@ -56,6 +61,12 @@ namespace Library.API.Controllers
         [HttpPost]
         public async Task<ActionResult<ResponseBookDto>> Create([FromBody] RequestBookDto createBookDto)
         {
+            ValidationResult result = await _validator.ValidateAsync(createBookDto);
+            if (!result.IsValid)
+            {
+                return BadRequest(result.Errors);
+            }
+
             try
             {
                 var createdBook = await _bookServise.Create(createBookDto);
@@ -70,6 +81,12 @@ namespace Library.API.Controllers
         [HttpPut]
         public async Task<ActionResult<ResponseBookDto>> Update([FromBody] RequestBookDto requestBookDto)
         {
+            ValidationResult result = await _validator.ValidateAsync(requestBookDto);
+            if (!result.IsValid)
+            {
+                return BadRequest(result.Errors);
+            }
+
             try
             {
                 var book = await _bookServise.Update(requestBookDto);

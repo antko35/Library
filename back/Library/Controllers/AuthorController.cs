@@ -1,4 +1,6 @@
-﻿using Library.Application.Services;
+﻿using FluentValidation;
+using FluentValidation.Results;
+using Library.Application.Services;
 using Library.Core.Contracts.Author;
 using Library.Core.Contracts.Book;
 using Library.Persistence.Repositories;
@@ -12,9 +14,13 @@ namespace Library.API.Controllers
     public class AuthorController : ControllerBase
     {
         private readonly IAuthorService _authorService;
-        public AuthorController(IAuthorService authorService)
+        private readonly IValidator<RequestAuthorDto> _validator;
+        private readonly IValidator<RequestUpdateAuthorDto> _updateValidator;
+        public AuthorController(IAuthorService authorService, IValidator<RequestAuthorDto> validator, IValidator<RequestUpdateAuthorDto> updateValidator)
         {
             _authorService = authorService;
+            _validator = validator;
+            _updateValidator = updateValidator;
         }
 
         [HttpGet]
@@ -51,7 +57,14 @@ namespace Library.API.Controllers
             }
         }
         [HttpPost]
-        public async Task<ActionResult<ResponseAuthorDto>> Create([FromBody] RequestAuthorDto requestAuthorDto) {
+        public async Task<ActionResult<ResponseAuthorDto>> Create([FromBody] RequestAuthorDto requestAuthorDto) 
+        {
+            ValidationResult result = await _validator.ValidateAsync(requestAuthorDto);
+            if (!result.IsValid)
+            {
+                return BadRequest(result.Errors);
+            }
+
             try
             {
                 var author = await _authorService.Create(requestAuthorDto); 
@@ -66,6 +79,11 @@ namespace Library.API.Controllers
         [HttpPut]
         public async Task<ActionResult<ResponseAuthorDto>> Update([FromBody] RequestUpdateAuthorDto requestUpdateAuthorDto)
         {
+            ValidationResult result = await _updateValidator.ValidateAsync(requestUpdateAuthorDto);
+            if (!result.IsValid)
+            {
+                return BadRequest(result.Errors);
+            }
             try
             {
                 var author = await _authorService.Update(requestUpdateAuthorDto);
