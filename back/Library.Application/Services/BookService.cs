@@ -125,6 +125,7 @@ namespace Library.Application.Servises
             {
                 throw new Exception("Book doesnt exist");
             }
+
             if (!string.IsNullOrEmpty(book.CoverImagePath))
             {
                 var oldFilePath = Path.Combine("wwwroot", "uploads", book.CoverImagePath);
@@ -145,9 +146,7 @@ namespace Library.Application.Servises
                 await file.CopyToAsync(stream);
             }
 
-           
             await _booksRepository.UploadCover(book.Id, fileName);
-
         }
 
         public async Task Delete(Guid id)

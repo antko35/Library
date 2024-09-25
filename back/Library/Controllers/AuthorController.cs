@@ -15,6 +15,26 @@ namespace Library.API.Controllers
         {
             _authorService = authorService;
         }
+
+        [HttpGet]
+        public async Task<ActionResult<List<ResponseAuthorDto>>> GetAll()
+        {
+            var authors = await _authorService.GetAll();
+            return Ok(authors);
+        }
+        [HttpGet("{id:Guid}")]
+        public async Task<ActionResult<RequestAuthorDto>> GetById(Guid id)
+        {
+            try
+            {
+                var book = await _authorService.GetById(id); 
+                return Ok(book);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
         [HttpPost]
         public async Task<ActionResult<ResponseAuthorDto>> Create([FromBody] RequestAuthorDto requestAuthorDto) {
             try
@@ -28,11 +48,6 @@ namespace Library.API.Controllers
             }
             
         }
-        [HttpGet]
-        public async Task<ActionResult<List<ResponseAuthorDto>>> GetAll()
-        {
-            var authors = await _authorService.GetAll();
-            return Ok(authors);
-        }
+        
     }
 }

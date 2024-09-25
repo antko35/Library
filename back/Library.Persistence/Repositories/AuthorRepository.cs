@@ -23,6 +23,12 @@ namespace Library.Persistence.Repositories
                 .AsNoTracking()
                 .AnyAsync(x => x.Id == id);
         }
+        public async Task<AuthorEntity?> GetById(Guid id)
+        {
+            return await _context.Authors
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.Id == id);
+        }
         public async Task Create(AuthorEntity author)
         {
             await _context.Authors.AddAsync(author);

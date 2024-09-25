@@ -19,6 +19,28 @@ namespace Library.Application.Services
             _authorRepository = authorRepository;
             _mapper = mapper;
         }
+        public async Task<List<ResponseAuthorDto>> GetAll()
+        {
+            var authors = await _authorRepository.GetAll();
+
+            var authorResponse = authors
+                .Select(author => _mapper.Map<ResponseAuthorDto>(author))
+                .ToList();
+
+            return authorResponse;
+        }
+        public async Task<ResponseAuthorDto> GetById(Guid id)
+        {
+            var author = await _authorRepository.GetById(id);
+            if (author == null)
+            {
+                throw new Exception("Author doesnt exist");
+            }
+
+            var authorResponse = _mapper.Map<ResponseAuthorDto>(author);
+
+            return authorResponse;
+        }
         public async Task<ResponseAuthorDto> Create(RequestAuthorDto requestAuthorDto)
         {
             bool isExist = await _authorRepository.IsExist(requestAuthorDto.Name, requestAuthorDto.Surname, requestAuthorDto.BirthDate);
@@ -33,14 +55,7 @@ namespace Library.Application.Services
             return authorResponse;
         }
 
-        public async Task<List<ResponseAuthorDto>> GetAll()
-        {
-            var authors = await _authorRepository.GetAll();
-            var authorResponse = authors
-                .Select(author => _mapper.Map<ResponseAuthorDto>(author))
-                .ToList();
-            return authorResponse;
-        }
+        
 
     }
 }

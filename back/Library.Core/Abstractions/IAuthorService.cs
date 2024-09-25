@@ -6,5 +6,6 @@ namespace Library.Application.Services
     {
         Task<ResponseAuthorDto> Create(RequestAuthorDto requestAuthorDto);
         Task<List<ResponseAuthorDto>> GetAll();
+        Task<ResponseAuthorDto> GetById(Guid id);
     }
 }
