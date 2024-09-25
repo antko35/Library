@@ -1,5 +1,6 @@
 ﻿using Library.Application.Services;
 using Library.Core.Contracts.Author;
+using Library.Core.Contracts.Book;
 using Library.Persistence.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -29,6 +30,20 @@ namespace Library.API.Controllers
             {
                 var book = await _authorService.GetById(id); 
                 return Ok(book);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
+        [HttpGet("/getBooks/{authorId:Guid}")]
+        public async Task<ActionResult<List<ResponseBookDto>>> GetBooksByAuthor(Guid authorId)
+        {
+            try
+            {
+                var books = await _authorService.GetBooksByAuthor(authorId);
+                return Ok(books);
             }
             catch (Exception ex)
             {
@@ -74,7 +89,7 @@ namespace Library.API.Controllers
             {
                 return NotFound(ex.Message);
             }
-
         }
+
     }
 }

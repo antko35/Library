@@ -42,6 +42,17 @@ namespace Library.Persistence.Repositories
                 .AsNoTracking()
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
+
+        public async Task<List<BookEntity>> GetBookByAuthor(Guid authorId)
+        {
+            var books = await _context.Books
+                .AsNoTracking()
+                .Where(x => x.AuthorId == authorId)
+                .ToListAsync();
+
+            return books;
+        }
+
         public async Task Create(AuthorEntity author)
         {
             await _context.Authors.AddAsync(author);

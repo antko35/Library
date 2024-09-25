@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Library.Core.Contracts.Author;
+using Library.Core.Contracts.Book;
 using Library.Persistence.Entities;
 using Library.Persistence.Repositories;
 using System;
@@ -41,6 +42,25 @@ namespace Library.Application.Services
 
             return authorResponse;
         }
+
+        public async Task<List<ResponseBookDto>> GetBooksByAuthor(Guid authorId)
+        {
+            var authorEntity = await _authorRepository.GetById(authorId);
+
+            if (authorEntity == null)
+            {
+                throw new Exception("Author does not exist");
+            }
+
+            var books = await _authorRepository.GetBookByAuthor(authorId);
+
+            var booksResponse = books
+                .Select(b => _mapper.Map<ResponseBookDto>(b))
+                .ToList();
+
+            return booksResponse;
+        }
+
         public async Task<ResponseAuthorDto> Create(RequestAuthorDto requestAuthorDto)
         {
             bool isExist = await _authorRepository.IsExist(requestAuthorDto.Name, requestAuthorDto.Surname, requestAuthorDto.BirthDate);
