@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Library.Persistence.Migrations
 {
     [DbContext(typeof(LibraryDbContext))]
-    [Migration("20240925103403_updDateDateOnly")]
-    partial class updDateDateOnly
+    [Migration("20240927122650_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,14 +25,79 @@ namespace Library.Persistence.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("Library.Core.Entities.RoleEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("RoleName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles");
+                });
+
+            modelBuilder.Entity("Library.Core.Entities.UserEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("Library.Core.Entities.UserRoleEntity", b =>
+                {
+                    b.Property<int>("RoleId")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int?>("RoleEntityId")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid?>("UserEntityId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("RoleId", "UserId");
+
+                    b.HasIndex("RoleEntityId");
+
+                    b.HasIndex("UserEntityId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserRole");
+                });
+
             modelBuilder.Entity("Library.Persistence.Entities.AuthorEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("BirthDate")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateOnly>("BirthDate")
+                        .HasColumnType("date");
 
                     b.Property<string>("Country")
                         .IsRequired()
@@ -62,6 +127,9 @@ namespace Library.Persistence.Migrations
 
                     b.Property<DateOnly?>("BorrowDate")
                         .HasColumnType("date");
+
+                    b.Property<string>("CoverImagePath")
+                        .HasColumnType("text");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -105,6 +173,29 @@ namespace Library.Persistence.Migrations
                     b.ToTable("Genres");
                 });
 
+            modelBuilder.Entity("Library.Core.Entities.UserRoleEntity", b =>
+                {
+                    b.HasOne("Library.Core.Entities.RoleEntity", null)
+                        .WithMany("UserRoles")
+                        .HasForeignKey("RoleEntityId");
+
+                    b.HasOne("Library.Core.Entities.RoleEntity", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Library.Core.Entities.UserEntity", null)
+                        .WithMany("UserRoles")
+                        .HasForeignKey("UserEntityId");
+
+                    b.HasOne("Library.Core.Entities.UserEntity", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Library.Persistence.Entities.BookEntity", b =>
                 {
                     b.HasOne("Library.Persistence.Entities.AuthorEntity", "Author")
@@ -122,6 +213,16 @@ namespace Library.Persistence.Migrations
                     b.Navigation("Author");
 
                     b.Navigation("Genre");
+                });
+
+            modelBuilder.Entity("Library.Core.Entities.RoleEntity", b =>
+                {
+                    b.Navigation("UserRoles");
+                });
+
+            modelBuilder.Entity("Library.Core.Entities.UserEntity", b =>
+                {
+                    b.Navigation("UserRoles");
                 });
 
             modelBuilder.Entity("Library.Persistence.Entities.AuthorEntity", b =>

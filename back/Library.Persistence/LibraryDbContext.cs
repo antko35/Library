@@ -1,4 +1,5 @@
-﻿using Library.Persistence.Configurations;
+﻿using Library.Core.Entities;
+using Library.Persistence.Configurations;
 using Library.Persistence.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -19,12 +20,18 @@ namespace Library.Persistence
         public DbSet<BookEntity> Books { get; set; }
         public DbSet<AuthorEntity> Authors { get; set; }
         public DbSet<GenreEntity> Genres { get; set; }
-
+        public DbSet<UserEntity> Users { get; set; }
+        public DbSet<RoleEntity> Roles { get; set; }
+        public DbSet<UserRoleEntity> UserRole { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfiguration(new AuthorConfiguration());
             modelBuilder.ApplyConfiguration(new BookConfiguration());
             modelBuilder.ApplyConfiguration(new GenreConfiguration());
+            modelBuilder.ApplyConfiguration(new UserConfigurations());
+            modelBuilder.ApplyConfiguration(new RoleConfigurations());
+            modelBuilder.ApplyConfiguration(new UserConfigurations());
 
             base.OnModelCreating(modelBuilder);
         }

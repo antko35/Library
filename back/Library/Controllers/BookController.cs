@@ -7,6 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Query.Expressions.Internal;
 using FluentValidation;
 using Library.Core.Contracts.Author;
 using FluentValidation.Results;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Library.API.Controllers
 {
@@ -22,6 +23,7 @@ namespace Library.API.Controllers
             _validator = validator;
         }
 
+        [Authorize(Policy = "Admin")]
         [HttpGet]
         public async Task<ActionResult<List<ResponseBookDto>>> GetAll()
         {
