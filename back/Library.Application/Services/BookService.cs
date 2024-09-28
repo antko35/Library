@@ -109,14 +109,16 @@ namespace Library.Application.Servises
 
             return bookResponse;
         }
-        public async Task BorrowBook(Guid bookId)
+
+        public async Task BorrowBook(Guid bookId, Guid userId)
         {
             var book = _booksRepository.GetById(bookId);
             if(book == null)
             {
                 throw new Exception("Book doesnt exisi");
             }
-            await _booksRepository.BorrowBook(bookId);
+
+            await _booksRepository.BorrowBook(bookId, userId);
         }
         public async Task UploadCover(Guid bookId, IFormFile file)
         { 

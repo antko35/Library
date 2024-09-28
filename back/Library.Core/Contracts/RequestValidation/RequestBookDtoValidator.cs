@@ -22,7 +22,7 @@ namespace Library.Core.Contracts.Book
 
             RuleFor(x => x.ISBN)
                 .NotEmpty().WithMessage("ISBN is required.")
-                .Length(13).WithMessage("ISBN length should be 13 characters");
+                .Length(17).WithMessage("ISBN length should be 17 characters");
 
             RuleFor(x => x.GenreId)
                 .NotEmpty().WithMessage("GenreId is required.")

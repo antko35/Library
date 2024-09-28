@@ -64,11 +64,12 @@ namespace Library.Persistence.Repositories
                     .SetProperty(b => b.Title, forUpdate.Title)
                 );
         }
-        public async Task BorrowBook(Guid id)
+        public async Task BorrowBook(Guid id, Guid userId)
         {
             await _context.Books
                 .Where(x => x.Id == id)
                 .ExecuteUpdateAsync(setters => setters
+                .SetProperty(b => b.UserId, userId)
                 .SetProperty(b => b.BorrowDate, DateOnly.FromDateTime(DateTime.Now))
                 .SetProperty(b => b.ReturnDate, DateOnly.FromDateTime(DateTime.Now.AddDays(7)))
                 );

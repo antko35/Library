@@ -24,6 +24,10 @@ namespace Library.Application.Mapping
                  .ForMember(dest => dest.PasswordHash, opt => opt.MapFrom(src => src.Password))
                  .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.NewGuid()))
                  .ReverseMap();
+
+            CreateMap<UserEntity, ResponseUserInfoDto>()
+                .ReverseMap();
+
         }
     }
 }

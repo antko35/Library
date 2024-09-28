@@ -25,6 +25,13 @@ namespace Library.Persistence.Repositories
         {
             return await _context.Users.FirstOrDefaultAsync(x => x.Email == email);
         }
+        public async Task<UserEntity> GetInfo(Guid id)
+        {
+            return await _context.Users
+                .AsNoTracking()
+                .Include(x => x.Books)
+                .FirstAsync(x => x.Id == id);
+        }
         public async Task<RoleEntity?> GetRole(Role role)
         {
             var roleEntity = await _context.Roles.SingleOrDefaultAsync(r => r.Id == (int)role);

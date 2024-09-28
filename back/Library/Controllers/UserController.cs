@@ -4,6 +4,7 @@ using Library.Application.Authorization;
 using Library.Application.Services;
 using Library.Core.Contracts.Author;
 using Library.Core.Contracts.User;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -14,6 +15,7 @@ using System.Security.Claims;
 namespace Library.API.Controllers
 {
     [ApiController]
+    [Route("User")]
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -26,13 +28,23 @@ namespace Library.API.Controllers
             _loginValidator = loginValidator;
         }
 
-       /* [HttpGet]
-        public async Task<ActionResult> GetInfo()
+        [HttpGet("info")]
+        public async Task<ActionResult<ResponseUserInfoDto>> GetInfo()
         {
-            return Ok();
-        }*/
+            try
+            {
+                var userId = User.Claims.First(x => x.Type == "UserId").Value;
+                Guid UserId = Guid.Parse(userId);
+                var response = await _userService.GetInfo(UserId);
+                return Ok(response);
+            }
+            catch (Exception ex) {
+                return BadRequest(ex.Message);
+            }
+            
+        }
 
-        [HttpPost("login/")]
+        [HttpPost("login")]
         public async Task<ActionResult<LoginResponseDto>> Login(LoginRequestUserDto loginDto)
         {
             ValidationResult result = await _loginValidator.ValidateAsync(loginDto);

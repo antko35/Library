@@ -5,7 +5,7 @@ namespace Library.Persistence.Repositories
     public interface IBooksRepository
     {
         Task<BookEntity?> AlreadyExist(string ISBN);
-        Task BorrowBook(Guid id);
+        Task BorrowBook(Guid id, Guid userId);
         Task<Guid> Create(BookEntity bookEntity);
         Task<int> Delete(Guid id);
         Task<List<BookEntity>> GetAll();

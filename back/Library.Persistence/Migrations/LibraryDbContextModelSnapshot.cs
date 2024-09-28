@@ -136,7 +136,7 @@ namespace Library.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<Guid>("UserId")
+                    b.Property<Guid?>("UserId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
@@ -196,9 +196,7 @@ namespace Library.Persistence.Migrations
 
                     b.HasOne("Library.Core.Entities.UserEntity", "User")
                         .WithMany("Books")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Author");
 

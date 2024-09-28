@@ -30,6 +30,7 @@ namespace Library.API.Controllers
             var authors = await _authorService.GetAll();
             return Ok(authors);
         }
+
         [HttpGet("{id:Guid}")]
         public async Task<ActionResult<RequestAuthorDto>> GetById(Guid id)
         {
@@ -57,6 +58,7 @@ namespace Library.API.Controllers
                 return NotFound(ex.Message);
             }
         }
+        [Authorize(Policy = "Admin")]
         [HttpPost]
         public async Task<ActionResult<ResponseAuthorDto>> Create([FromBody] RequestAuthorDto requestAuthorDto) 
         {
@@ -77,6 +79,7 @@ namespace Library.API.Controllers
             }
         }
 
+        [Authorize(Policy = "Admin")]
         [HttpPut]
         public async Task<ActionResult<ResponseAuthorDto>> Update([FromBody] RequestUpdateAuthorDto requestUpdateAuthorDto)
         {
@@ -96,6 +99,7 @@ namespace Library.API.Controllers
             }
         }
 
+        [Authorize(Policy = "Admin")]
         [HttpDelete("{Id:Guid}")]
         public async Task<ActionResult> Delete(Guid Id)
         {

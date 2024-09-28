@@ -21,7 +21,7 @@ namespace Library.Persistence.Entities
         public DateOnly? ReturnDate { get; set;}
         public string? CoverImagePath { get; set; } = string.Empty;
 
-        public Guid UserId { get; set; }
+        public Guid? UserId { get; set; }
         public UserEntity? User { get; set; }
     }
 }

@@ -32,7 +32,7 @@ namespace Library.API.Controllers
         }
 
         [HttpGet]
-        [Route("{Id:Guid}")]
+        [Route("getById/{Id:Guid}")]
         public async Task<ActionResult<ResponseBookDto>> GetById([FromRoute] Guid Id)
         {
             try
@@ -46,7 +46,7 @@ namespace Library.API.Controllers
             }
         }
         [HttpGet]
-        [Route("{isbn}")]
+        [Route("getByIsbn/{isbn}")]
         public async Task<ActionResult<ResponseBookDto>> GetByIsbn([FromRoute] string isbn)
         {
             try
@@ -60,7 +60,8 @@ namespace Library.API.Controllers
             }
         }
 
-        [HttpPost]
+        [Authorize(Policy = "Admin")]
+        [HttpPost("create")]
         public async Task<ActionResult<ResponseBookDto>> Create([FromBody] RequestBookDto createBookDto)
         {
             ValidationResult result = await _validator.ValidateAsync(createBookDto);
@@ -80,7 +81,8 @@ namespace Library.API.Controllers
             }
         }
 
-        [HttpPut]
+        [Authorize(Policy = "Admin")]
+        [HttpPut("update")]
         public async Task<ActionResult<ResponseBookDto>> Update([FromBody] RequestBookDto requestBookDto)
         {
             ValidationResult result = await _validator.ValidateAsync(requestBookDto);
@@ -100,12 +102,14 @@ namespace Library.API.Controllers
             }
         }
 
-        [HttpPost("{bookId:Guid}")]
+        [HttpPost("borrow/{bookId:Guid}")]
         public async Task<ActionResult> BorrowBook([FromRoute] Guid bookId)
         {
             try
             {
-                await _bookServise.BorrowBook(bookId);
+                var userId = User.Claims.First(x => x.Type == "UserId").Value;
+                Guid UserId = Guid.Parse(userId);
+                await _bookServise.BorrowBook(bookId, UserId);
                 return Ok();
             }
             catch(Exception ex)
@@ -114,6 +118,7 @@ namespace Library.API.Controllers
             }
         }
 
+        [Authorize(Policy = "Admin")]
         [HttpPost("upload-cover/{bookId}")]
         public async Task<ActionResult> UploadCover(Guid bookId, IFormFile file)
         {
@@ -132,7 +137,9 @@ namespace Library.API.Controllers
 
         }
 
-        [HttpDelete("{id:Guid}")]
+
+        [Authorize(Policy = "Admin")]
+        [HttpDelete("delete/{id:Guid}")]
         public async Task<ActionResult> Delete([FromRoute] Guid id)
         {
             try

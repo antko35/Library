@@ -26,10 +26,12 @@ namespace Library.Application.Services
             _mapper = mapper;
         }
 
-        /*public async Task GetInfo()
+        public async Task<ResponseUserInfoDto> GetInfo(Guid userId)
         {
-
-        }*/
+            var info = await _userRepository.GetInfo(userId);
+            var response  = _mapper.Map<ResponseUserInfoDto>(info);
+            return response;
+        }
 
         public async Task<LoginResponseDto> Login(LoginRequestUserDto loginDto)
         {
@@ -51,7 +53,7 @@ namespace Library.Application.Services
                     issuer: AuthOptions.ISSUER,
                     audience: AuthOptions.AUDIENCE,
                     claims: claims,
-                    expires: DateTime.UtcNow.Add(TimeSpan.FromMinutes(2)),
+                    expires: DateTime.UtcNow.Add(TimeSpan.FromMinutes(30)),
                     signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
 
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
