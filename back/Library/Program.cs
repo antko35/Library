@@ -61,7 +61,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("Admin", policy => policy.RequireClaim("Role", Role.Admin.ToString()));
-    options.AddPolicy("User", policy => policy.RequireClaim("Role", Role.User.ToString() ));
+    options.AddPolicy("User", policy => policy.RequireClaim("Role", Role.User.ToString()));
 });
 
 builder.Services.AddScoped<IBooksRepository, BooksRepository>();
@@ -75,6 +75,7 @@ builder.Services.AddScoped<IUserService,UserService>();
 
 builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
 builder.Services.AddScoped<IAuthorService, AuthorService>();
+
 
 builder.Services.AddScoped<IValidator<RequestAuthorDto>, RequestAuthorDtoValidator>();
 builder.Services.AddScoped<IValidator<RequestUpdateAuthorDto>, RequestUpdateAuthorDtoValidator>();
