@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Library.Core.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,5 +20,8 @@ namespace Library.Persistence.Entities
         public DateOnly? BorrowDate { get; set; } 
         public DateOnly? ReturnDate { get; set;}
         public string? CoverImagePath { get; set; } = string.Empty;
+
+        public Guid UserId { get; set; }
+        public UserEntity? User { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Library.Persistence.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,7 @@ namespace Library.Core.Entities
         public string UserName { get; set; } = string.Empty;
         public string PasswordHash { get; set; } = string.Empty;
         public ICollection<RoleEntity> Roles { get; set; } = new List<RoleEntity>();
+        public ICollection<BookEntity> Books { get; set; } = new List<BookEntity>();
         //public ICollection<UserRoleEntity> UserRoles { get; set; } = new List<UserRoleEntity>();
     }
 }

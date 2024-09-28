@@ -24,6 +24,12 @@ namespace Library.Persistence.Configurations
                 .HasOne(b => b.Genre)
                 .WithMany(g => g.Books)
                 .HasForeignKey(g => g.GenreId);
+
+            builder
+                .HasOne(b => b.User)
+                .WithMany(a => a.Books)
+                .HasForeignKey(b => b.UserId);
+
         }
     }
 }
