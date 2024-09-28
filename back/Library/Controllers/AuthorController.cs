@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Library.API.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("Author")]
     public class AuthorController : ControllerBase
     {

@@ -5,6 +5,6 @@ namespace Library.Application.Services
     public interface IUserService
     {
         Task<LoginResponseDto> Login(LoginRequestUserDto loginDto);
-        Task Registration(LoginRequestUserDto registerDto);
+        Task Registration(RegisterRequestDto registerDto);
     }
 }

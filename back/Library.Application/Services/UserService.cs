@@ -26,6 +26,11 @@ namespace Library.Application.Services
             _mapper = mapper;
         }
 
+        /*public async Task GetInfo()
+        {
+
+        }*/
+
         public async Task<LoginResponseDto> Login(LoginRequestUserDto loginDto)
         {
             var userEntity = _mapper.Map<UserEntity>(loginDto);
@@ -55,23 +60,9 @@ namespace Library.Application.Services
             response.username = user.Email;
 
             return response;
-
-            /*Person? person = people.FirstOrDefault(p => p.Email == loginData.Email && p.Password == loginData.Password);
-            // если пользователь не найден, отправляем статусный код 401
-            if (person is null) return Results.Unauthorized();
-
-            var claims = new List<Claim> { new Claim(ClaimTypes.Name, person.Email) };
-            // создаем JWT-токен
-            var jwt = new JwtSecurityToken(
-                    issuer: AuthOptions.ISSUER,
-                    audience: AuthOptions.AUDIENCE,
-                    claims: claims,
-                    expires: DateTime.UtcNow.Add(TimeSpan.FromMinutes(2)),
-                    signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
-            var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);*/
         }
 
-        public async Task Registration(LoginRequestUserDto registerDto)
+        public async Task Registration(RegisterRequestDto registerDto)
         {
             var user = await _userRepository.GetByEmail(registerDto.Email);
             if (user != null)
@@ -80,7 +71,7 @@ namespace Library.Application.Services
             }
             var userEntity = _mapper.Map<UserEntity>(registerDto);
 
-            var userRole = await _userRepository.GetRole(Role.Admin);
+            var userRole = await _userRepository.GetRole(Role.User); //для создания админа изменить здесь
             if (userRole == null) { throw new Exception("Problems with role"); }
 
             userEntity.Roles = new[] { userRole };

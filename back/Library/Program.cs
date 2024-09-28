@@ -83,6 +83,9 @@ builder.Services.AddScoped<IValidator<RequestBookDto>, RequestBookDtoValidator>(
 
 builder.Services.AddScoped<IValidator<RequestGenreDto>, RequestGenreDtoValidator>();
 
+builder.Services.AddScoped<IValidator<RegisterRequestDto>, RegisterRequestDtoValidator>();
+builder.Services.AddScoped<IValidator<LoginRequestUserDto>, LoginRequestUserDtoValidator>();
+
 builder.Services.AddControllers();
 
 builder.Services.AddSwaggerGen();

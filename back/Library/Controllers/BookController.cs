@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace Library.API.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("Books")]
     public class BookController : ControllerBase
     {
@@ -23,7 +24,6 @@ namespace Library.API.Controllers
             _validator = validator;
         }
 
-        [Authorize(Policy = "Admin")]
         [HttpGet]
         public async Task<ActionResult<List<ResponseBookDto>>> GetAll()
         {
