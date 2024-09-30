@@ -118,6 +118,23 @@ namespace Library.API.Controllers
             }
         }
 
+        [HttpPost("return/{bookId:Guid}")]
+        public async Task<ActionResult> ReturnBook([FromRoute] Guid bookId)
+        {
+            try
+            {
+                var userId = User.Claims.First(x => x.Type == "UserId").Value;
+                Guid UserId = Guid.Parse(userId);
+
+                await _bookServise.ReturnBook(bookId, UserId);
+                return Ok();
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [Authorize(Policy = "Admin")]
         [HttpPost("upload-cover/{bookId}")]
         public async Task<ActionResult> UploadCover(Guid bookId, IFormFile file)

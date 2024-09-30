@@ -74,6 +74,18 @@ namespace Library.Persistence.Repositories
                 .SetProperty(b => b.ReturnDate, DateOnly.FromDateTime(DateTime.Now.AddDays(7)))
                 );
         }
+
+        public async Task ReturnBook(Guid id)
+        {
+            await _context.Books
+                .Where(x => x.Id == id)
+                .ExecuteUpdateAsync(setters => setters
+                .SetProperty(b => b.UserId, (Guid?)null)
+                .SetProperty(b => b.BorrowDate, (DateOnly?)null)
+                .SetProperty(b => b.ReturnDate, (DateOnly?)null)
+                );
+        }
+
         public async Task UploadCover(Guid bookd, string fileName)
         {
             await _context.Books

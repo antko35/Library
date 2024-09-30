@@ -10,3 +10,4 @@ C:\Users\antko\projects\Library\back\Library.Core\obj\Debug\net8.0\refint\Librar
 C:\Users\antko\projects\Library\back\Library.Core\obj\Debug\net8.0\Library.Core.pdb
 C:\Users\antko\projects\Library\back\Library.Core\obj\Debug\net8.0\ref\Library.Core.dll
 C:\Users\antko\projects\Library\back\Library.Core\obj\Debug\net8.0\Library.Core.csproj.AssemblyReference.cache
+C:\Users\antko\projects\Library\back\Library.Core\obj\Debug\net8.0\Library.Core.sourcelink.json
