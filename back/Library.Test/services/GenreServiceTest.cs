@@ -81,17 +81,14 @@ namespace Library.Test.services
         [Fact]
         public async Task GetAll_ShouldReturnListOfGenres()
         {
-            // Arrange
             ClearDatabase();
             var genre1 = new GenreEntity { Id = Guid.NewGuid(), Genre = "Fiction" };
             var genre2 = new GenreEntity { Id = Guid.NewGuid(), Genre = "Fantasy" };
             _context.Genres.AddRange(genre1, genre2);
             _context.SaveChanges();
 
-            // Act
             var result = await _genreService.GetAll();
 
-            // Assert
             Assert.Equal(2, result.Count);
             Assert.Equal("Fiction", result[0].Genre);
             Assert.Equal("Fantasy", result[1].Genre);
@@ -100,14 +97,11 @@ namespace Library.Test.services
         [Fact]
         public async Task Create_ShouldAddGenreToDatabase()
         {
-            // Arrange
             ClearDatabase();
             var requestGenreDto = new RequestGenreDto { Genre = "Fiction" };
 
-            // Act
             var result = await _genreService.Create(requestGenreDto);
 
-            // Assert
             var genresInDb = await _context.Genres.ToListAsync();
             Assert.Single(genresInDb);
             Assert.Equal("Fiction", genresInDb[0].Genre);
@@ -117,7 +111,6 @@ namespace Library.Test.services
         [Fact]
         public async Task Create_WhenGenreAlreadyExists_ShouldThrowException()
         {
-            // Arrange
             ClearDatabase();
             var genreEntity = new GenreEntity { Id = Guid.NewGuid(), Genre = "Fiction" };
             _context.Genres.Add(genreEntity);
@@ -125,7 +118,6 @@ namespace Library.Test.services
 
             var requestGenreDto = new RequestGenreDto { Genre = "Fiction" };
 
-            // Act Assert
             var ex = await Assert.ThrowsAsync<Exception>(() => _genreService.Create(requestGenreDto));
             Assert.Equal("Genre already exist", ex.Message);
         }

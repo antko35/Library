@@ -10,6 +10,7 @@
         "dependencies": {
           "Library.Application": "1.0.0",
           "Library.Core": "1.0.0",
+          "Microsoft.CodeCoverage": "17.11.1",
           "Microsoft.EntityFrameworkCore.InMemory": "8.0.8",
           "Microsoft.NET.Test.Sdk": "17.11.1",
           "Moq": "4.20.72",
