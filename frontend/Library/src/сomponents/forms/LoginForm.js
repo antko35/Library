@@ -2,7 +2,7 @@ import React from 'react';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input, Flex } from 'antd';
 
-const LoginForm = ({setUser, setIsAuthenticated, SetIsRegistered}) => {
+const LoginForm = ({setUser, setIsAuthenticated, setIsRegistered}) => {
   const onFinish = async (values) => {
     console.log('Received values of form: ', values);
 
@@ -22,7 +22,8 @@ const LoginForm = ({setUser, setIsAuthenticated, SetIsRegistered}) => {
       });
 
       if (response.ok) {
-        // Токен уже сохранен в куке сервером
+        const data = await response.json();
+        setUser({ name: data.username, email: loginData.email });
         setIsAuthenticated(true);
       } else {
         console.error('Login failed');
@@ -90,7 +91,7 @@ const LoginForm = ({setUser, setIsAuthenticated, SetIsRegistered}) => {
         <Button block type="primary" htmlType="submit">
           Log in
         </Button>
-        or <a onClick={() => {SetIsRegistered(false)}}>Register now!</a>
+        or <a onClick={() => {setIsRegistered(false)}}>Register now!</a>
       </Form.Item>
     </Form>
   );

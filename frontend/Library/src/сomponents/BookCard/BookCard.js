@@ -1,8 +1,9 @@
 import React from 'react';
-import { Card, Col, Row } from 'antd'; 
+import { Card, Col, Row, Button} from 'antd'; 
 
-const BookCard = ({ title, author, genre, returnDate, coverImagePath }) => {
-  const availability = returnDate === null ? 'Available' : `${returnDate} will be avalibal`;
+const BookCard = ({ title, author, genre, returnDate, coverImagePath, onBorrow }) => {
+  const availability = returnDate === null ? 'Available' : `booked until ${returnDate}`;
+  const isAvailable = returnDate === null;
 
   return (
     <Card hoverable style={{ width: "30%"}}>
@@ -18,6 +19,12 @@ const BookCard = ({ title, author, genre, returnDate, coverImagePath }) => {
           <Card.Meta title={title} description={`By ${author}`} />
           <p>Genre: {genre}</p>
           <p>Status: {availability}</p> { }
+
+          {isAvailable && (
+            <Button type="primary" onClick={onBorrow}>
+              Borrow
+            </Button>
+          )}
         </Col>
       </Row>
     </Card>

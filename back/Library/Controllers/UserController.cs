@@ -65,6 +65,16 @@ namespace Library.API.Controllers
                 return Unauthorized(ex.Message);
             }
         }
+
+        [HttpPost("logout")]
+        [Authorize]
+        public async Task<ActionResult> Logout()
+        {
+            Response.Cookies.Delete("jwt_cookie");
+
+            return Ok();
+        }
+
         [HttpPost("register")]
         public async Task<ActionResult> Registration(RegisterRequestDto regDto)
         {

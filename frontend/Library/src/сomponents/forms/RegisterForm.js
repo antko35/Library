@@ -2,7 +2,7 @@ import React from 'react';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input } from 'antd';
 
-const RegisterForm = ({ setUser, setIsAuthenticated, SetIsRegistered }) => {
+const RegisterForm = ({ setUser, setIsAuthenticated, setIsRegistered }) => {
   const onFinish = async (values) => {
     console.log('Received values of form: ', values);
     
@@ -25,7 +25,11 @@ const RegisterForm = ({ setUser, setIsAuthenticated, SetIsRegistered }) => {
 
       if (response.ok) {
         console.log('Registration successful');
-        setIsAuthenticated(true);
+        setIsRegistered(true);
+        alert('Successfull Registered ');
+        //setUser({ name: data.username, email: loginData.email });
+        //setIsAuthenticated(true);
+
       } else {
         console.error('Registration failed:');
       }
@@ -97,7 +101,7 @@ const RegisterForm = ({ setUser, setIsAuthenticated, SetIsRegistered }) => {
         <Button block type="primary" htmlType="submit">
           Register
         </Button>
-        or <a onClick={() => SetIsRegistered(true)}>Log in</a>
+        or <a onClick={() => setIsRegistered(true)}>Log in</a>
       </Form.Item>
     </Form>
   );

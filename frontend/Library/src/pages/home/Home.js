@@ -1,8 +1,11 @@
 import React from 'react'
+import MyBookList from '../../сomponents/MyListBookCards/MyListBookCards'
 
 function Home() {
   return (
-    <div>Home</div>
+    <div  style={{ padding: '20px' }}>
+      <MyBookList />
+    </div>
   )
 }
 

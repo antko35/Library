@@ -5,6 +5,9 @@ using Library.Core.Contracts.User;
 using Library.Core.Entities;
 using Library.Core.Enums;
 using Library.Persistence.Repositories;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -59,7 +62,7 @@ namespace Library.Application.Services
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
             LoginResponseDto response = new LoginResponseDto();
             response.access_token = encodedJwt;
-            response.username = user.Email;
+            response.username = user.UserName;
 
             return response;
         }
