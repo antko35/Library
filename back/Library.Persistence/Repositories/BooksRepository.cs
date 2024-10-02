@@ -21,6 +21,7 @@ namespace Library.Persistence.Repositories
         {
             return await _context.Books
                 .AsNoTracking()
+                .OrderBy(x => x.Title)
                 .ToListAsync();
         }
 
@@ -34,9 +35,14 @@ namespace Library.Persistence.Repositories
         {
             return await _context.Books
                 .AsNoTracking()
+                .OrderBy(x => x.Title)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();
+        }
+        public async Task<int> GetCount()
+        {
+            return await _context.Books.CountAsync();
         }
 
         public async Task<BookEntity?> AlreadyExist(string ISBN)

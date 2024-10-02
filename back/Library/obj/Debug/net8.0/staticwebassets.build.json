@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "h1r34SihvlytVPDvJtLAcKZ9XCIHo3dIZ4CKnxO2JdA=",
+  "Hash": "OVfrbyySMs3A798Y6SMexvf1wkl83rnyQWzXAWHk5QE=",
   "Source": "Library.API",
   "BasePath": "_content/Library.API",
   "Mode": "Default",
@@ -1155,6 +1155,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Identity": "C:\\Users\\antko\\projects\\Library\\back\\Library\\wwwroot\\uploads\\788f0f88-45dc-477b-b7d9-f1935eb376a3.png",
+      "SourceId": "Library.API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\antko\\projects\\Library\\back\\Library\\wwwroot\\",
+      "BasePath": "_content/Library.API",
+      "RelativePath": "uploads/788f0f88-45dc-477b-b7d9-f1935eb376a3.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\788f0f88-45dc-477b-b7d9-f1935eb376a3.png"
     }
   ]
 }

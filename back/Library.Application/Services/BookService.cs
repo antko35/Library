@@ -32,6 +32,13 @@ namespace Library.Application.Servises
             return booksDto;
         }
 
+        public async Task<List<ResponseBookDto>> GetByPage(int page, int pageSize)
+        {
+            var books = await _booksRepository.GetByPage(page, pageSize);
+            var booksDto = _mapper.Map<List<ResponseBookDto>>(books);
+            return booksDto;
+        }
+
         public async Task<ResponseBookDto> GetById(Guid id)
         { 
             var bookEntity = await _booksRepository.GetById(id) ?? throw new Exception("Book doesn't exist");
@@ -49,6 +56,11 @@ namespace Library.Application.Servises
             }
             var bookResponse = _mapper.Map<ResponseBookDto>(bookEntity);
             return bookResponse;
+        }
+        public async Task<int> GetBooksCount()
+        {
+            var count = await _booksRepository.GetCount();
+            return count;
         }
 
         public async Task<ResponseBookDto?> Create(RequestBookDto requestBookDto)

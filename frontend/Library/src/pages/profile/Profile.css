@@ -1,0 +1,13 @@
+.login-container {
+    display: 'flex';
+    justify-content : 'center';
+    align-Items: 'center';
+    min-height: '100vh';
+}
+
+.form-style {
+    background-Color: '#f0f0f0';
+    padding: '20px';
+    border-Radius: '10px';
+    box-Shadow: '0 4px 8px rgba(0,0,0,0.1)';
+  }

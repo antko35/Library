@@ -87,6 +87,18 @@ builder.Services.AddScoped<IValidator<RequestGenreDto>, RequestGenreDtoValidator
 builder.Services.AddScoped<IValidator<RegisterRequestDto>, RegisterRequestDtoValidator>();
 builder.Services.AddScoped<IValidator<LoginRequestUserDto>, LoginRequestUserDtoValidator>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin",
+        builder =>
+        {
+            builder.WithOrigins("http://localhost:3000") 
+                   .AllowAnyHeader()
+                   .AllowAnyMethod()
+                   .AllowCredentials();
+        });
+});
+
 builder.Services.AddControllers();
 
 builder.Services.AddSwaggerGen();
@@ -110,6 +122,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseCors("AllowSpecificOrigin");
 
 app.UseAuthentication();
 app.UseAuthorization();

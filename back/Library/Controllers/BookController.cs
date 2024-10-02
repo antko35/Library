@@ -32,6 +32,14 @@ namespace Library.API.Controllers
         }
 
         [HttpGet]
+        [Route("getBypage/{page:int}/{pageSize:int}")]
+        public async Task<ActionResult<List<ResponseBookDto>>> GetPage([FromRoute] int page, int pageSize)
+        {
+            var books = await _bookServise.GetByPage(page, pageSize);
+            return Ok(books);
+        }
+
+        [HttpGet]
         [Route("getById/{Id:Guid}")]
         public async Task<ActionResult<ResponseBookDto>> GetById([FromRoute] Guid Id)
         {
@@ -58,6 +66,14 @@ namespace Library.API.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        [HttpGet]
+        [Route("count")]
+        public async Task<ActionResult<int>> GetBooksCount()
+        {
+            var cont = await _bookServise.GetBooksCount();
+            return Ok(cont);
         }
 
         [Authorize(Policy = "Admin")]
