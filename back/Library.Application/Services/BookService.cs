@@ -187,7 +187,7 @@ namespace Library.Application.Servises
             var deleteCount = await _booksRepository.Delete(id);
             if(deleteCount == 0)
             {
-                throw new Exception("Nothing wos deleted");
+                throw new Exception("Nothing to delete");
             }
         }
     }

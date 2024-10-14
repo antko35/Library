@@ -683,7 +683,6 @@
           "AutoMapper": "13.0.1",
           "FluentValidation": "11.10.0",
           "Library.Core": "1.0.0",
-          "Library.Persistence": "1.0.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.8",
           "Swashbuckle.AspNetCore.Swagger": "6.7.3"
         },

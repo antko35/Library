@@ -980,7 +980,6 @@
           "AutoMapper": "13.0.1",
           "FluentValidation": "11.10.0",
           "Library.Core": "1.0.0",
-          "Library.Persistence": "1.0.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.8",
           "Swashbuckle.AspNetCore.Swagger": "6.7.3"
         },
@@ -2317,6 +2316,7 @@
     "net8.0": [
       "Library.Application >= 1.0.0",
       "Library.Core >= 1.0.0",
+      "Library.Persistence >= 1.0.0",
       "Microsoft.CodeCoverage >= 17.11.1",
       "Microsoft.EntityFrameworkCore.InMemory >= 8.0.8",
       "Microsoft.NET.Test.Sdk >= 17.11.1",
@@ -2357,6 +2357,9 @@
             },
             "C:\\Users\\antko\\projects\\Library\\back\\Library.Core\\Library.Core.csproj": {
               "projectPath": "C:\\Users\\antko\\projects\\Library\\back\\Library.Core\\Library.Core.csproj"
+            },
+            "C:\\Users\\antko\\projects\\Library\\back\\Library.Persistence\\Library.Persistence.csproj": {
+              "projectPath": "C:\\Users\\antko\\projects\\Library\\back\\Library.Persistence\\Library.Persistence.csproj"
             }
           }
         }

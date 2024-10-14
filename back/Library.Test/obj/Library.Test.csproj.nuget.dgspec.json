@@ -30,9 +30,6 @@
             "projectReferences": {
               "C:\\Users\\antko\\projects\\Library\\back\\Library.Core\\Library.Core.csproj": {
                 "projectPath": "C:\\Users\\antko\\projects\\Library\\back\\Library.Core\\Library.Core.csproj"
-              },
-              "C:\\Users\\antko\\projects\\Library\\back\\Library.Persistence\\Library.Persistence.csproj": {
-                "projectPath": "C:\\Users\\antko\\projects\\Library\\back\\Library.Persistence\\Library.Persistence.csproj"
               }
             }
           }
@@ -284,6 +281,9 @@
               },
               "C:\\Users\\antko\\projects\\Library\\back\\Library.Core\\Library.Core.csproj": {
                 "projectPath": "C:\\Users\\antko\\projects\\Library\\back\\Library.Core\\Library.Core.csproj"
+              },
+              "C:\\Users\\antko\\projects\\Library\\back\\Library.Persistence\\Library.Persistence.csproj": {
+                "projectPath": "C:\\Users\\antko\\projects\\Library\\back\\Library.Persistence\\Library.Persistence.csproj"
               }
             }
           }

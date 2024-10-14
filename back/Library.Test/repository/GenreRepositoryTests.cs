@@ -1,12 +1,7 @@
-﻿using Library.Persistence.Entities;
+﻿using Library.Persistence;
+using Library.Persistence.Entities;
 using Library.Persistence.Repositories;
-using Library.Persistence;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace Library.Test.repository

@@ -107,6 +107,7 @@ builder.Services.AddAutoMapper(typeof(MappingBook), typeof(MappingAuthor),typeof
 
 var app = builder.Build();
 
+// TODO: реализуй exception handling middleware и в нем отдавай статус коды
 
 if (app.Environment.IsDevelopment())
 {

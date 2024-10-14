@@ -11,6 +11,5 @@ namespace Library.Core.Entities
         public int Id { get; set; }
         public string RoleName { get; set; } = string.Empty;
         public ICollection<UserEntity> Users { get; set; } = new List<UserEntity>();
-        // public ICollection<UserRoleEntity> UserRoles { get; set; } = new List<UserRoleEntity>();
     }
 }
