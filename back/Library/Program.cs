@@ -1,4 +1,3 @@
-using AutoMapper;
 using FluentValidation;
 using Library.Application.Authorization;
 using Library.Application.Mapping;
@@ -11,12 +10,10 @@ using Library.Core.Contracts.RequestValidation;
 using Library.Core.Contracts.User;
 using Library.Core.Enums;
 using Library.Persistence;
-using Library.Persistence.Entities;
 using Library.Persistence.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
