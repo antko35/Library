@@ -9,67 +9,62 @@ using System.Threading.Tasks;
 
 namespace Library.Persistence.UnitOfWork
 {
-    public class UnitOfWork : IDisposable
+    public class UnitOfWork : IDisposable, IUnitOfWork
     {
-        private LibraryDbContext context = new LibraryDbContext();
+        private readonly LibraryDbContext _context;
 
-        private GenericRepository<AuthorEntity> authorRepository;
-        private GenericRepository<BookEntity> bookRepository;
-        private GenericRepository<GenreEntity> genreRepository;
-        private GenericRepository<UserEntity> userRepository;
+        private IAuthorRepository authorRepository;
+        private IBooksRepository bookRepository;
+        private IGenreRepository genreRepository;
+        private IUserRepository userRepository;
 
-        public GenericRepository<AuthorEntity> AuthorRepository
+
+        public UnitOfWork(LibraryDbContext context)
+        {
+            _context = context;
+        }
+
+        public IAuthorRepository AuthorRepository
         {
             get
             {
-                if (this.authorRepository == null)
-                {
-                    this.authorRepository = new GenericRepository<AuthorEntity>(context);
-                }
+                this.authorRepository ??= new AuthorRepository(_context);
                 return authorRepository;
             }
         }
 
-        public GenericRepository<BookEntity> BookRepository
+        public IBooksRepository BookRepository
         {
             get
             {
-                if (this.bookRepository == null)
-                {
-                    this.bookRepository = new GenericRepository<BookEntity>(context);
-                }
+                this.bookRepository ??= new BooksRepository(_context);
                 return bookRepository;
             }
         }
 
-        public GenericRepository<GenreEntity> GenreRepository
+        public IGenreRepository GenreRepository
         {
             get
             {
-                if (this.genreRepository == null)
-                {
-                    this.genreRepository = new GenericRepository<GenreEntity>(context);
-                }
+                this.genreRepository ??= new GenreRepository(_context);
                 return genreRepository;
             }
         }
 
-        public GenericRepository<UserEntity> UserRepository
+        public IUserRepository UserRepository
         {
             get
             {
-                if (this.userRepository == null)
-                {
-                    this.userRepository = new GenericRepository<UserEntity>(context);
-                }
+                this.userRepository ??= new UserRepository(_context);
                 return userRepository;
             }
         }
 
+ 
 
-        public void Save()
+        public async Task Save()
         {
-            context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
         private bool disposed = false;
@@ -79,7 +74,7 @@ namespace Library.Persistence.UnitOfWork
             {
                 if (disposing)
                 {
-                    context.Dispose();
+                    _context.Dispose();
                 }
             }
             this.disposed = true;

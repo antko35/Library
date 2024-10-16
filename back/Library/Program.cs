@@ -11,6 +11,7 @@ using Library.Core.Contracts.User;
 using Library.Core.Enums;
 using Library.Persistence;
 using Library.Persistence.Repositories;
+using Library.Persistence.UnitOfWork;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -60,6 +61,9 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("Admin", policy => policy.RequireClaim("Role", Role.Admin.ToString()));
     options.AddPolicy("User", policy => policy.RequireClaim("Role", Role.User.ToString()));
 });
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+//builder.Services.AddScoped<IGenericRepository<>, GenericRepository>();
 
 builder.Services.AddScoped<IBooksRepository, BooksRepository>();
 builder.Services.AddScoped<IBookService, BookService>();

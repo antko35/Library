@@ -3,6 +3,7 @@ using Library.Core.Contracts.Author;
 using Library.Core.Contracts.Book;
 using Library.Persistence.Entities;
 using Library.Persistence.Repositories;
+using Library.Persistence.UnitOfWork;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,16 +14,19 @@ namespace Library.Application.Services
 {
     public class AuthorService : IAuthorService
     {
+        
         private readonly IAuthorRepository _authorRepository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        public AuthorService(IAuthorRepository authorRepository, IMapper mapper)
+        public AuthorService(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _authorRepository = authorRepository;
+            _unitOfWork = unitOfWork;
+            _authorRepository = unitOfWork.AuthorRepository;
             _mapper = mapper;
         }
         public async Task<List<ResponseAuthorDto>> GetAll()
         {
-            var authors = await _authorRepository.GetAll();
+            var authors = await _authorRepository.Get();
 
             var authorResponse = authors
                 .Select(author => _mapper.Map<ResponseAuthorDto>(author))
@@ -32,7 +36,7 @@ namespace Library.Application.Services
         }
         public async Task<ResponseAuthorDto> GetById(Guid id)
         {
-            var author = await _authorRepository.GetById(id);
+            var author = await _authorRepository.GetByID(id);
             if (author == null)
             {
                 throw new Exception("Author doesnt exist");
@@ -45,7 +49,7 @@ namespace Library.Application.Services
 
         public async Task<List<ResponseBookDto>> GetBooksByAuthor(Guid authorId)
         {
-            var authorEntity = await _authorRepository.GetById(authorId);
+            var authorEntity = await _authorRepository.GetByID(authorId);
 
             if (authorEntity == null)
             {
@@ -70,23 +74,29 @@ namespace Library.Application.Services
             }
 
             var authorEntity = _mapper.Map<AuthorEntity>(requestAuthorDto);
-            await _authorRepository.Create(authorEntity);
+
+            await _unitOfWork.AuthorRepository.Insert(authorEntity);
+            await _unitOfWork.Save();
+
             var authorResponse = _mapper.Map<ResponseAuthorDto>(authorEntity);
             return authorResponse;
         }
 
         public async Task<ResponseAuthorDto> Update(RequestUpdateAuthorDto requestUpdateAuthorDto)
         {
-            var authorEntity = await _authorRepository.GetById(requestUpdateAuthorDto.Id);
+            var authorEntity = await _authorRepository.GetByID(requestUpdateAuthorDto.Id);
             if (authorEntity == null)
             {
                 throw new Exception("Author doesn`t exist");
             }
 
-            var authorForUpdate = _mapper.Map<AuthorEntity>(requestUpdateAuthorDto);
-            await _authorRepository.Update(authorForUpdate);
+            _mapper.Map(requestUpdateAuthorDto, authorEntity);
+            await _unitOfWork.Save();
+            /*var authorForUpdate = _mapper.Map<AuthorEntity>(requestUpdateAuthorDto);
+            _authorRepository.Update(authorForUpdate);
+            await _unitOfWork.Save();*/
 
-            var updatedAuthor = await _authorRepository.GetById(authorEntity.Id);
+            var updatedAuthor = await _authorRepository.GetByID(authorEntity.Id);
             var authorResponse = _mapper.Map<ResponseAuthorDto>(updatedAuthor);
 
             return authorResponse;
@@ -94,12 +104,13 @@ namespace Library.Application.Services
 
         public async Task Delete(Guid Id)
         {
-            var count = await _authorRepository.Delete(Id);
-
-            if (count == 0)
+            var author = await _authorRepository.GetByID(Id);
+            if (author == null)
             {
-                throw new Exception("Author doesnt exist");
+                throw new Exception("not found");
             }
+            await _authorRepository.Delete(Id);
+            await _unitOfWork.Save();
         }
     }
 }

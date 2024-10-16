@@ -4,6 +4,7 @@ using Library.Application.Services;
 using Library.Core.Contracts.Author;
 using Library.Core.Contracts.Book;
 using Library.Persistence.Repositories;
+using Library.Persistence.UnitOfWork;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,6 +29,7 @@ namespace Library.API.Controllers
         public async Task<ActionResult<List<ResponseAuthorDto>>> GetAll()
         {
             var authors = await _authorService.GetAll();
+            //var auth = unitOfWork.AuthorRepository.Get();
             return Ok(authors);
         }
 
