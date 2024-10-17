@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Library.Core.Abstractions;
+using Library.Core.Abstractions.IInfrastructure;
 using Library.Core.Abstractions.IRepository;
 using Library.Core.Abstractions.IService;
 using Library.Core.Contracts.Book;

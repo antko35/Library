@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using FluentValidation;
-using Library.Application.Authorization;
+using Library.Core.Abstractions.IInfrastructure;
 using Library.Core.Abstractions.IRepository;
 using Library.Core.Abstractions.IService;
 using Library.Core.Contracts.User;

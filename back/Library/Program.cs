@@ -3,7 +3,7 @@ using Library.Application.Authorization;
 using Library.Application.Mapping;
 using Library.Application.Services;
 using Library.Application.Servises;
-using Library.Core.Abstractions;
+using Library.Core.Abstractions.IInfrastructure;
 using Library.Core.Abstractions.IRepository;
 using Library.Core.Abstractions.IService;
 using Library.Core.Contracts.Author;

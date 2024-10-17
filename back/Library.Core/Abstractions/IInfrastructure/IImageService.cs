@@ -1,7 +1,7 @@
 ﻿using Library.Persistence.Entities;
 using Microsoft.AspNetCore.Http;
 
-namespace Library.Core.Abstractions
+namespace Library.Core.Abstractions.IInfrastructure
 {
     public interface IImageService
     {
