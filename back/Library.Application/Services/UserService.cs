@@ -5,6 +5,7 @@ using Library.Core.Contracts.User;
 using Library.Core.Entities;
 using Library.Core.Enums;
 using Library.Persistence.Repositories;
+using Library.Persistence.UnitOfWork;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -21,11 +22,13 @@ namespace Library.Application.Services
 {
     public class UserService : IUserService
     {
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
-        public UserService(IUserRepository userRepository, IMapper mapper)
+        public UserService(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _userRepository = userRepository;
+            _userRepository = unitOfWork.UserRepository;
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
 
@@ -81,7 +84,8 @@ namespace Library.Application.Services
 
             userEntity.Roles = new[] { userRole };
 
-            await _userRepository.Register(userEntity);
+            await _unitOfWork.UserRepository.Insert(userEntity);
+            await _unitOfWork.Save();
         }
     }
 }
