@@ -2,8 +2,9 @@
 using Library.Persistence;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using Library.Core.Entities;
 
-public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
+public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : Entity
 {
     internal LibraryDbContext context;
     internal DbSet<TEntity> dbSet;
@@ -41,9 +42,10 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
         }
     }
 
-    public virtual async Task<TEntity> GetByID(object id)
+    public virtual async Task<TEntity?> GetByID(object id)
     {
-        return await dbSet.FindAsync(id);
+        
+        return await dbSet.AsNoTracking().FirstOrDefaultAsync(x => x.Id == (Guid)id);
     }
 
     public virtual async Task Insert(TEntity entity)
@@ -67,7 +69,9 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
 
     public virtual void Update(TEntity entityToUpdate)
     {
-        dbSet.Attach(entityToUpdate);
-        context.Entry(entityToUpdate).State = EntityState.Modified;
+
+        dbSet.Update(entityToUpdate); 
+        /*dbSet.Attach(entityToUpdate);
+        context.Entry(entityToUpdate).State = EntityState.Modified;*/
     }
 }

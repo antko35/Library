@@ -14,6 +14,7 @@ namespace Library.Application.Mapping
         public MappingBook() {
 
             CreateMap<BookEntity, ResponseBookDto>().ReverseMap();
+            CreateMap<BookEntity, RequestUpdateBookDto>().ReverseMap();
 
             CreateMap<RequestBookDto, BookEntity>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.NewGuid()));

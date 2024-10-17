@@ -8,13 +8,11 @@ using System.Threading.Tasks;
 
 namespace Library.Persistence.Repositories
 {
-    public class GenreRepository : IGenreRepository
+    public class GenreRepository : GenericRepository<GenreEntity>, IGenreRepository
     {
         private readonly LibraryDbContext _context;
-        public GenreRepository(LibraryDbContext context)
-        {
-            _context = context;
-        }
+        public GenreRepository(LibraryDbContext context) : base(context) { }
+ 
         public async Task<bool> IsExist(Guid id)
         {
             return await _context.Genres

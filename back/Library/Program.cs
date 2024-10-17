@@ -63,7 +63,6 @@ builder.Services.AddAuthorization(options =>
 });
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-//builder.Services.AddScoped<IGenericRepository<>, GenericRepository>();
 
 builder.Services.AddScoped<IBooksRepository, BooksRepository>();
 builder.Services.AddScoped<IBookService, BookService>();

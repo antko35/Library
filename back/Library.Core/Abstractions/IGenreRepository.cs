@@ -2,7 +2,7 @@
 
 namespace Library.Persistence.Repositories
 {
-    public interface IGenreRepository
+    public interface IGenreRepository : IGenericRepository<GenreEntity>
     {
         Task Create(GenreEntity genreEntity);
         Task<int> Delete(Guid id);

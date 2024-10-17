@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Library.Persistence.Entities
 {
-    public class BookEntity
+    public class BookEntity : Entity
     {
-        public Guid Id {  get; set; }
+       // public Guid Id {  get; set; }
         public string ISBN { get; set; } = string.Empty;
         public string Title { get; set; } = string.Empty;
         public Guid GenreId {  get; set; }

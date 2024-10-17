@@ -9,31 +9,13 @@ using System.Threading.Tasks;
 
 namespace Library.Persistence.Repositories
 {
-    public class BooksRepository : IBooksRepository
+    public class BooksRepository : GenericRepository<BookEntity>, IBooksRepository
     {
-        private readonly LibraryDbContext _context;
-        public BooksRepository(LibraryDbContext context)
-        {
-            _context = context;
-        }
-
-        public async Task<List<BookEntity>> GetAll()
-        {
-            return await _context.Books
-                .AsNoTracking()
-                .OrderBy(x => x.Title)
-                .ToListAsync();
-        }
-
-        public async Task<BookEntity?> GetById(Guid id)
-        {
-            return await _context.Books
-                .AsNoTracking()
-                .FirstOrDefaultAsync(x => x.Id == id);
-        }
+        public BooksRepository(LibraryDbContext context) : base(context) { }
+      
         public async Task<List<BookEntity>> GetByPage(int page, int pageSize)
         {
-            return await _context.Books
+            return await context.Books
                 .AsNoTracking()
                 .OrderBy(x => x.Title)
                 .Skip((page - 1) * pageSize)
@@ -42,26 +24,18 @@ namespace Library.Persistence.Repositories
         }
         public async Task<int> GetCount()
         {
-            return await _context.Books.CountAsync();
+            return await context.Books.CountAsync();
         }
 
-        public async Task<BookEntity?> AlreadyExist(string ISBN)
+        public async Task<BookEntity?> GetByISBN(string isbn)
         {
-            return await _context.Books
-                .AsNoTracking()
-                .FirstOrDefaultAsync(x => x.ISBN.Equals(ISBN));
+            var book = await context.Books.FirstOrDefaultAsync(x => x.ISBN == isbn);
+            return book;
         }
-
-        public async Task<Guid> Create(BookEntity bookEntity)
+        
+       /* public async Task Update(Guid existingId, BookEntity forUpdate)
         {
-            await _context.Books.AddAsync(bookEntity);
-            await _context.SaveChangesAsync();
-            return bookEntity.Id;
-        }
-
-        public async Task Update(Guid existingId, BookEntity forUpdate)
-        {
-            await _context.Books
+            await context.Books
                 .Where(x => x.Id == existingId)
                 .ExecuteUpdateAsync(setters =>setters
                     .SetProperty(b => b.GenreId, forUpdate.GenreId)
@@ -69,10 +43,10 @@ namespace Library.Persistence.Repositories
                     .SetProperty(b => b.Description, forUpdate.Description)
                     .SetProperty(b => b.Title, forUpdate.Title)
                 );
-        }
+        }*/
         public async Task BorrowBook(Guid id, Guid userId)
         {
-            await _context.Books
+            await context.Books
                 .Where(x => x.Id == id)
                 .ExecuteUpdateAsync(setters => setters
                 .SetProperty(b => b.UserId, userId)
@@ -83,7 +57,7 @@ namespace Library.Persistence.Repositories
 
         public async Task ReturnBook(Guid id)
         {
-            await _context.Books
+            await context.Books
                 .Where(x => x.Id == id)
                 .ExecuteUpdateAsync(setters => setters
                 .SetProperty(b => b.UserId, (Guid?)null)
@@ -94,17 +68,10 @@ namespace Library.Persistence.Repositories
 
         public async Task UploadCover(Guid bookd, string fileName)
         {
-            await _context.Books
+            await context.Books
                 .Where(x => x.Id == bookd)
                 .ExecuteUpdateAsync(setter => setter
                 .SetProperty(b => b.CoverImagePath, fileName));
-        }
-        public async Task<int> Delete(Guid id)
-        {
-            var count = await _context.Books
-                .Where (x => x.Id == id)
-                .ExecuteDeleteAsync();
-            return count;
         }
     }
 }

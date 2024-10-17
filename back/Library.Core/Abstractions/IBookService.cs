@@ -15,7 +15,7 @@ namespace Library.Application.Servises
         Task<ResponseBookDto> GetByIsbn(string isbn);
         Task<List<ResponseBookDto>> GetByPage(int page, int pageSize);
         Task ReturnBook(Guid bookId, Guid userId);
-        Task<ResponseBookDto> Update(RequestBookDto requestBookDto);
+        Task<ResponseBookDto> Update(RequestUpdateBookDto requestBookDto);
         Task UploadCover(Guid bookId, IFormFile file);
     }
 }
