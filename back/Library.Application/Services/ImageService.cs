@@ -10,7 +10,7 @@ namespace Library.Application.Services
 {
     public class ImageService
     {
-        public ImageService() { }
+        //public ImageService() { }
         public async Task<string> UploadCover(BookEntity book, IFormFile file)
         {
             if (!string.IsNullOrEmpty(book.CoverImagePath))

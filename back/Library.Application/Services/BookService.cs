@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Library.Application.Services;
 using Library.Core.Contracts.Book;
 using Library.Persistence.Entities;
 using Library.Persistence.Repositories;
@@ -19,6 +20,7 @@ namespace Library.Application.Servises
         private readonly IAuthorRepository _authorRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly ImageService _imageService;
         public BookService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _booksRepository = unitOfWork.BookRepository;
@@ -157,7 +159,6 @@ namespace Library.Application.Servises
             await _booksRepository.ReturnBook(bookId);
         }
 
-        //TODO: перенести загрузку фото
         public async Task UploadCover(Guid bookId, IFormFile file)
         { 
             var book = await _booksRepository.GetByID(bookId);
@@ -166,26 +167,7 @@ namespace Library.Application.Servises
                 throw new Exception("Book doesnt exist");
             }
 
-            if (!string.IsNullOrEmpty(book.CoverImagePath))
-            {
-                var oldFilePath = Path.Combine("wwwroot", "uploads", book.CoverImagePath);
-
-                // Удаляем старую фотографию, если она существует
-                if (System.IO.File.Exists(oldFilePath))
-                {
-                    System.IO.File.Delete(oldFilePath);
-                }
-            }
-
-            var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-            var filePath = Path.Combine("wwwroot", "uploads", fileName);
-
-            // Сохранение файла на сервере
-            using (var stream = new FileStream(filePath, FileMode.Create))
-            {
-                await file.CopyToAsync(stream);
-            }
-
+            var fileName = await _imageService.UploadCover(book, file);
             await _booksRepository.UploadCover(book.Id, fileName);
         }
 

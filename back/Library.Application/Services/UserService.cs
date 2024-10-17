@@ -48,24 +48,29 @@ namespace Library.Application.Services
                 throw new Exception("invalid data");
             }
 
-            var claims = new List<Claim>
-            {
-                new Claim("UserId", user.Id.ToString()),
-                new Claim("Role", user.Roles.First().RoleName)
-            };
-            //TODO: перенести создание токена 
-            // создаем JWT-токен
-            var jwt = new JwtSecurityToken(
-                    issuer: AuthOptions.ISSUER,
-                    audience: AuthOptions.AUDIENCE,
-                    claims: claims,
-                    expires: DateTime.UtcNow.Add(TimeSpan.FromMinutes(30)),
-                    signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
+            /* var claims = new List<Claim>
+             {
+                 new Claim("UserId", user.Id.ToString()),
+                 new Claim("Role", user.Roles.First().RoleName)
+             };
+             //TODO: перенести создание токена 
+             // создаем JWT-токен
+             var jwt = new JwtSecurityToken(
+                     issuer: AuthOptions.ISSUER,
+                     audience: AuthOptions.AUDIENCE,
+                     claims: claims,
+                     expires: DateTime.UtcNow.Add(TimeSpan.FromMinutes(30)),
+                     signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
 
-            var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
-            LoginResponseDto response = new LoginResponseDto();
-            response.access_token = encodedJwt;
-            response.username = user.UserName;
+             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);*/
+
+            var encodedJwt = JWTService.Gerenate(user);
+
+            LoginResponseDto response = new LoginResponseDto
+            {
+                access_token = encodedJwt,
+                username = user.UserName
+            };
 
             return response;
         }
