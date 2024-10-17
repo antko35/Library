@@ -26,24 +26,11 @@ namespace Library.Persistence.Repositories
         {
             return await context.Books.CountAsync();
         }
-
         public async Task<BookEntity?> GetByISBN(string isbn)
         {
             var book = await context.Books.FirstOrDefaultAsync(x => x.ISBN == isbn);
             return book;
         }
-        
-       /* public async Task Update(Guid existingId, BookEntity forUpdate)
-        {
-            await context.Books
-                .Where(x => x.Id == existingId)
-                .ExecuteUpdateAsync(setters =>setters
-                    .SetProperty(b => b.GenreId, forUpdate.GenreId)
-                    .SetProperty(b => b.AuthorId, forUpdate.AuthorId)
-                    .SetProperty(b => b.Description, forUpdate.Description)
-                    .SetProperty(b => b.Title, forUpdate.Title)
-                );
-        }*/
         public async Task BorrowBook(Guid id, Guid userId)
         {
             await context.Books
