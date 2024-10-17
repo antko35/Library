@@ -1,0 +1,16 @@
+C:\Users\antko\projects\Library\back\Library.Infrastructure\obj\Debug\net8.0\Library.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\antko\projects\Library\back\Library.Infrastructure\obj\Debug\net8.0\Library.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\antko\projects\Library\back\Library.Infrastructure\obj\Debug\net8.0\Library.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\antko\projects\Library\back\Library.Infrastructure\obj\Debug\net8.0\Library.Infrastructure.AssemblyInfo.cs
+C:\Users\antko\projects\Library\back\Library.Infrastructure\obj\Debug\net8.0\Library.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\antko\projects\Library\back\Library.Infrastructure\obj\Debug\net8.0\Library.Infrastructure.sourcelink.json
+C:\Users\antko\projects\Library\back\Library.Infrastructure\bin\Debug\net8.0\Library.Infrastructure.deps.json
+C:\Users\antko\projects\Library\back\Library.Infrastructure\bin\Debug\net8.0\Library.Infrastructure.dll
+C:\Users\antko\projects\Library\back\Library.Infrastructure\bin\Debug\net8.0\Library.Infrastructure.pdb
+C:\Users\antko\projects\Library\back\Library.Infrastructure\bin\Debug\net8.0\Library.Core.dll
+C:\Users\antko\projects\Library\back\Library.Infrastructure\bin\Debug\net8.0\Library.Core.pdb
+C:\Users\antko\projects\Library\back\Library.Infrastructure\obj\Debug\net8.0\Library.Infrastructure.csproj.CopyComplete
+C:\Users\antko\projects\Library\back\Library.Infrastructure\obj\Debug\net8.0\Library.Infrastructure.dll
+C:\Users\antko\projects\Library\back\Library.Infrastructure\obj\Debug\net8.0\refint\Library.Infrastructure.dll
+C:\Users\antko\projects\Library\back\Library.Infrastructure\obj\Debug\net8.0\Library.Infrastructure.pdb
+C:\Users\antko\projects\Library\back\Library.Infrastructure\obj\Debug\net8.0\ref\Library.Infrastructure.dll

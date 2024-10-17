@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
+using Library.Core.Abstractions.IRepository;
+using Library.Core.Abstractions.IService;
 using Library.Core.Contracts.Author;
 using Library.Core.Contracts.Book;
 using Library.Persistence.Entities;
-using Library.Persistence.Repositories;
 using Library.Persistence.UnitOfWork;
 using System;
 using System.Collections.Generic;

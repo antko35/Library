@@ -3,6 +3,9 @@ using Library.Application.Authorization;
 using Library.Application.Mapping;
 using Library.Application.Services;
 using Library.Application.Servises;
+using Library.Core.Abstractions;
+using Library.Core.Abstractions.IRepository;
+using Library.Core.Abstractions.IService;
 using Library.Core.Contracts.Author;
 using Library.Core.Contracts.Book;
 using Library.Core.Contracts.Genre;
@@ -63,6 +66,9 @@ builder.Services.AddAuthorization(options =>
 });
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+builder.Services.AddScoped<IImageService,ImageService>();
+builder.Services.AddScoped<IJWTService, JWTService>();
 
 builder.Services.AddScoped<IBooksRepository, BooksRepository>();
 builder.Services.AddScoped<IBookService, BookService>();

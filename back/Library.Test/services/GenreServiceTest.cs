@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Xunit;
 using AutoMapper;
 using Library.Persistence;
+using Library.Core.Abstractions.IRepository;
 
 namespace Library.Test.services
 {

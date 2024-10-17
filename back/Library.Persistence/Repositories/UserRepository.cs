@@ -1,4 +1,5 @@
-﻿using Library.Core.Entities;
+﻿using Library.Core.Abstractions.IRepository;
+using Library.Core.Entities;
 using Library.Core.Enums;
 using Microsoft.EntityFrameworkCore;
 using System;

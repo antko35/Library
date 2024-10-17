@@ -1,10 +1,11 @@
 ﻿using AutoMapper;
 using FluentValidation;
 using Library.Application.Authorization;
+using Library.Core.Abstractions.IRepository;
+using Library.Core.Abstractions.IService;
 using Library.Core.Contracts.User;
 using Library.Core.Entities;
 using Library.Core.Enums;
-using Library.Persistence.Repositories;
 using Library.Persistence.UnitOfWork;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -25,11 +26,13 @@ namespace Library.Application.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
-        public UserService(IUnitOfWork unitOfWork, IMapper mapper)
+        private readonly IJWTService _jWTService;
+        public UserService(IUnitOfWork unitOfWork, IMapper mapper, IJWTService jWTService)
         {
             _userRepository = unitOfWork.UserRepository;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _jWTService = jWTService;
         }
 
         public async Task<ResponseUserInfoDto> GetInfo(Guid userId)
@@ -48,23 +51,7 @@ namespace Library.Application.Services
                 throw new Exception("invalid data");
             }
 
-            /* var claims = new List<Claim>
-             {
-                 new Claim("UserId", user.Id.ToString()),
-                 new Claim("Role", user.Roles.First().RoleName)
-             };
-             //TODO: перенести создание токена 
-             // создаем JWT-токен
-             var jwt = new JwtSecurityToken(
-                     issuer: AuthOptions.ISSUER,
-                     audience: AuthOptions.AUDIENCE,
-                     claims: claims,
-                     expires: DateTime.UtcNow.Add(TimeSpan.FromMinutes(30)),
-                     signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
-
-             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);*/
-
-            var encodedJwt = JWTService.Gerenate(user);
+            var encodedJwt = _jWTService.Gerenate(user);
 
             LoginResponseDto response = new LoginResponseDto
             {

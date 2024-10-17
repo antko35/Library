@@ -1,4 +1,5 @@
-﻿using Library.Core.Contracts;
+﻿using Library.Core.Abstractions.IRepository;
+using Library.Core.Contracts;
 using Library.Persistence.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;

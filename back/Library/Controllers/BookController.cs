@@ -1,6 +1,4 @@
-﻿
-using Library.Application.Servises;
-using Library.Persistence.Configurations;
+﻿using Library.Persistence.Configurations;
 using Microsoft.AspNetCore.Mvc;
 using Library.Core.Contracts.Book;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Query.Expressions.Internal;
@@ -8,6 +6,7 @@ using FluentValidation;
 using Library.Core.Contracts.Author;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Authorization;
+using Library.Core.Abstractions.IService;
 
 namespace Library.API.Controllers
 {

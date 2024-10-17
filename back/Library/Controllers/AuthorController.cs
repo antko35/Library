@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
-using Library.Application.Services;
+using Library.Core.Abstractions.IService;
 using Library.Core.Contracts.Author;
 using Library.Core.Contracts.Book;
 using Library.Persistence.Repositories;

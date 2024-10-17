@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
-using Library.Application.Services;
+using Library.Core.Abstractions;
+using Library.Core.Abstractions.IRepository;
+using Library.Core.Abstractions.IService;
 using Library.Core.Contracts.Book;
 using Library.Persistence.Entities;
-using Library.Persistence.Repositories;
 using Library.Persistence.UnitOfWork;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -20,14 +21,15 @@ namespace Library.Application.Servises
         private readonly IAuthorRepository _authorRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly ImageService _imageService;
-        public BookService(IUnitOfWork unitOfWork, IMapper mapper)
+        private readonly IImageService _imageService;
+        public BookService(IUnitOfWork unitOfWork, IMapper mapper, IImageService imageService)
         {
             _booksRepository = unitOfWork.BookRepository;
             _genreRepository = unitOfWork.GenreRepository;
             _authorRepository = unitOfWork.AuthorRepository;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _imageService = imageService;
         }
 
         public async Task<List<ResponseBookDto>> GetAll()

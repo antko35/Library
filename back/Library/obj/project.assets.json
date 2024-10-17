@@ -1182,6 +1182,19 @@
           "bin/placeholder/Library.Core.dll": {}
         }
       },
+      "Library.Infrastructure/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "Library.Core": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Library.Infrastructure.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Library.Infrastructure.dll": {}
+        }
+      },
       "Library.Persistence/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
@@ -3201,6 +3214,11 @@
       "path": "../Library.Core/Library.Core.csproj",
       "msbuildProject": "../Library.Core/Library.Core.csproj"
     },
+    "Library.Infrastructure/1.0.0": {
+      "type": "project",
+      "path": "../Library.Infrastructure/Library.Infrastructure.csproj",
+      "msbuildProject": "../Library.Infrastructure/Library.Infrastructure.csproj"
+    },
     "Library.Persistence/1.0.0": {
       "type": "project",
       "path": "../Library.Persistence/Library.Persistence.csproj",
@@ -3214,6 +3232,7 @@
       "FluentValidation.AspNetCore >= 11.3.0",
       "Library.Application >= 1.0.0",
       "Library.Core >= 1.0.0",
+      "Library.Infrastructure >= 1.0.0",
       "Library.Persistence >= 1.0.0",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 8.0.8",
       "Microsoft.EntityFrameworkCore.Design >= 8.0.8",
@@ -3253,6 +3272,9 @@
             },
             "C:\\Users\\antko\\projects\\Library\\back\\Library.Core\\Library.Core.csproj": {
               "projectPath": "C:\\Users\\antko\\projects\\Library\\back\\Library.Core\\Library.Core.csproj"
+            },
+            "C:\\Users\\antko\\projects\\Library\\back\\Library.Infrastructure\\Library.Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\antko\\projects\\Library\\back\\Library.Infrastructure\\Library.Infrastructure.csproj"
             },
             "C:\\Users\\antko\\projects\\Library\\back\\Library.Persistence\\Library.Persistence.csproj": {
               "projectPath": "C:\\Users\\antko\\projects\\Library\\back\\Library.Persistence\\Library.Persistence.csproj"

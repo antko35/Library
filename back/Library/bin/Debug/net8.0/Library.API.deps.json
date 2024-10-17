@@ -13,6 +13,7 @@
           "FluentValidation.AspNetCore": "11.3.0",
           "Library.Application": "1.0.0",
           "Library.Core": "1.0.0",
+          "Library.Infrastructure": "1.0.0",
           "Library.Persistence": "1.0.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.8",
           "Microsoft.EntityFrameworkCore.Design": "8.0.8",
@@ -702,6 +703,14 @@
           "Library.Core.dll": {}
         }
       },
+      "Library.Infrastructure/1.0.0": {
+        "dependencies": {
+          "Library.Core": "1.0.0"
+        },
+        "runtime": {
+          "Library.Infrastructure.dll": {}
+        }
+      },
       "Library.Persistence/1.0.0": {
         "dependencies": {
           "AutoMapper": "13.0.1",
@@ -1136,6 +1145,11 @@
       "sha512": ""
     },
     "Library.Core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Library.Infrastructure/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

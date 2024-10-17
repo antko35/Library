@@ -1,6 +1,6 @@
-﻿using Library.Core.Entities;
+﻿using Library.Core.Abstractions.IRepository;
+using Library.Core.Entities;
 using Library.Persistence.Entities;
-using Library.Persistence.Repositories;
 
 namespace Library.Persistence.UnitOfWork
 {

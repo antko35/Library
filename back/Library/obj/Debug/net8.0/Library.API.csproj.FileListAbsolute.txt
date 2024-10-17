@@ -109,7 +109,6 @@ C:\Users\antko\projects\Library\back\Library\bin\Debug\net8.0\Microsoft.OpenApi.
 C:\Users\antko\projects\Library\back\Library\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\antko\projects\Library\back\Library\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\antko\projects\Library\back\Library\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
-C:\Users\antko\projects\Library\back\Library\obj\Debug\net8.0\Library.API.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\antko\projects\Library\back\Library\bin\Debug\net8.0\AutoMapper.dll
 C:\Users\antko\projects\Library\back\Library\bin\Debug\net8.0\FluentValidation.dll
 C:\Users\antko\projects\Library\back\Library\bin\Debug\net8.0\FluentValidation.AspNetCore.dll
@@ -123,3 +122,5 @@ C:\Users\antko\projects\Library\back\Library\bin\Debug\net8.0\Microsoft.Identity
 C:\Users\antko\projects\Library\back\Library\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\antko\projects\Library\back\Library\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
 C:\Users\antko\projects\Library\back\Library\obj\Debug\net8.0\Library.API.sourcelink.json
+C:\Users\antko\projects\Library\back\Library\bin\Debug\net8.0\Library.Infrastructure.dll
+C:\Users\antko\projects\Library\back\Library\bin\Debug\net8.0\Library.Infrastructure.pdb
