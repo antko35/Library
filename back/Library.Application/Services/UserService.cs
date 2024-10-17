@@ -53,7 +53,7 @@ namespace Library.Application.Services
                 new Claim("UserId", user.Id.ToString()),
                 new Claim("Role", user.Roles.First().RoleName)
             };
-
+            //TODO: перенести создание токена 
             // создаем JWT-токен
             var jwt = new JwtSecurityToken(
                     issuer: AuthOptions.ISSUER,
