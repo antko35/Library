@@ -1,4 +1,3 @@
-using AutoMapper;
 using FluentValidation;
 using Library.Application.Authorization;
 using Library.Application.Mapping;
@@ -11,12 +10,11 @@ using Library.Core.Contracts.RequestValidation;
 using Library.Core.Contracts.User;
 using Library.Core.Enums;
 using Library.Persistence;
-using Library.Persistence.Entities;
 using Library.Persistence.Repositories;
+using Library.Persistence.UnitOfWork;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -63,6 +61,8 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("Admin", policy => policy.RequireClaim("Role", Role.Admin.ToString()));
     options.AddPolicy("User", policy => policy.RequireClaim("Role", Role.User.ToString()));
 });
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddScoped<IBooksRepository, BooksRepository>();
 builder.Services.AddScoped<IBookService, BookService>();

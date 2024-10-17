@@ -99,13 +99,13 @@ namespace Library.API.Controllers
 
         [Authorize(Policy = "Admin")]
         [HttpPut("update")]
-        public async Task<ActionResult<ResponseBookDto>> Update([FromBody] RequestBookDto requestBookDto)
+        public async Task<ActionResult<ResponseBookDto>> Update([FromBody] RequestUpdateBookDto requestBookDto)
         {
-            ValidationResult result = await _validator.ValidateAsync(requestBookDto);
+            /*ValidationResult result = await _validator.ValidateAsync(requestBookDto);
             if (!result.IsValid)
             {
                 return BadRequest(result.Errors);
-            }
+            }*/
 
             try
             {

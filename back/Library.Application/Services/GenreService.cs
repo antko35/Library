@@ -2,6 +2,7 @@
 using Library.Core.Contracts.Genre;
 using Library.Persistence.Entities;
 using Library.Persistence.Repositories;
+using Library.Persistence.UnitOfWork;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,16 +13,18 @@ namespace Library.Application.Services
 {
     public class GenreService : IGenreService
     {
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IGenreRepository _genreRepository;
         private readonly IMapper _mapper;
-        public GenreService(IGenreRepository genreRepository, IMapper mapper)
+        public GenreService(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _genreRepository = genreRepository;
+            _genreRepository = unitOfWork.GenreRepository;
+            _unitOfWork = unitOfWork; 
             _mapper = mapper;
         }
         public async Task<List<ResponseGenreDto>> GetAll()
         {
-            var genresEntity = await _genreRepository.GetAll();
+            var genresEntity = await _genreRepository.Get();
             var responseGenre = genresEntity
                 .Select(genre => _mapper.Map<ResponseGenreDto>(genre))
                 .ToList(); ;
@@ -30,26 +33,31 @@ namespace Library.Application.Services
         }
         public async Task<ResponseGenreDto> Create(RequestGenreDto requestGenreDto)
         {
-            var isExist = await _genreRepository.IsExistByName(requestGenreDto.Genre);
-            if (isExist)
+            var genre = await _genreRepository.IsExistByName(requestGenreDto.Genre);
+            if (genre != null)
             {
                 throw new Exception("Genre already exist");
             }
 
             var genreEntity = _mapper.Map<GenreEntity>(requestGenreDto);
-            await _genreRepository.Create(genreEntity);
-            var genreResponse = _mapper.Map<ResponseGenreDto>(genreEntity);
+            await _genreRepository.Insert(genreEntity);
+            await _unitOfWork.Save();
+
+            var createdGenre = await _genreRepository.GetByID(genreEntity.Id);
+            var genreResponse = _mapper.Map<ResponseGenreDto>(createdGenre);
 
             return genreResponse;
         }
 
         public async Task Delete(Guid Id)
         {
-            var count = await _genreRepository.Delete(Id);
-            if (count == 0)
+            var genre = await _genreRepository.GetByID(Id);
+            if (genre == null)
             {
                 throw new Exception("Genre doesnt exist");
             }
+            await _genreRepository.Delete(Id); 
+            await _unitOfWork.Save();
         }
     }
 }

@@ -5,6 +5,7 @@ using Library.Core.Contracts.User;
 using Library.Core.Entities;
 using Library.Core.Enums;
 using Library.Persistence.Repositories;
+using Library.Persistence.UnitOfWork;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -21,11 +22,13 @@ namespace Library.Application.Services
 {
     public class UserService : IUserService
     {
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
-        public UserService(IUserRepository userRepository, IMapper mapper)
+        public UserService(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _userRepository = userRepository;
+            _userRepository = unitOfWork.UserRepository;
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
 
@@ -45,24 +48,29 @@ namespace Library.Application.Services
                 throw new Exception("invalid data");
             }
 
-            var claims = new List<Claim>
+            /* var claims = new List<Claim>
+             {
+                 new Claim("UserId", user.Id.ToString()),
+                 new Claim("Role", user.Roles.First().RoleName)
+             };
+             //TODO: перенести создание токена 
+             // создаем JWT-токен
+             var jwt = new JwtSecurityToken(
+                     issuer: AuthOptions.ISSUER,
+                     audience: AuthOptions.AUDIENCE,
+                     claims: claims,
+                     expires: DateTime.UtcNow.Add(TimeSpan.FromMinutes(30)),
+                     signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
+
+             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);*/
+
+            var encodedJwt = JWTService.Gerenate(user);
+
+            LoginResponseDto response = new LoginResponseDto
             {
-                new Claim("UserId", user.Id.ToString()),
-                new Claim("Role", user.Roles.First().RoleName)
+                access_token = encodedJwt,
+                username = user.UserName
             };
-
-            // создаем JWT-токен
-            var jwt = new JwtSecurityToken(
-                    issuer: AuthOptions.ISSUER,
-                    audience: AuthOptions.AUDIENCE,
-                    claims: claims,
-                    expires: DateTime.UtcNow.Add(TimeSpan.FromMinutes(30)),
-                    signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
-
-            var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
-            LoginResponseDto response = new LoginResponseDto();
-            response.access_token = encodedJwt;
-            response.username = user.UserName;
 
             return response;
         }
@@ -81,7 +89,8 @@ namespace Library.Application.Services
 
             userEntity.Roles = new[] { userRole };
 
-            await _userRepository.Register(userEntity);
+            await _unitOfWork.UserRepository.Insert(userEntity);
+            await _unitOfWork.Save();
         }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using Library.Application.Services;
 using Library.Core.Contracts.Book;
 using Library.Persistence.Entities;
 using Library.Persistence.Repositories;
+using Library.Persistence.UnitOfWork;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -14,20 +16,23 @@ namespace Library.Application.Servises
     public class BookService : IBookService
     {
         private readonly IBooksRepository _booksRepository;
-        private readonly IMapper _mapper;
         private readonly IGenreRepository _genreRepository;
         private readonly IAuthorRepository _authorRepository;
-        public BookService(IBooksRepository booksRepository,IGenreRepository genreRepository,IAuthorRepository authorRepository, IMapper mapper)
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
+        private readonly ImageService _imageService;
+        public BookService(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _booksRepository = booksRepository;
-            _genreRepository = genreRepository;
-            _authorRepository = authorRepository;
+            _booksRepository = unitOfWork.BookRepository;
+            _genreRepository = unitOfWork.GenreRepository;
+            _authorRepository = unitOfWork.AuthorRepository;
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
 
         public async Task<List<ResponseBookDto>> GetAll()
         {
-            var books = await _booksRepository.GetAll();
+            var books = await _booksRepository.Get();
             var booksDto = _mapper.Map<List<ResponseBookDto>>(books);
             return booksDto;
         }
@@ -41,7 +46,7 @@ namespace Library.Application.Servises
 
         public async Task<ResponseBookDto> GetById(Guid id)
         { 
-            var bookEntity = await _booksRepository.GetById(id) ?? throw new Exception("Book doesn't exist");
+            var bookEntity = await _booksRepository.GetByID(id) ?? throw new Exception("Book doesn't exist");
 
             var bookResponse = _mapper.Map<ResponseBookDto>(bookEntity);
             return bookResponse;
@@ -49,7 +54,7 @@ namespace Library.Application.Servises
 
         public async Task<ResponseBookDto> GetByIsbn(string isbn)
         {
-            var bookEntity = await _booksRepository.AlreadyExist(isbn);
+            var bookEntity = await _booksRepository.GetByISBN(isbn);
             if (bookEntity == null)
             {
                 throw new Exception("Book doesn't exist");
@@ -65,57 +70,59 @@ namespace Library.Application.Servises
 
         public async Task<ResponseBookDto?> Create(RequestBookDto requestBookDto)
         {
-            var alreadyExist = await _booksRepository.AlreadyExist(requestBookDto.ISBN);
-            if (alreadyExist == null)
-            {
-                bool genre = await _genreRepository.IsExist(requestBookDto.GenreId);
-                if (!genre)
-                {
-                    throw new Exception("Genre does not exist");
-                }
-
-                bool author = await _authorRepository.IsExist(requestBookDto.AuthorId);
-                if (!author)
-                {
-                    throw new Exception("Author does not exist");
-                }
-
-                var bookToCreate = _mapper.Map<BookEntity>(requestBookDto);
-                await _booksRepository.Create(bookToCreate);
-                var bookResponse = _mapper.Map<ResponseBookDto>(bookToCreate);
-                return bookResponse;
-            }
-            else
+            var book = await _booksRepository.GetByISBN(requestBookDto.ISBN);
+            if (book != null)
             {
                 throw new Exception("Book already exist");
             }
-        }
 
-        public async Task<ResponseBookDto> Update(RequestBookDto requestBookDto)
-        {
-            var existing = await _booksRepository.AlreadyExist(requestBookDto.ISBN);
-            if(existing == null)
-            {
-                throw new Exception("Book does not exist");
-            }
-
-            bool genre = await _genreRepository.IsExist(requestBookDto.GenreId);
-            if (!genre)
+            var genre = await _genreRepository.GetByID(requestBookDto.GenreId);
+            if (genre == null)
             {
                 throw new Exception("Genre does not exist");
             }
 
-            bool author = await _authorRepository.IsExist(requestBookDto.AuthorId);
-            if (!author)
+            var author = await _authorRepository.GetByID(requestBookDto.AuthorId);
+            if (author == null)
             {
                 throw new Exception("Author does not exist");
             }
 
-            var bookEntityUpd= _mapper.Map<BookEntity>(requestBookDto);
+            var bookToCreate = _mapper.Map<BookEntity>(requestBookDto);
+            await _booksRepository.Insert(bookToCreate);
+            await _unitOfWork.Save();
 
-            await _booksRepository.Update(existing.Id , bookEntityUpd);
+            var createdBook = await _booksRepository.GetByID(bookToCreate.Id);
+            var bookResponse = _mapper.Map<ResponseBookDto>(createdBook);
+            return bookResponse;
+        }
 
-            var updatedBook = await _booksRepository.GetById(existing.Id);
+        public async Task<ResponseBookDto> Update(RequestUpdateBookDto requestBookDto)
+        {
+            var book = await _booksRepository.GetByID(requestBookDto.Id);
+            if(book == null)
+            {
+                throw new Exception("Book does not exist");
+            }
+
+            var genre = await _genreRepository.GetByID(requestBookDto.GenreId);
+            if (genre == null)
+            {
+                throw new Exception("Genre does not exist");
+            }
+
+            var author = await _authorRepository.GetByID(requestBookDto.AuthorId);
+            if (author == null)
+            {
+                throw new Exception("Author does not exist");
+            }
+
+            var bookEntityUpd = _mapper.Map(requestBookDto, book);
+
+            _booksRepository.Update(bookEntityUpd);
+            await _unitOfWork.Save();
+              
+            var updatedBook = await _booksRepository.GetByID(book.Id);
 
             var bookResponse = _mapper.Map<ResponseBookDto>(updatedBook);
 
@@ -124,7 +131,7 @@ namespace Library.Application.Servises
 
         public async Task BorrowBook(Guid bookId, Guid userId)
         {
-            var book = await _booksRepository.GetById(bookId);
+            var book = await _booksRepository.GetByID(bookId);
             if(book == null)
             {
                 throw new Exception("Book doesnt exisi");
@@ -135,7 +142,7 @@ namespace Library.Application.Servises
 
         public async Task ReturnBook(Guid bookId, Guid userId)
         {
-            var book = await _booksRepository.GetById(bookId);
+            var book = await _booksRepository.GetByID(bookId);
             if (book == null)
             {
                 throw new Exception("Book doesnt exisi");
@@ -151,44 +158,28 @@ namespace Library.Application.Servises
 
             await _booksRepository.ReturnBook(bookId);
         }
+
         public async Task UploadCover(Guid bookId, IFormFile file)
         { 
-            var book = await _booksRepository.GetById(bookId);
+            var book = await _booksRepository.GetByID(bookId);
             if(book == null)
             {
                 throw new Exception("Book doesnt exist");
             }
 
-            if (!string.IsNullOrEmpty(book.CoverImagePath))
-            {
-                var oldFilePath = Path.Combine("wwwroot", "uploads", book.CoverImagePath);
-
-                // Удаляем старую фотографию, если она существует
-                if (System.IO.File.Exists(oldFilePath))
-                {
-                    System.IO.File.Delete(oldFilePath);
-                }
-            }
-
-            var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-            var filePath = Path.Combine("wwwroot", "uploads", fileName);
-
-            // Сохранение файла на сервере
-            using (var stream = new FileStream(filePath, FileMode.Create))
-            {
-                await file.CopyToAsync(stream);
-            }
-
+            var fileName = await _imageService.UploadCover(book, file);
             await _booksRepository.UploadCover(book.Id, fileName);
         }
 
         public async Task Delete(Guid id)
         {
-            var deleteCount = await _booksRepository.Delete(id);
-            if(deleteCount == 0)
+            var book = _booksRepository.GetByID(id);
+            if (book == null)
             {
-                throw new Exception("Nothing to delete");
+                throw new Exception("book doesnt exist");
             }
+            await _booksRepository.Delete(id);
+            await _unitOfWork.Save();
         }
     }
 }
