@@ -1,4 +1,4 @@
-﻿using Library.Core.Contracts.Genre;
+﻿/*using Library.Core.Contracts.Genre;
 
 namespace Library.Core.Abstractions.IService
 {
@@ -8,4 +8,4 @@ namespace Library.Core.Abstractions.IService
         Task Delete(Guid Id);
         Task<List<ResponseGenreDto>> GetAll();
     }
-}
+}*/

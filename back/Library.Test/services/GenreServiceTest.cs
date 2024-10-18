@@ -1,6 +1,5 @@
 ﻿using Moq;
 using Library.Application.Services;
-using Library.Core.Contracts.Genre;
 using Library.Persistence.Entities;
 using Library.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +9,7 @@ using Xunit;
 using AutoMapper;
 using Library.Persistence;
 using Library.Core.Abstractions.IRepository;
+using Library.Application.DTOs.Genre;
 
 namespace Library.Test.services
 {

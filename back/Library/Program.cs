@@ -1,8 +1,10 @@
 using FluentValidation;
 using Library.Application.Authorization;
+using Library.Application.DTOs.Genre;
 using Library.Application.Mapping;
 using Library.Application.Services;
 using Library.Application.Servises;
+using Library.Application.Use_Cases.Genre;
 using Library.Core.Abstractions.IInfrastructure;
 using Library.Core.Abstractions.IRepository;
 using Library.Core.Abstractions.IService;
@@ -74,7 +76,10 @@ builder.Services.AddScoped<IBooksRepository, BooksRepository>();
 builder.Services.AddScoped<IBookService, BookService>();
 
 builder.Services.AddScoped<IGenreRepository, GenreRepository>();
-builder.Services.AddScoped<IGenreService, GenreService>();
+//builder.Services.AddScoped<IGenreService, GenreService>();
+builder.Services.AddScoped<IGetAllUseCase, GetAllUseCase>();
+builder.Services.AddScoped<ICreateGenreUseCase, CreateGenreUseCase>();
+builder.Services.AddScoped<IDeleteGenreUseCase, DeleteGenreUseCase>();
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService,UserService>();

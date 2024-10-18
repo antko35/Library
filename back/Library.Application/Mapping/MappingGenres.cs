@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Library.Core.Contracts.Genre;
+using Library.Application.DTOs.Genre;
 using Library.Persistence.Entities;
 using System;
 using System.Collections.Generic;

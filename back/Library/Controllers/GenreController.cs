@@ -1,7 +1,8 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
+using Library.Application.DTOs.Genre;
+using Library.Application.Use_Cases.Genre;
 using Library.Core.Abstractions.IService;
-using Library.Core.Contracts.Genre;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,17 +13,30 @@ namespace Library.API.Controllers
     [Route("Genre")]
     public class GenreController : ControllerBase
     {
-        private readonly IGenreService _genreService;
+        private readonly ICreateGenreUseCase _createGenreUseCase;
+        private readonly IGetAllUseCase _getAllUseCase;
+        private readonly IDeleteGenreUseCase _deleteGenreUseCase;
+
+       // private readonly IGenreService _genreService;
         private readonly IValidator<RequestGenreDto> _validator;
-        public GenreController(IGenreService genreService, IValidator<RequestGenreDto> validator)
+        public GenreController(
+            //IGenreService genreService, 
+            IValidator<RequestGenreDto> validator,
+            ICreateGenreUseCase createGenreUseCase,
+            IGetAllUseCase getAllUseCase,
+            IDeleteGenreUseCase deleteGenreUseCase
+        )
         {
-            _genreService = genreService;
+            //_genreService = genreService;
             _validator = validator;
+            _createGenreUseCase = createGenreUseCase;
+            _getAllUseCase = getAllUseCase;
+            _deleteGenreUseCase = deleteGenreUseCase;
         }
         [HttpGet]
         public async Task<ActionResult<List<ResponseGenreDto>>> GetAll()
         {
-            var genres = await _genreService.GetAll();
+            var genres = await _getAllUseCase.Execute();
             return Ok(genres);
         }
 
@@ -38,7 +52,8 @@ namespace Library.API.Controllers
 
             try
             {
-                var genre = await _genreService.Create(requestGenreDto);
+                var genre = await _createGenreUseCase.Execute(requestGenreDto);
+                //var genre = await _genreService.Create(requestGenreDto);
                 return Ok(genre);
             }
             catch (Exception ex)
@@ -53,7 +68,7 @@ namespace Library.API.Controllers
         {
             try
             {
-                await _genreService.Delete(id);
+                await _deleteGenreUseCase.Delete(id);
                 return Ok();
             }
             catch (Exception ex)

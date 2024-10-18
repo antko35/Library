@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Library.Application.DTOs.Genre;
 using Library.Core.Contracts.Author;
 using System;
 using System.Collections.Generic;

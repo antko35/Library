@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Library.Application.Use_Cases
+namespace Library.Application.DTOs.Genre
 {
-    internal class Class1
+    public class RequestGenreDto
     {
+        public string Genre { get; set; } = string.Empty;
     }
 }

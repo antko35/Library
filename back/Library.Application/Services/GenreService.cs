@@ -1,7 +1,7 @@
-﻿using AutoMapper;
+﻿/*using AutoMapper;
+using Library.Application.DTOs.Genre;
 using Library.Core.Abstractions.IRepository;
 using Library.Core.Abstractions.IService;
-using Library.Core.Contracts.Genre;
 using Library.Persistence.Entities;
 using Library.Persistence.UnitOfWork;
 using System;
@@ -45,7 +45,7 @@ namespace Library.Application.Services
             await _unitOfWork.Save();
 
             var createdGenre = await _genreRepository.GetByID(genreEntity.Id);
-            var genreResponse = _mapper.Map<ResponseGenreDto>(createdGenre);
+            var genreResponse = _mapper.Map<ResponseGenreDto>(createdGenre);    
 
             return genreResponse;
         }
@@ -62,3 +62,4 @@ namespace Library.Application.Services
         }
     }
 }
+*/
