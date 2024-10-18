@@ -1,15 +1,15 @@
-﻿using Library.Core.Entities;
+﻿using Library.Persistence.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Library.Persistence.Entities
+namespace Library.Core.Entities
 {
     public class AuthorEntity : Entity
     {
-       // public Guid Id { get; set; }
+        // public Guid Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public string Surname { get; set; } = string.Empty;
         public DateOnly BirthDate { get; set; }

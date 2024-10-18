@@ -1,22 +1,19 @@
 ﻿using FluentValidation;
-using Library.Core.Contracts.Author;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Library.Core.Contracts.RequestValidation
+namespace Library.Application.Contracts.Validation.Author
 {
     using FluentValidation;
+    using Library.Application.Contracts.Author;
 
-    public class RequestUpdateAuthorDtoValidator : AbstractValidator<RequestUpdateAuthorDto>
+    public class RequestAuthorDtoValidator : AbstractValidator<RequestAuthorDto>
     {
-        public RequestUpdateAuthorDtoValidator()
+        public RequestAuthorDtoValidator()
         {
-            RuleFor(x => x.Id)
-                .NotEmpty().WithMessage("Id is required.")
-                .NotEqual(Guid.Empty).WithMessage("Id must be a valid non-empty GUID.");
 
             RuleFor(x => x.Name)
                 .NotEmpty().WithMessage("Name is required.")

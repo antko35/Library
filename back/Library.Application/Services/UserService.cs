@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using FluentValidation;
+using Library.Core.Abstractions;
 using Library.Core.Abstractions.IInfrastructure;
 using Library.Core.Abstractions.IRepository;
 using Library.Core.Abstractions.IService;
 using Library.Core.Contracts.User;
 using Library.Core.Entities;
 using Library.Core.Enums;
-using Library.Persistence.UnitOfWork;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;

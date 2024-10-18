@@ -1,16 +1,11 @@
 ﻿using AutoMapper;
+using Library.Core.Abstractions;
 using Library.Core.Abstractions.IInfrastructure;
 using Library.Core.Abstractions.IRepository;
 using Library.Core.Abstractions.IService;
 using Library.Core.Contracts.Book;
 using Library.Persistence.Entities;
-using Library.Persistence.UnitOfWork;
 using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Library.Application.Servises
 {

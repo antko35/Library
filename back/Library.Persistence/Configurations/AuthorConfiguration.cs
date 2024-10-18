@@ -1,4 +1,4 @@
-﻿using Library.Persistence.Entities;
+﻿using Library.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;

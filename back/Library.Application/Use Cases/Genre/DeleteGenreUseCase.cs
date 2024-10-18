@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using Library.Core.Abstractions;
 using Library.Core.Abstractions.IRepository;
-using Library.Persistence.UnitOfWork;
 using System;
 using System.Collections.Generic;
 using System.Linq;

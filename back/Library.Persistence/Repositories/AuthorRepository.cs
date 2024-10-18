@@ -1,4 +1,5 @@
 ﻿using Library.Core.Abstractions.IRepository;
+using Library.Core.Entities;
 using Library.Persistence.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;

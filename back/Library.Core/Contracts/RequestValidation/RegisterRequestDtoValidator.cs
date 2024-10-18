@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using FluentValidation;
-using Library.Core.Contracts.Author;
 using Library.Core.Contracts.User;
 using System;
 using System.Collections.Generic;

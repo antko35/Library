@@ -1,11 +1,7 @@
 ﻿using AutoMapper;
-using Library.Core.Contracts.Author;
-using Library.Persistence.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Library.Application.Contracts.Author;
+using Library.Core.Entities;
+
 
 namespace Library.Application.Mapping
 {

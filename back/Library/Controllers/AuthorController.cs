@@ -1,10 +1,9 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
+using Library.Application.Contracts.Author;
+using Library.Application.Use_Cases.Author;
 using Library.Core.Abstractions.IService;
-using Library.Core.Contracts.Author;
 using Library.Core.Contracts.Book;
-using Library.Persistence.Repositories;
-using Library.Persistence.UnitOfWork;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,21 +14,40 @@ namespace Library.API.Controllers
     [Route("Author")]
     public class AuthorController : ControllerBase
     {
-        private readonly IAuthorService _authorService;
+        private readonly GetAllAuthorsUseCase _getAllAuthorsUseCase;
+        private readonly GetAuthorByIdUseCase _getAuthorByIdUseCase;
+        private readonly GetBooksByAuthorUseCase _getBooksByAuthorUseCase;
+        private readonly CreateAuthorUseCase _createAuthorUseCase;
+        private readonly UpdateAuthorUseCase _updateAuthorUseCase;
+        private readonly DeleteAuthorUseCase _deleteAuthorUseCase;
+
         private readonly IValidator<RequestAuthorDto> _validator;
         private readonly IValidator<RequestUpdateAuthorDto> _updateValidator;
-        public AuthorController(IAuthorService authorService, IValidator<RequestAuthorDto> validator, IValidator<RequestUpdateAuthorDto> updateValidator)
+        public AuthorController(
+            IValidator<RequestAuthorDto> validator,
+            IValidator<RequestUpdateAuthorDto> updateValidator,
+            GetAuthorByIdUseCase getAuthorByIdUseCase,
+            GetAllAuthorsUseCase getAllAuthorsUseCase,
+            GetBooksByAuthorUseCase getBooksByAuthorUseCase,
+            CreateAuthorUseCase createAuthorUseCase,
+            UpdateAuthorUseCase updateAuthorUseCase,
+            DeleteAuthorUseCase deleteAuthorUseCase
+        )
         {
-            _authorService = authorService;
             _validator = validator;
             _updateValidator = updateValidator;
+            _getAuthorByIdUseCase = getAuthorByIdUseCase;
+            _getAllAuthorsUseCase = getAllAuthorsUseCase;
+            _getBooksByAuthorUseCase = getBooksByAuthorUseCase;
+            _createAuthorUseCase = createAuthorUseCase;
+            _updateAuthorUseCase = updateAuthorUseCase;
+            _deleteAuthorUseCase = deleteAuthorUseCase;
         }
 
         [HttpGet]
         public async Task<ActionResult<List<ResponseAuthorDto>>> GetAll()
         {
-            var authors = await _authorService.GetAll();
-            //var auth = unitOfWork.AuthorRepository.Get();
+            var authors = await _getAllAuthorsUseCase.Execute();
             return Ok(authors);
         }
 
@@ -38,7 +56,7 @@ namespace Library.API.Controllers
         {
             try
             {
-                var book = await _authorService.GetById(id); 
+                var book = await _getAuthorByIdUseCase.Execute(id); 
                 return Ok(book);
             }
             catch (Exception ex)
@@ -52,7 +70,7 @@ namespace Library.API.Controllers
         {
             try
             {
-                var books = await _authorService.GetBooksByAuthor(authorId);
+                var books = await _getBooksByAuthorUseCase.Execute(authorId);
                 return Ok(books);
             }
             catch (Exception ex)
@@ -60,6 +78,7 @@ namespace Library.API.Controllers
                 return NotFound(ex.Message);
             }
         }
+
         [Authorize(Policy = "Admin")]
         [HttpPost]
         public async Task<ActionResult<ResponseAuthorDto>> Create([FromBody] RequestAuthorDto requestAuthorDto) 
@@ -72,7 +91,8 @@ namespace Library.API.Controllers
 
             try
             {
-                var author = await _authorService.Create(requestAuthorDto); 
+                var author = await _createAuthorUseCase.Execute(requestAuthorDto);
+                //var author = await _authorService.Create(requestAuthorDto); 
                 return Ok(author);
             }
             catch (Exception ex)
@@ -92,7 +112,7 @@ namespace Library.API.Controllers
             }
             try
             {
-                var author = await _authorService.Update(requestUpdateAuthorDto);
+                var author = await _updateAuthorUseCase.Execete(requestUpdateAuthorDto);
                 return Ok(author);
             }
             catch (Exception ex)
@@ -107,7 +127,7 @@ namespace Library.API.Controllers
         {
             try
             {
-                await _authorService.Delete(Id);
+                await _deleteAuthorUseCase.Execute(Id);
                 return Ok();
             }
             catch (Exception ex)

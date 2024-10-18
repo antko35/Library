@@ -17,17 +17,14 @@ namespace Library.API.Controllers
         private readonly IGetAllUseCase _getAllUseCase;
         private readonly IDeleteGenreUseCase _deleteGenreUseCase;
 
-       // private readonly IGenreService _genreService;
         private readonly IValidator<RequestGenreDto> _validator;
         public GenreController(
-            //IGenreService genreService, 
             IValidator<RequestGenreDto> validator,
             ICreateGenreUseCase createGenreUseCase,
             IGetAllUseCase getAllUseCase,
             IDeleteGenreUseCase deleteGenreUseCase
         )
         {
-            //_genreService = genreService;
             _validator = validator;
             _createGenreUseCase = createGenreUseCase;
             _getAllUseCase = getAllUseCase;

@@ -2,7 +2,7 @@
 using Library.Core.Entities;
 using Library.Persistence.Entities;
 
-namespace Library.Persistence.UnitOfWork
+namespace Library.Core.Abstractions
 {
     public interface IUnitOfWork
     {

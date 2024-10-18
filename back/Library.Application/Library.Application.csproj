@@ -17,9 +17,4 @@
     <ProjectReference Include="..\Library.Core\Library.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Use Cases\Interfaces\IBook\" />
-    <Folder Include="Use Cases\Interfaces\IAuthor\" />
-  </ItemGroup>
-
 </Project>

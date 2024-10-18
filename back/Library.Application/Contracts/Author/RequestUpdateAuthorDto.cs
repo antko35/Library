@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Library.Core.Contracts.Author
+namespace Library.Application.Contracts.Author
 {
     public class RequestUpdateAuthorDto
     {

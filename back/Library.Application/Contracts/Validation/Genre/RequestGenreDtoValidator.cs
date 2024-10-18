@@ -1,11 +1,6 @@
 ﻿using FluentValidation;
 using Library.Application.DTOs.Genre;
-using Library.Core.Contracts.Author;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Library.Core.Contracts.Genre
 {
