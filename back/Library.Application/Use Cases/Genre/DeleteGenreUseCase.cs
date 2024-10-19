@@ -22,7 +22,7 @@ namespace Library.Application.Use_Cases.Genre
             var genre = await _unitOfWork.GenreRepository.GetByID(Id);
             if (genre == null)
             {
-                throw new Exception("Genre doesnt exist");
+                throw new KeyNotFoundException("Genre doesnt exist");
             }
             await _unitOfWork.GenreRepository.Delete(Id);
             await _unitOfWork.Save();

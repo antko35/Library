@@ -27,7 +27,7 @@ namespace Library.Application.Use_Cases.Genre
             var genre = await _genreRepository.IsExistByName(requestGenreDto.Genre);
             if (genre != null)
             {
-                throw new Exception("Genre already exists");
+                throw new InvalidOperationException("Genre already exists");
             }
 
             var genreEntity = _mapper.Map<GenreEntity>(requestGenreDto);

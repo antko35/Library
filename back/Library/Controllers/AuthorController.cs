@@ -53,34 +53,21 @@ namespace Library.API.Controllers
         [HttpGet("{id:Guid}")]
         public async Task<ActionResult<RequestAuthorDto>> GetById(Guid id)
         {
-            try
-            {
-                var book = await _getAuthorByIdUseCase.Execute(id); 
-                return Ok(book);
-            }
-            catch (Exception ex)
-            {
-                return NotFound(ex.Message);
-            }
+            var book = await _getAuthorByIdUseCase.Execute(id);
+            return Ok(book);
         }
 
         [HttpGet("/getBooks/{authorId:Guid}")]
         public async Task<ActionResult<List<ResponseBookDto>>> GetBooksByAuthor(Guid authorId)
         {
-            try
-            {
-                var books = await _getBooksByAuthorUseCase.Execute(authorId);
-                return Ok(books);
-            }
-            catch (Exception ex)
-            {
-                return NotFound(ex.Message);
-            }
+
+            var books = await _getBooksByAuthorUseCase.Execute(authorId);
+            return Ok(books);
         }
 
         [Authorize(Policy = "Admin")]
         [HttpPost]
-        public async Task<ActionResult<ResponseAuthorDto>> Create([FromBody] RequestAuthorDto requestAuthorDto) 
+        public async Task<ActionResult<ResponseAuthorDto>> Create([FromBody] RequestAuthorDto requestAuthorDto)
         {
             ValidationResult result = await _validator.ValidateAsync(requestAuthorDto);
             if (!result.IsValid)
@@ -88,16 +75,9 @@ namespace Library.API.Controllers
                 return BadRequest(result.Errors);
             }
 
-            try
-            {
-                var author = await _createAuthorUseCase.Execute(requestAuthorDto);
-                //var author = await _authorService.Create(requestAuthorDto); 
-                return Ok(author);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+
+            var author = await _createAuthorUseCase.Execute(requestAuthorDto);
+            return Ok(author);
         }
 
         [Authorize(Policy = "Admin")]
@@ -109,31 +89,16 @@ namespace Library.API.Controllers
             {
                 return BadRequest(result.Errors);
             }
-            try
-            {
-                var author = await _updateAuthorUseCase.Execete(requestUpdateAuthorDto);
-                return Ok(author);
-            }
-            catch (Exception ex)
-            {
-                return NotFound(ex.Message);
-            }
+            var author = await _updateAuthorUseCase.Execete(requestUpdateAuthorDto);
+            return Ok(author);
         }
 
         [Authorize(Policy = "Admin")]
         [HttpDelete("{Id:Guid}")]
         public async Task<ActionResult> Delete(Guid Id)
         {
-            try
-            {
-                await _deleteAuthorUseCase.Execute(Id);
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return NotFound(ex.Message);
-            }
+            await _deleteAuthorUseCase.Execute(Id);
+            return Ok();
         }
-
     }
 }

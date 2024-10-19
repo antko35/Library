@@ -20,7 +20,7 @@ namespace Library.Application.Use_Cases.Books
         }
         public async Task<ResponseBookDto> Execute(Guid id)
         {
-            var bookEntity = await _unitOfWork.BookRepository.GetByID(id) ?? throw new Exception("Book doesn't exist");
+            var bookEntity = await _unitOfWork.BookRepository.GetByID(id) ?? throw new KeyNotFoundException("Book doesn't exist");
 
             var bookResponse = _mapper.Map<ResponseBookDto>(bookEntity);
             return bookResponse;

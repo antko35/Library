@@ -24,7 +24,7 @@ namespace Library.Application.Use_Cases.Author
             var authorEntity = await _unitOfWork.AuthorRepository.GetByID(requestUpdateAuthorDto.Id);
             if (authorEntity == null)
             {
-                throw new Exception("Author doesn`t exist");
+                throw new KeyNotFoundException("Author doesn`t exist");
             }
 
             _mapper.Map(requestUpdateAuthorDto, authorEntity);

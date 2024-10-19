@@ -25,19 +25,19 @@ namespace Library.Application.Use_Cases.Books
             var book = await _booksRepository.GetByID(requestBookDto.Id);
             if (book == null)
             {
-                throw new Exception("Book does not exist");
+                throw new KeyNotFoundException("Book does not exist");
             }
 
             var genre = await _genreRepository.GetByID(requestBookDto.GenreId);
             if (genre == null)
             {
-                throw new Exception("Genre does not exist");
+                throw new KeyNotFoundException("Genre does not exist");
             }
 
             var author = await _authorRepository.GetByID(requestBookDto.AuthorId);
             if (author == null)
             {
-                throw new Exception("Author does not exist");
+                throw new KeyNotFoundException("Author does not exist");
             }
 
             var bookEntityUpd = _mapper.Map(requestBookDto, book);

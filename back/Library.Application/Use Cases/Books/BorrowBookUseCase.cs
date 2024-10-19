@@ -23,7 +23,7 @@ namespace Library.Application.Use_Cases.Books
             var book = await _booksRepository.GetByID(bookId);
             if (book == null)
             {
-                throw new Exception("Book doesnt exisi");
+                throw new KeyNotFoundException("Book doesnt exist");
             }
 
             await _booksRepository.BorrowBook(bookId, userId);

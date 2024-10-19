@@ -31,19 +31,19 @@ namespace Library.Application.Use_Cases.Books
             var book = await _booksRepository.GetByISBN(requestBookDto.ISBN);
             if (book != null)
             {
-                throw new Exception("Book already exist");
+                throw new InvalidOperationException("Book already exist");
             }
 
             var genre = await _genreRepository.GetByID(requestBookDto.GenreId);
             if (genre == null)
             {
-                throw new Exception("Genre does not exist");
+                throw new KeyNotFoundException("Genre does not exist");
             }
 
             var author = await _authorRepository.GetByID(requestBookDto.AuthorId);
             if (author == null)
             {
-                throw new Exception("Author does not exist");
+                throw new KeyNotFoundException("Author does not exist");
             }
 
             var bookToCreate = _mapper.Map<BookEntity>(requestBookDto);
@@ -51,6 +51,10 @@ namespace Library.Application.Use_Cases.Books
             await _unitOfWork.Save();
 
             var createdBook = await _booksRepository.GetByID(bookToCreate.Id);
+            if(createdBook == null)
+            {
+                throw new ArgumentNullException("created book is empty");
+            }
             var bookResponse = _mapper.Map<ResponseBookDto>(createdBook);
             return bookResponse;
         }

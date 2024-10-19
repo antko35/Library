@@ -19,7 +19,7 @@ namespace Library.Application.Use_Cases.Author
             var author = await _unitOfWork.AuthorRepository.GetByID(Id);
             if (author == null)
             {
-                throw new Exception("not found");
+                throw new KeyNotFoundException("author not found");
             }
             await _unitOfWork.AuthorRepository.Delete(Id);
             await _unitOfWork.Save();

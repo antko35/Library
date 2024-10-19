@@ -2,6 +2,7 @@
 using Library.Application.Contracts.Author;
 using Library.Core.Abstractions;
 using Library.Core.Entities;
+using System.Data.SqlTypes;
 
 namespace Library.Application.Use_Cases.Author
 {
@@ -19,7 +20,7 @@ namespace Library.Application.Use_Cases.Author
             bool isExist = await _unitOfWork.AuthorRepository.IsExist(requestAuthorDto.Name, requestAuthorDto.Surname, requestAuthorDto.BirthDate);
             if (isExist)
             {
-                throw new Exception("Author already exist");
+                throw new InvalidOperationException("Author already exist");
             }
 
             var authorEntity = _mapper.Map<AuthorEntity>(requestAuthorDto);

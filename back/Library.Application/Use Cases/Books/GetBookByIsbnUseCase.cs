@@ -23,7 +23,7 @@ namespace Library.Application.Use_Cases.Books
             var bookEntity = await _unitOfWork.BookRepository.GetByISBN(isbn);
             if (bookEntity == null)
             {
-                throw new Exception("Book doesn't exist");
+                throw new KeyNotFoundException("Book doesn't exist");
             }
             var bookResponse = _mapper.Map<ResponseBookDto>(bookEntity);
             return bookResponse;

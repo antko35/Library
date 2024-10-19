@@ -23,7 +23,7 @@ namespace Library.Application.Use_Cases.Author
             var author = await _unitOfWork.AuthorRepository.GetByID(id);
             if (author == null)
             {
-                throw new Exception("Author doesnt exist");
+                throw new KeyNotFoundException("Author doesnt exist");
             }
 
             var authorResponse = _mapper.Map<ResponseAuthorDto>(author);

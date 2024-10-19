@@ -24,7 +24,7 @@ namespace Library.Application.Use_Cases.Author
 
             if (authorEntity == null)
             {
-                throw new Exception("Author does not exist");
+                throw new KeyNotFoundException("Author does not exist");
             }
 
             var books = await _unitOfWork.AuthorRepository.GetBookByAuthor(authorId);

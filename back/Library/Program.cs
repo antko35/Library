@@ -1,4 +1,5 @@
 using FluentValidation;
+using Library.API;
 using Library.Application.Authorization;
 using Library.Application.Contracts.Author;
 using Library.Application.Contracts.Book;
@@ -138,6 +139,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(MappingBook), typeof(MappingAuthor),typeof(MappingGenres), typeof(MappingUser));
 
 var app = builder.Build();
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 // TODO: реализуй exception handling middleware и в нем отдавай статус коды
 

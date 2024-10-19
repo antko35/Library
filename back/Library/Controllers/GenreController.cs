@@ -46,31 +46,16 @@ namespace Library.API.Controllers
                 return BadRequest(result.Errors);
             }
 
-            try
-            {
                 var genre = await _createGenreUseCase.Execute(requestGenreDto);
-                //var genre = await _genreService.Create(requestGenreDto);
                 return Ok(genre);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
         }
 
         [Authorize(Policy = "Admin")]
         [HttpDelete("{id:Guid}")]
         public async Task<ActionResult> Delete(Guid id)
         {
-            try
-            {
                 await _deleteGenreUseCase.Delete(id);
                 return Ok();
-            }
-            catch (Exception ex)
-            {
-                return NotFound(ex.Message);
-            }
         }
     }
 }

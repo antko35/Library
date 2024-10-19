@@ -22,7 +22,7 @@ namespace Library.Application.Use_Cases.Books
             var book = _booksRepository.GetByID(id);
             if (book == null)
             {
-                throw new Exception("book doesnt exist");
+                throw new KeyNotFoundException("book doesn't exist");
             }
             await _booksRepository.Delete(id);
             await _unitOfWork.Save();
