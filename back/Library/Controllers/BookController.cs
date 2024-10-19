@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Library.Core.Contracts.Book;
 using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Authorization;
 using Library.Core.Abstractions.IService;
+using Library.Application.Contracts.Book;
+using Library.Application.Use_Cases.Books;
 
 namespace Library.API.Controllers
 {
@@ -12,18 +13,55 @@ namespace Library.API.Controllers
     [Route("Books")]
     public class BookController : ControllerBase
     {
-        private readonly IBookService _bookServise;
+       // private readonly IBookService _bookServise;
         private readonly IValidator<RequestBookDto> _validator;
-        public BookController(IBookService service, IValidator<RequestBookDto> validator)
+
+        private readonly GetAllBooksUseCase _getAllBooksUseCase;
+        private readonly GetBooksByPageUseCase _getBooksByPageUseCase;
+        private readonly GetBookByIdUseCase _getBookByIdUseCase;
+        private readonly GetBookByIsbnUseCase _getBookByIsbnUseCase;
+        private readonly GetBooksCountUseCase _getBookCountUseCase;
+        private readonly CreateBookUseCase _createBookUseCase;
+        private readonly UpdateBookUseCase _updateBookUseCase;
+        private readonly BorrowBookUseCase _borrowBookUseCase;
+        private readonly ReturnBookUseCase _returnBookUseCase;
+        private readonly UploadCoverUseCase _uploadCoverUseCase;
+        private readonly DeleteBookUseCase _deleteBookUseCase;
+        public BookController(
+           // IBookService service,
+            IValidator<RequestBookDto> validator,
+            GetAllBooksUseCase getAllBooksUseCase,
+            GetBooksByPageUseCase getBooksByPageUseCase,
+            GetBookByIdUseCase getBookByIdUseCase,
+            GetBookByIsbnUseCase getBookByIsbnUseCase,
+            GetBooksCountUseCase getBooksCountUseCase,
+            CreateBookUseCase createBookUseCase,
+            UpdateBookUseCase updateBookUseCase,
+            DeleteBookUseCase deleteBookUseCase,
+            BorrowBookUseCase borrowBookUseCase,
+            ReturnBookUseCase returnBookUseCase,
+            UploadCoverUseCase uploadCoverUseCase
+            )
         {
-            _bookServise = service;
+            //_bookServise = service;
             _validator = validator;
+            _getAllBooksUseCase = getAllBooksUseCase;
+            _getBooksByPageUseCase = getBooksByPageUseCase;
+            _getBookByIdUseCase = getBookByIdUseCase;
+            _getBookByIsbnUseCase = getBookByIsbnUseCase;
+            _getBookCountUseCase = getBooksCountUseCase;
+            _createBookUseCase = createBookUseCase;
+            _updateBookUseCase = updateBookUseCase;
+            _borrowBookUseCase = borrowBookUseCase;
+            _returnBookUseCase = returnBookUseCase;
+            _deleteBookUseCase = deleteBookUseCase;
+            _uploadCoverUseCase = uploadCoverUseCase;
         }
 
         [HttpGet]
         public async Task<ActionResult<List<ResponseBookDto>>> GetAll()
         {
-            var books = await _bookServise.GetAll();
+            var books = await _getAllBooksUseCase.Execute();
             return Ok(books);
         }
 
@@ -31,7 +69,7 @@ namespace Library.API.Controllers
         [Route("getBypage/{page:int}/{pageSize:int}")]
         public async Task<ActionResult<List<ResponseBookDto>>> GetPage([FromRoute] int page, int pageSize)
         {
-            var books = await _bookServise.GetByPage(page, pageSize);
+            var books = await _getBooksByPageUseCase.Execute(page, pageSize);
             return Ok(books);
         }
 
@@ -41,7 +79,7 @@ namespace Library.API.Controllers
         {
             try
             {
-                var book = await _bookServise.GetById(Id);
+                var book = await _getBookByIdUseCase.Execute(Id);
                 return Ok(book);
             }
             catch (Exception ex)
@@ -55,7 +93,7 @@ namespace Library.API.Controllers
         {
             try
             {
-                var book = await _bookServise.GetByIsbn(isbn);
+                var book = await _getBookByIsbnUseCase.Execute(isbn);
                 return Ok(book);
             }
             catch (Exception ex)
@@ -68,7 +106,7 @@ namespace Library.API.Controllers
         [Route("count")]
         public async Task<ActionResult<int>> GetBooksCount()
         {
-            var cont = await _bookServise.GetBooksCount();
+            var cont = await _getBookCountUseCase.Execute();
             return Ok(cont);
         }
 
@@ -84,7 +122,7 @@ namespace Library.API.Controllers
 
             try
             {
-                var createdBook = await _bookServise.Create(createBookDto);
+                var createdBook = await _createBookUseCase.Execute(createBookDto);
                 return Ok(createdBook);
             }
             catch (Exception ex)
@@ -97,15 +135,9 @@ namespace Library.API.Controllers
         [HttpPut("update")]
         public async Task<ActionResult<ResponseBookDto>> Update([FromBody] RequestUpdateBookDto requestBookDto)
         {
-            /*ValidationResult result = await _validator.ValidateAsync(requestBookDto);
-            if (!result.IsValid)
-            {
-                return BadRequest(result.Errors);
-            }*/
-
             try
             {
-                var book = await _bookServise.Update(requestBookDto);
+                var book = await _updateBookUseCase.Execute(requestBookDto);
                 return Ok(book);
             }
             catch (Exception ex)
@@ -121,7 +153,7 @@ namespace Library.API.Controllers
             {
                 var userId = User.Claims.First(x => x.Type == "UserId").Value;
                 Guid UserId = Guid.Parse(userId);
-                await _bookServise.BorrowBook(bookId, UserId);
+                await _borrowBookUseCase.Execute(bookId, UserId);
                 return Ok();
             }
             catch(Exception ex)
@@ -138,7 +170,7 @@ namespace Library.API.Controllers
                 var userId = User.Claims.First(x => x.Type == "UserId").Value;
                 Guid UserId = Guid.Parse(userId);
 
-                await _bookServise.ReturnBook(bookId, UserId);
+                await _returnBookUseCase.Execute(bookId, UserId);
                 return Ok();
             }
             catch(Exception ex)
@@ -156,7 +188,7 @@ namespace Library.API.Controllers
                 if (file == null || file.Length == 0)
                     return BadRequest("Invalid file.");
 
-                await _bookServise.UploadCover(bookId, file);
+                await _uploadCoverUseCase.Execute(bookId, file);
                 return Ok();
             }
             catch(Exception ex)
@@ -173,7 +205,7 @@ namespace Library.API.Controllers
         {
             try
             {
-                await _bookServise.Delete(id);
+                await _deleteBookUseCase.Execute(id);
                 return Ok();
             }
             catch (Exception ex)

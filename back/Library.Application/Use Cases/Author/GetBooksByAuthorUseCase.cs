@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using Library.Application.Contracts.Book;
 using Library.Core.Abstractions;
-using Library.Core.Contracts.Book;
 using System;
 using System.Collections.Generic;
 using System.Linq;

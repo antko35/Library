@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Library.Core.Contracts.Book
+﻿namespace Library.Application.Contracts.Book
 {
-    public class RequestUpdateBookDto
+    public class ResponseBookDto
     {
         public Guid Id { get; set; }
         public string ISBN { get; set; } = string.Empty;
@@ -14,5 +8,8 @@ namespace Library.Core.Contracts.Book
         public Guid GenreId { get; set; }
         public string Description { get; set; } = string.Empty;
         public Guid AuthorId { get; set; }
+        public DateOnly? BorrowDate { get; set; }
+        public DateOnly? ReturnDate { get; set; }
+        public string? CoverImagePath { get; set; } = string.Empty;
     }
 }

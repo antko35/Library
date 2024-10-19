@@ -1,6 +1,6 @@
 ﻿using Library.Core.Abstractions.IRepository;
 using Library.Core.Contracts;
-using Library.Persistence.Entities;
+using Library.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

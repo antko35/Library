@@ -1,11 +1,11 @@
-﻿using Library.Persistence.Entities;
-using AutoMapper;
+﻿using AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Library.Core.Contracts.Book;
+using Library.Application.Contracts.Book;
+using Library.Core.Entities;
 
 namespace Library.Application.Mapping
 {

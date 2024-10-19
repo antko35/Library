@@ -1,5 +1,5 @@
 ﻿using Library.Core.Abstractions.IInfrastructure;
-using Library.Persistence.Entities;
+using Library.Core.Entities;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;

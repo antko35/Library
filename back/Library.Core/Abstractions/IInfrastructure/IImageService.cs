@@ -1,4 +1,4 @@
-﻿using Library.Persistence.Entities;
+﻿using Library.Core.Entities;
 using Microsoft.AspNetCore.Http;
 
 namespace Library.Core.Abstractions.IInfrastructure

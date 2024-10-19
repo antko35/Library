@@ -1,5 +1,4 @@
 ﻿using Library.Core.Entities;
-using Library.Persistence.Entities;
 
 namespace Library.Core.Abstractions.IRepository
 {

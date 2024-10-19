@@ -1,10 +1,12 @@
 ﻿using FluentValidation;
+using Library.Application.Contracts.Book;
 
-namespace Library.Core.Contracts.Book
+namespace Library.Application.Contracts.Validation.Book
 {
     public class RequestBookDtoValidator : AbstractValidator<RequestBookDto>
     {
-        public RequestBookDtoValidator() {
+        public RequestBookDtoValidator()
+        {
             RuleFor(x => x.Title)
                 .NotEmpty().WithMessage("Title is required.")
                 .MaximumLength(100).WithMessage("Title must not exceed 100 characters.");

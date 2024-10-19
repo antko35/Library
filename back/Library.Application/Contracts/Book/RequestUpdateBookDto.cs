@@ -1,14 +1,14 @@
-﻿using Library.Persistence.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Library.Core.Contracts.Book
+namespace Library.Application.Contracts.Book
 {
-    public class RequestBookDto
+    public class RequestUpdateBookDto
     {
+        public Guid Id { get; set; }
         public string ISBN { get; set; } = string.Empty;
         public string Title { get; set; } = string.Empty;
         public Guid GenreId { get; set; }
