@@ -18,8 +18,7 @@ namespace Library.Application.Mapping
 
             CreateMap<RequestBookDto, BookEntity>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.NewGuid()));
-               /* .ForMember(dest => dest.BorrowDate, opt => opt.MapFrom(src => DateTime.UtcNow))  // Текущая дата для BorrowDate
-                .ForMember(dest => dest.ReturnDate, opt => opt.MapFrom(src => DateTime.UtcNow.AddDays(7)));  // ReturnDate через неделю*/
+              
         }
     }
 }

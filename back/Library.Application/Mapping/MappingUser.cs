@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using FluentValidation;
-using Library.Core.Contracts.User;
+using Library.Application.Contracts.User;
 using Library.Core.Entities;
 using Microsoft.AspNetCore.Identity.Data;
 using System;

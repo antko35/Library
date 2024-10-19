@@ -2,7 +2,6 @@
 using FluentValidation.Results;
 using Library.Application.DTOs.Genre;
 using Library.Application.Use_Cases.Genre;
-using Library.Core.Abstractions.IService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

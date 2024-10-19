@@ -3,7 +3,6 @@ using FluentValidation.Results;
 using Library.Application.Contracts.Author;
 using Library.Application.Contracts.Book;
 using Library.Application.Use_Cases.Author;
-using Library.Core.Abstractions.IService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

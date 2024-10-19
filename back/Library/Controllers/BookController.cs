@@ -2,7 +2,6 @@
 using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Authorization;
-using Library.Core.Abstractions.IService;
 using Library.Application.Contracts.Book;
 using Library.Application.Use_Cases.Books;
 

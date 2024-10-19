@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
-using Library.Core.Abstractions.IService;
-using Library.Core.Contracts.User;
+using Library.Application.Contracts.User;
+using Library.Application.Use_Cases.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,14 +12,23 @@ namespace Library.API.Controllers
     [Route("User")]
     public class UserController : ControllerBase
     {
-        private readonly IUserService _userService;
         private readonly IValidator<RegisterRequestDto> _registerValidator;
         private readonly IValidator<LoginRequestUserDto> _loginValidator;
-        public UserController(IUserService userService, IValidator<RegisterRequestDto> regValidator, IValidator<LoginRequestUserDto> loginValidator)
+        private readonly GetInfoUseCase _infoUseCase;
+        private readonly LoginUseCase _loginUseCase;
+        private readonly RegistrationUseCase _registrationUseCase;
+        public UserController(
+            IValidator<RegisterRequestDto> regValidator, 
+            IValidator<LoginRequestUserDto> loginValidator,
+            GetInfoUseCase infoUseCase,
+            LoginUseCase loginUseCase,
+            RegistrationUseCase registrationUseCase)
         {
-            _userService = userService;
             _registerValidator = regValidator;
             _loginValidator = loginValidator;
+            _infoUseCase = infoUseCase;
+            _loginUseCase = loginUseCase;
+            _registrationUseCase = registrationUseCase;
         }
 
         [HttpGet("info")]
@@ -29,7 +38,7 @@ namespace Library.API.Controllers
             {
                 var userId = User.Claims.First(x => x.Type == "UserId").Value;
                 Guid UserId = Guid.Parse(userId);
-                var response = await _userService.GetInfo(UserId);
+                var response = await _infoUseCase.Execute(UserId);
                 return Ok(response);
             }
             catch (Exception ex) {
@@ -49,7 +58,7 @@ namespace Library.API.Controllers
 
             try
             {
-                var token = await _userService.Login(loginDto);
+                var token = await _loginUseCase.Execute(loginDto);
                 HttpContext.Response.Cookies.Append("jwt_cookie", token.access_token);
 
                 return Ok(token);
@@ -62,7 +71,7 @@ namespace Library.API.Controllers
 
         [HttpPost("logout")]
         [Authorize]
-        public async Task<ActionResult> Logout()
+        public ActionResult Logout()
         {
             Response.Cookies.Delete("jwt_cookie");
 
@@ -80,7 +89,7 @@ namespace Library.API.Controllers
 
             try
             {
-                await _userService.Registration(regDto);
+                await _registrationUseCase.Execute(regDto);
                 return Ok();
             }
             catch (Exception ex)
