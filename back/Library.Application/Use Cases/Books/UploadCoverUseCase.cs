@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Library.Core.Abstractions.IInfrastructure;
+using Library.Application.Contracts.Book;
 
 namespace Library.Application.Use_Cases.Books
 {
@@ -14,20 +15,23 @@ namespace Library.Application.Use_Cases.Books
     {
         private readonly IBooksRepository _booksRepository;
         private readonly IImageService _imageService;
-        public UploadCoverUseCase(IUnitOfWork unitOfWork, IImageService imageService)
+        private readonly IValidationService _validationService;
+        public UploadCoverUseCase(IUnitOfWork unitOfWork, IImageService imageService, IValidationService validationService)
         {
             _booksRepository = unitOfWork.BookRepository;
             _imageService = imageService;
+            _validationService = validationService;
         }
-        public async Task Execute(Guid bookId, IFormFile file)
+        public async Task Execute(RequestUploadCoverDto request)
         {
-            var book = await _booksRepository.GetByID(bookId);
+            await _validationService.ValidateAsync(request);
+            var book = await _booksRepository.GetByID(request.BookId);
             if (book == null)
             {
                 throw new KeyNotFoundException("Book doesn't exist");
             }
 
-            var fileName = await _imageService.UploadCover(book, file);
+            var fileName = await _imageService.UploadCover(book, request.File);
             await _booksRepository.UploadCover(book.Id, fileName);
         }
     }

@@ -40,12 +40,6 @@ namespace Library.API.Controllers
         [HttpPost]
         public async Task<ActionResult<ResponseGenreDto>> Create([FromBody] RequestGenreDto requestGenreDto)
         {
-            ValidationResult result = await _validator.ValidateAsync(requestGenreDto);
-            if (!result.IsValid)
-            {
-                return BadRequest(result.Errors);
-            }
-
                 var genre = await _createGenreUseCase.Execute(requestGenreDto);
                 return Ok(genre);
         }

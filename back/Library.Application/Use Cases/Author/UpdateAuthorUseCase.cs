@@ -14,13 +14,16 @@ namespace Library.Application.Use_Cases.Author
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
-        public UpdateAuthorUseCase(IUnitOfWork unitOfWork,IMapper mapper)
+        private readonly IValidationService _validationService;
+        public UpdateAuthorUseCase(IUnitOfWork unitOfWork,IMapper mapper, IValidationService validationService)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
+            _validationService = validationService;
         }
         public async Task<ResponseAuthorDto> Execete(RequestUpdateAuthorDto requestUpdateAuthorDto)
         {
+            await _validationService.ValidateAsync(requestUpdateAuthorDto);
             var authorEntity = await _unitOfWork.AuthorRepository.GetByID(requestUpdateAuthorDto.Id);
             if (authorEntity == null)
             {

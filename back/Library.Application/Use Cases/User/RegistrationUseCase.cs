@@ -17,14 +17,17 @@ namespace Library.Application.Use_Cases.User
         private readonly IMapper _mapper;
         private readonly IUserRepository _userRepository;
         private readonly IUnitOfWork _unitOfWork;
-        public RegistrationUseCase(IMapper mapper, IUnitOfWork unitOfWork)
+        private readonly IValidationService _validationService;
+        public RegistrationUseCase(IMapper mapper, IUnitOfWork unitOfWork, IValidationService validationService)
         {
             _mapper = mapper;
             _userRepository = unitOfWork.UserRepository;
             _unitOfWork = unitOfWork;
+            _validationService = validationService;
         }
         public async Task Execute(RegisterRequestDto registerDto)
         {
+            await _validationService.ValidateAsync(registerDto);
             var user = await _userRepository.GetByEmail(registerDto.Email);
             if (user != null)
             {

@@ -16,14 +16,17 @@ namespace Library.Application.Use_Cases.Genre
         private readonly IGenreRepository _genreRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        public CreateGenreUseCase(IUnitOfWork unitOfWork, IMapper mapper)
+        private readonly IValidationService _validationService;
+        public CreateGenreUseCase(IUnitOfWork unitOfWork, IMapper mapper, IValidationService validationService)
         {
             _genreRepository = unitOfWork.GenreRepository;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _validationService = validationService;
         }
         public async Task<ResponseGenreDto> Execute(RequestGenreDto requestGenreDto)
         {
+            await _validationService.ValidateAsync(requestGenreDto);
             var genre = await _genreRepository.IsExistByName(requestGenreDto.Genre);
             if (genre != null)
             {

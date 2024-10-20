@@ -4,7 +4,7 @@ using Library.Application.Contracts.User;
 using Library.Application.Use_Cases.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Library.API.Controllers
 {
@@ -43,11 +43,6 @@ namespace Library.API.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<LoginResponseDto>> Login(LoginRequestUserDto loginDto)
         {
-            ValidationResult result = await _loginValidator.ValidateAsync(loginDto);
-            if (!result.IsValid)
-            {
-                return BadRequest(result.Errors);
-            }
                 var token = await _loginUseCase.Execute(loginDto);
                 HttpContext.Response.Cookies.Append("jwt_cookie", token.access_token);
 
@@ -66,11 +61,6 @@ namespace Library.API.Controllers
         [HttpPost("register")]
         public async Task<ActionResult> Registration(RegisterRequestDto regDto)
         {
-            ValidationResult result = await _registerValidator.ValidateAsync(regDto);
-            if (!result.IsValid)
-            {
-                return BadRequest(result.Errors);
-            }
                 await _registrationUseCase.Execute(regDto);
                 return Ok();
         }

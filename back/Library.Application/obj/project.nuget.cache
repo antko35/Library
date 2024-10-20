@@ -1,13 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "dvDVUjX5evXSkLkwOSUYiUwHheSVY1K8xS9dx/4HHfD7hET/JRGc1EwGggHYVgEdkvjbigKylnCPmRhN1A65/g==",
+  "dgSpecHash": "x2gkm5m78gauj15NzwdRsreU0HttF7yavdCnpNDD2u1amx7B2IVuMpn1rE0xjkb1RQnU9DQiehV//WZtwjWNxA==",
   "success": true,
   "projectFilePath": "C:\\Users\\antko\\projects\\Library\\back\\Library.Application\\Library.Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\antko\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\antko\\.nuget\\packages\\fluentvalidation\\11.10.0\\fluentvalidation.11.10.0.nupkg.sha512",
     "C:\\Users\\antko\\.nuget\\packages\\fluentvalidation.aspnetcore\\11.3.0\\fluentvalidation.aspnetcore.11.3.0.nupkg.sha512",
-    "C:\\Users\\antko\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\11.5.1\\fluentvalidation.dependencyinjectionextensions.11.5.1.nupkg.sha512",
+    "C:\\Users\\antko\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\11.10.0\\fluentvalidation.dependencyinjectionextensions.11.10.0.nupkg.sha512",
     "C:\\Users\\antko\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\8.0.8\\microsoft.aspnetcore.authentication.jwtbearer.8.0.8.nupkg.sha512",
     "C:\\Users\\antko\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\6.0.0\\microsoft.extensions.dependencyinjection.abstractions.6.0.0.nupkg.sha512",
     "C:\\Users\\antko\\.nuget\\packages\\microsoft.extensions.options\\6.0.0\\microsoft.extensions.options.6.0.0.nupkg.sha512",

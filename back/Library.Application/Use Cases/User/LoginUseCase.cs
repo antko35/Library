@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Library.Application.Contracts.User;
+using Library.Application.Services;
 using Library.Core.Abstractions;
 using Library.Core.Abstractions.IInfrastructure;
 using Library.Core.Abstractions.IRepository;
@@ -17,14 +18,18 @@ namespace Library.Application.Use_Cases.User
         private readonly IMapper _mapper;
         private readonly IUserRepository _userRepository;
         private readonly IJWTService _jWTService;
-        public LoginUseCase(IMapper mapper, IUnitOfWork unitOfWork, IJWTService jWTService)
+        private readonly IValidationService _validationService;
+
+        public LoginUseCase(IMapper mapper, IUnitOfWork unitOfWork, IJWTService jWTService, IValidationService validationService)
         {
             _mapper = mapper;
             _userRepository = unitOfWork.UserRepository;
             _jWTService = jWTService;
+            _validationService = validationService;
         }
         public async Task<LoginResponseDto> Execute(LoginRequestUserDto loginDto)
         {
+            await _validationService.ValidateAsync(loginDto);
             var userEntity = _mapper.Map<UserEntity>(loginDto);
             var user = await _userRepository.Get(userEntity);
             if (user == null)

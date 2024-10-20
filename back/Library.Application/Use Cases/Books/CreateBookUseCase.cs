@@ -18,16 +18,19 @@ namespace Library.Application.Use_Cases.Books
         private readonly IAuthorRepository _authorRepository;
         private readonly IGenreRepository _genreRepository;
         private readonly IMapper _mapper;
-        public CreateBookUseCase(IMapper mapper,IUnitOfWork unitOfWork)
+        private readonly IValidationService _validationService;
+        public CreateBookUseCase(IMapper mapper,IUnitOfWork unitOfWork, IValidationService validationService)
         {
-            _booksRepository=unitOfWork.BookRepository;
-            _authorRepository=unitOfWork.AuthorRepository;
-            _genreRepository=unitOfWork.GenreRepository;
-            _mapper=mapper;
-            _unitOfWork=unitOfWork;
+            _booksRepository = unitOfWork.BookRepository;
+            _authorRepository = unitOfWork.AuthorRepository;
+            _genreRepository = unitOfWork.GenreRepository;
+            _mapper = mapper;
+            _unitOfWork = unitOfWork;
+            _validationService = validationService;
         }
         public async Task<ResponseBookDto> Execute(RequestBookDto requestBookDto)
         {
+            await _validationService.ValidateAsync(requestBookDto);
             var book = await _booksRepository.GetByISBN(requestBookDto.ISBN);
             if (book != null)
             {

@@ -1,4 +1,5 @@
 using FluentValidation;
+using FluentValidation.AspNetCore;
 using Library.API;
 using Library.Application.Authorization;
 using Library.Application.Contracts.Author;
@@ -26,6 +27,7 @@ using Library.Persistence.UnitOfWork;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -76,6 +78,7 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddScoped<IImageService,ImageService>();
 builder.Services.AddScoped<IJWTService, JWTService>();
+builder.Services.AddScoped<IValidationService, ValidationService>();
 
 builder.Services.AddScoped<IBooksRepository, BooksRepository>();
 builder.Services.AddScoped<GetAllBooksUseCase>();
@@ -108,17 +111,20 @@ builder.Services.AddScoped<GetAuthorByIdUseCase>();
 builder.Services.AddScoped<GetBooksByAuthorUseCase>();
 builder.Services.AddScoped<UpdateAuthorUseCase>();
 
+builder.Services.AddValidatorsFromAssemblyContaining<LoginRequestUserDtoValidator>();
 
 
-builder.Services.AddScoped<IValidator<RequestAuthorDto>, RequestAuthorDtoValidator>();
-builder.Services.AddScoped<IValidator<RequestUpdateAuthorDto>, RequestUpdateAuthorDtoValidator>();
+builder.Services.AddScoped<IValidator, RequestAuthorDtoValidator>();
+builder.Services.AddScoped<IValidator, RequestUpdateAuthorDtoValidator>();
 
-builder.Services.AddScoped<IValidator<RequestBookDto>, RequestBookDtoValidator>();
+builder.Services.AddScoped<IValidator, RequestBookDtoValidator>();
+builder.Services.AddScoped<IValidator, RequestUpdateBookDtoValidator>();
+builder.Services.AddScoped<IValidator, RequestUploadCoverValidator>();
 
-builder.Services.AddScoped<IValidator<RequestGenreDto>, RequestGenreDtoValidator>();
+builder.Services.AddScoped<IValidator, RequestGenreDtoValidator>();
 
-builder.Services.AddScoped<IValidator<RegisterRequestDto>, RegisterRequestDtoValidator>();
-builder.Services.AddScoped<IValidator<LoginRequestUserDto>, LoginRequestUserDtoValidator>();
+builder.Services.AddScoped<IValidator, RegisterRequestDtoValidator>();
+builder.Services.AddScoped<IValidator, LoginRequestUserDtoValidator>();
 
 builder.Services.AddCors(options =>
 {
@@ -142,7 +148,6 @@ var app = builder.Build();
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
-// TODO: реализуй exception handling middleware и в нем отдавай статус коды
 
 if (app.Environment.IsDevelopment())
 {

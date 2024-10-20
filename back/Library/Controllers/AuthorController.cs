@@ -60,7 +60,6 @@ namespace Library.API.Controllers
         [HttpGet("/getBooks/{authorId:Guid}")]
         public async Task<ActionResult<List<ResponseBookDto>>> GetBooksByAuthor(Guid authorId)
         {
-
             var books = await _getBooksByAuthorUseCase.Execute(authorId);
             return Ok(books);
         }
@@ -69,13 +68,6 @@ namespace Library.API.Controllers
         [HttpPost]
         public async Task<ActionResult<ResponseAuthorDto>> Create([FromBody] RequestAuthorDto requestAuthorDto)
         {
-            ValidationResult result = await _validator.ValidateAsync(requestAuthorDto);
-            if (!result.IsValid)
-            {
-                return BadRequest(result.Errors);
-            }
-
-
             var author = await _createAuthorUseCase.Execute(requestAuthorDto);
             return Ok(author);
         }
@@ -84,11 +76,6 @@ namespace Library.API.Controllers
         [HttpPut]
         public async Task<ActionResult<ResponseAuthorDto>> Update([FromBody] RequestUpdateAuthorDto requestUpdateAuthorDto)
         {
-            ValidationResult result = await _updateValidator.ValidateAsync(requestUpdateAuthorDto);
-            if (!result.IsValid)
-            {
-                return BadRequest(result.Errors);
-            }
             var author = await _updateAuthorUseCase.Execete(requestUpdateAuthorDto);
             return Ok(author);
         }

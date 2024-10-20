@@ -10,13 +10,16 @@ namespace Library.Application.Use_Cases.Author
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
-        public CreateAuthorUseCase(IMapper mapper, IUnitOfWork unitOfWork)
+        private readonly IValidationService _validationService;
+        public CreateAuthorUseCase(IMapper mapper, IUnitOfWork unitOfWork, IValidationService validationService)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
+            _validationService = validationService;
         }
         public async Task<ResponseAuthorDto> Execute(RequestAuthorDto requestAuthorDto)
         {
+            await _validationService.ValidateAsync(requestAuthorDto);
             bool isExist = await _unitOfWork.AuthorRepository.IsExist(requestAuthorDto.Name, requestAuthorDto.Surname, requestAuthorDto.BirthDate);
             if (isExist)
             {
