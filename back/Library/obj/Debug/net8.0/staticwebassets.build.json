@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Ks2kZqpAOBW1espTaH3mbRYcskDDgosYKlb40iDmIEY=",
+  "Hash": "JjcsA0O6EMDLCuyN/pcNbTkYL6zDErf6bD23wYSCNuM=",
   "Source": "Library.API",
   "BasePath": "_content/Library.API",
   "Mode": "Default",
@@ -1174,6 +1174,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\uploads\\4ee015e0-4564-4798-96a3-e1a38e9c1764.png"
+    },
+    {
+      "Identity": "C:\\Users\\antko\\projects\\Library\\back\\Library\\wwwroot\\uploads\\5fabb1ee-05d2-44cc-a1d5-93aabf797d0c.png",
+      "SourceId": "Library.API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\antko\\projects\\Library\\back\\Library\\wwwroot\\",
+      "BasePath": "_content/Library.API",
+      "RelativePath": "uploads/5fabb1ee-05d2-44cc-a1d5-93aabf797d0c.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\5fabb1ee-05d2-44cc-a1d5-93aabf797d0c.png"
     },
     {
       "Identity": "C:\\Users\\antko\\projects\\Library\\back\\Library\\wwwroot\\uploads\\788f0f88-45dc-477b-b7d9-f1935eb376a3.png",

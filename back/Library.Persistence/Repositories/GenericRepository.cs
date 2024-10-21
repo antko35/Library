@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 using Library.Core.Entities;
 using Library.Core.Abstractions.IRepository;
+using System.Text;
 
 public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : Entity
 {
@@ -16,7 +17,7 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
         this.dbSet = context.Set<TEntity>();
     }
 
-    public virtual async Task<IEnumerable<TEntity>> Get(
+    /*public virtual async Task<IEnumerable<TEntity>> Get(
         Expression<Func<TEntity, bool>> filter = null,
         Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
         string includeProperties = "")
@@ -41,7 +42,28 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
         {
             return await query.ToListAsync();
         }
+    }*/
+    public virtual async Task<IEnumerable<TEntity>> Get(
+    string filter = null,
+    string orderBy = null,
+    string includeProperties = null)
+    {
+        var tableName = typeof(TEntity).Name.Replace("Entity", string.Empty)+'s';
+        var sql = new StringBuilder($"SELECT * FROM public.\"{tableName}\"" );
+
+        if (!string.IsNullOrEmpty(filter))
+        {
+            sql.Append($" WHERE {filter}");
+        }
+
+        if (!string.IsNullOrEmpty(orderBy))
+        {
+            sql.Append($" ORDER BY {orderBy}");
+        }
+
+        return await dbSet.FromSqlRaw(sql.ToString()).ToListAsync();
     }
+
 
     public virtual async Task<TEntity?> GetByID(object id)
     {
