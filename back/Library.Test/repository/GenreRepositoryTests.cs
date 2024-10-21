@@ -2,9 +2,11 @@
 using Library.Persistence.Entities;
 using Library.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Threading.Tasks;
 using Xunit;
 
-namespace Library.Test.repository
+namespace Library.Test.Repositories
 {
     public class GenreRepositoryTests
     {
@@ -13,47 +15,59 @@ namespace Library.Test.repository
 
         public GenreRepositoryTests()
         {
+            // Настройка InMemory базы данных
             var options = new DbContextOptionsBuilder<LibraryDbContext>()
-                .UseInMemoryDatabase(databaseName: "LibraryTestDb")
+                .UseInMemoryDatabase(databaseName: "LibraryDatabase")
                 .Options;
 
             _context = new LibraryDbContext(options);
             _genreRepository = new GenreRepository(_context);
         }
 
-        private void ClearDatabase()
+        [Fact]
+        public async Task IsExistByName_Successfully()
         {
-            _context.Genres.RemoveRange(_context.Genres);
-            _context.SaveChanges();
+            // Arrange
+            var genreName = "Fiction";
+            var genreEntity = new GenreEntity { Id = Guid.NewGuid(), Genre = genreName };
+            await _context.Genres.AddAsync(genreEntity);
+            await _context.SaveChangesAsync();
+
+            // Act
+            var result = await _genreRepository.IsExistByName(genreName);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(genreName, result.Genre);
         }
 
         [Fact]
-        public async Task GetAll_ShouldReturnListOfGenres()
+        public async Task IsExistByName_ShouldReturnNull_WhenGenreDoesNotExist()
         {
-            ClearDatabase();
-            var genre1 = new GenreEntity { Id = Guid.NewGuid(), Genre = "Fiction" };
-            var genre2 = new GenreEntity { Id = Guid.NewGuid(), Genre = "Fantasy" };
-            _context.Genres.AddRange(genre1, genre2);
-            _context.SaveChanges();
+            // Arrange
+            var genreName = "Non-Existent Genre";
 
-            var result = await _genreRepository.GetAll();
+            // Act
+            var result = await _genreRepository.IsExistByName(genreName);
 
-            Assert.Equal(2, result.Count);
-            Assert.Equal("Fiction", result[0].Genre);
-            Assert.Equal("Fantasy", result[1].Genre);
+            // Assert
+            Assert.Null(result);
         }
 
         [Fact]
-        public async Task Create_ShouldAddGenreToDatabase()
+        public async Task Insert_Successfully()
         {
-            ClearDatabase();
-            var genreEntity = new GenreEntity { Id = Guid.NewGuid(), Genre = "Fiction" };
+            // Arrange
+            var genreEntity = new GenreEntity { Id = Guid.NewGuid(), Genre = "Science Fiction" };
 
-            await _genreRepository.Create(genreEntity);
+            // Act
+            await _genreRepository.Insert(genreEntity);
+            await _context.SaveChangesAsync();
 
-            var genresInDb = await _context.Genres.ToListAsync();
-            Assert.Single(genresInDb); 
-            Assert.Equal("Fiction", genresInDb[0].Genre); 
+            // Assert
+            var result = await _genreRepository.GetByID(genreEntity.Id);
+            Assert.NotNull(result);
+            Assert.Equal(genreEntity.Genre, result.Genre);
         }
     }
 }

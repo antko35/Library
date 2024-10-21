@@ -3,6 +3,7 @@ using Library.Persistence;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 using Library.Core.Entities;
+using Library.Core.Abstractions.IRepository;
 
 public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : Entity
 {
@@ -69,7 +70,6 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
 
     public virtual void Update(TEntity entityToUpdate)
     {
-
         dbSet.Update(entityToUpdate); 
         /*dbSet.Attach(entityToUpdate);
         context.Entry(entityToUpdate).State = EntityState.Modified;*/

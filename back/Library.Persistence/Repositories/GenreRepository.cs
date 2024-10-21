@@ -18,7 +18,6 @@ namespace Library.Persistence.Repositories
             return await context.Genres
                 .AsNoTracking()
                 .FirstOrDefaultAsync(x=> x.Genre.ToLower() == name.ToLower());
-                //.AnyAsync(x => x.Genre.ToLower() == name.ToLower());
         }
     }
 }
