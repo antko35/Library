@@ -1,1 +1,39 @@
 node_modules/
+# Папка для кэша и временных файлов
+bin/
+obj/
+*.exe
+*.dll
+*.pdb
+*.cache
+*.log
+*.vspscc
+*.vssscc
+
+# Конфигурационные файлы для окружения
+appsettings.*.json
+
+# Visual Studio файлы и папки
+.vs/
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Папки с настройками проекта
+*.ide/
+.idea/
+.project/
+.classpath/
+
+# Конфигурации и временные файлы сборки
+*.csproj.user
+*.rsuser
+*.suo
+*.sln.metaproj
+
+# Файлы временных настроек для пакетов и зависимостей
+*.nupkg
+*.nuget/
+packages/

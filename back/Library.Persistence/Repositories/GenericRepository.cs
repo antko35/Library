@@ -5,16 +5,19 @@ using System.Linq.Expressions;
 using Library.Core.Entities;
 using Library.Core.Abstractions.IRepository;
 using System.Text;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Npgsql;
 
 public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : Entity
 {
     internal LibraryDbContext context;
     internal DbSet<TEntity> dbSet;
-
+    public string tableName = typeof(TEntity).Name.Replace("Entity", string.Empty) + 's';
     public GenericRepository(LibraryDbContext context)
     {
         this.context = context;
         this.dbSet = context.Set<TEntity>();
+        
     }
 
     /*public virtual async Task<IEnumerable<TEntity>> Get(
@@ -48,7 +51,7 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
     string orderBy = null,
     string includeProperties = null)
     {
-        var tableName = typeof(TEntity).Name.Replace("Entity", string.Empty)+'s';
+       
         var sql = new StringBuilder($"SELECT * FROM public.\"{tableName}\"" );
 
         if (!string.IsNullOrEmpty(filter))
@@ -67,8 +70,19 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
 
     public virtual async Task<TEntity?> GetByID(object id)
     {
-        
-        return await dbSet.AsNoTracking().FirstOrDefaultAsync(x => x.Id == (Guid)id);
+        var sql = new StringBuilder($@" SELECT *
+            FROM ""{tableName}"" AS b
+            WHERE b.""Id"" = @id
+            LIMIT 1");
+        var idParameter = new NpgsqlParameter("@id", NpgsqlTypes.NpgsqlDbType.Uuid)
+        {
+            Value = (Guid)id
+        };
+        var entity = await dbSet.FromSqlRaw(sql.ToString(), idParameter)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
+        return entity;
+        //return await dbSet.AsNoTracking().FirstOrDefaultAsync(x => x.Id == (Guid)id);
     }
 
     public virtual async Task Insert(TEntity entity)
