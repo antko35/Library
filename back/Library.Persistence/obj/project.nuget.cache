@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "iH1MwaNQ8TivXtIQ1qDBv8SH7M3gSe9lNHltdaHcTKD5m+tIQpO7SeWqhni7utlvYhurNEQXS09yf5NDcBB1BQ==",
+  "dgSpecHash": "V/re48I0mFXBKz8MdSnoEdhgoA72Pg+GPGpGP2sFwMqDvxq3tCckuUoabaHLFwrnXU++SqBHoiMOltjey3dPNg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\antko\\projects\\Library\\back\\Library.Persistence\\Library.Persistence.csproj",
+  "projectFilePath": "C:\\Users\\antko\\modsen\\Library\\back\\Library.Persistence\\Library.Persistence.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\antko\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\antko\\.nuget\\packages\\fluentvalidation\\11.10.0\\fluentvalidation.11.10.0.nupkg.sha512",

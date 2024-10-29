@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "3L+EcpqARFPD0UCfzABmXWqaNu3UB3EmidF6aEhNr+Jrq5e2fhTnAFJdIJx0m8oCt0zcJFMCLp9/TlCFK0FOkQ==",
+  "dgSpecHash": "Hhvj1+CoXdOEKuRs0oTm5i6A31MKdzhX/3AlhbnzilC/2GNs8woFDJ7+m0FuzOflbBrY36sEzohgU6OIV8e6mg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\antko\\projects\\Library\\back\\Library.Infrastructure\\Library.Infrastructure.csproj",
+  "projectFilePath": "C:\\Users\\antko\\modsen\\Library\\back\\Library.Infrastructure\\Library.Infrastructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\antko\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\antko\\.nuget\\packages\\fluentvalidation\\11.10.0\\fluentvalidation.11.10.0.nupkg.sha512",

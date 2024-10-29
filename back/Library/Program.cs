@@ -1,15 +1,10 @@
 using FluentValidation;
-using FluentValidation.AspNetCore;
 using Library.API;
 using Library.Application.Authorization;
-using Library.Application.Contracts.Author;
-using Library.Application.Contracts.Book;
 using Library.Application.Contracts.RequestValidation;
-using Library.Application.Contracts.User;
 using Library.Application.Contracts.Validation.Author;
 using Library.Application.Contracts.Validation.Book;
 using Library.Application.Contracts.Validation.User;
-using Library.Application.DTOs.Genre;
 using Library.Application.Mapping;
 using Library.Application.Services;
 using Library.Application.Use_Cases.Author;

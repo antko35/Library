@@ -1276,11 +1276,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\antko\\projects\\Library\\back\\Library.Persistence\\Library.Persistence.csproj",
+      "projectUniqueName": "C:\\Users\\antko\\modsen\\Library\\back\\Library.Persistence\\Library.Persistence.csproj",
       "projectName": "Library.Persistence",
-      "projectPath": "C:\\Users\\antko\\projects\\Library\\back\\Library.Persistence\\Library.Persistence.csproj",
+      "projectPath": "C:\\Users\\antko\\modsen\\Library\\back\\Library.Persistence\\Library.Persistence.csproj",
       "packagesPath": "C:\\Users\\antko\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\antko\\projects\\Library\\back\\Library.Persistence\\obj\\",
+      "outputPath": "C:\\Users\\antko\\modsen\\Library\\back\\Library.Persistence\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\antko\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -1297,8 +1297,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\antko\\projects\\Library\\back\\Library.Core\\Library.Core.csproj": {
-              "projectPath": "C:\\Users\\antko\\projects\\Library\\back\\Library.Core\\Library.Core.csproj"
+            "C:\\Users\\antko\\modsen\\Library\\back\\Library.Core\\Library.Core.csproj": {
+              "projectPath": "C:\\Users\\antko\\modsen\\Library\\back\\Library.Core\\Library.Core.csproj"
             }
           }
         }

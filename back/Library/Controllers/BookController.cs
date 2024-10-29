@@ -56,6 +56,7 @@ namespace Library.API.Controllers
 
         [HttpGet]
         public async Task<ActionResult<List<ResponseBookDto>>> GetAll()
+        
         {
             var books = await _getAllBooksUseCase.Execute();
             return Ok(books);
@@ -63,7 +64,7 @@ namespace Library.API.Controllers
 
         [HttpGet]
         [Route("getBypage/{page:int}/{pageSize:int}")]
-        public async Task<ActionResult<List<ResponseBookDto>>> GetPage([FromRoute] int page, int pageSize)
+        public async Task<ActionResult<List<ResponseBookDto>>> GetPage(int page, int pageSize)
         {
             var books = await _getBooksByPageUseCase.Execute(page, pageSize);
             return Ok(books);
@@ -73,15 +74,14 @@ namespace Library.API.Controllers
         [Route("getById/{Id:Guid}")]
         public async Task<ActionResult<ResponseBookDto>> GetById([FromRoute] Guid Id)
         {
-
             var book = await _getBookByIdUseCase.Execute(Id);
             return Ok(book);
         }
+
         [HttpGet]
         [Route("getByIsbn/{isbn}")]
         public async Task<ActionResult<ResponseBookDto>> GetByIsbn([FromRoute] string isbn)
         {
-
             var book = await _getBookByIsbnUseCase.Execute(isbn);
             return Ok(book);
         }
