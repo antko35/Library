@@ -22,6 +22,10 @@ namespace Library.Persistence.Repositories
         {
             return await context.Users.FirstOrDefaultAsync(x => x.Email == email);
         }
+        public async Task<UserEntity?> GetByUsername(string username)
+        {
+            return await context.Users.FirstOrDefaultAsync(x => x.UserName == username);
+        }
         public async Task<UserEntity> GetInfo(Guid id)
         {
             return await context.Users

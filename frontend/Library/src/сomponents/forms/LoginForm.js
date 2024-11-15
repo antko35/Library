@@ -1,8 +1,12 @@
 import React from 'react';
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { LockOutlined, MailOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input, Flex } from 'antd';
+import { useAuth } from '../../context/AuthContext';
 
-const LoginForm = ({setUser, setIsAuthenticated, setIsRegistered}) => {
+const LoginForm = () => {
+
+  const {setIsRegistered,login,errorMessage } = useAuth();
+
   const onFinish = async (values) => {
     console.log('Received values of form: ', values);
 
@@ -10,28 +14,7 @@ const LoginForm = ({setUser, setIsAuthenticated, setIsRegistered}) => {
       email: values.Email,
       password: values.password,
     };
-
-    try {
-      const response = await fetch('https://localhost:7040/User/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(loginData),
-        credentials: 'include', // Для получения и отправки куков
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        setUser({ name: data.username, email: loginData.email });
-        setIsAuthenticated(true);
-      } else {
-        console.error('Login failed');
-      }
-    } catch (error) {
-      console.error('Login failed:', error.message);
-    }
-
+    await login(loginData);
   };
 
   return (
@@ -53,8 +36,11 @@ const LoginForm = ({setUser, setIsAuthenticated, setIsRegistered}) => {
         }}>
         Login
       </div>
+      
       <Form.Item
         name="Email"
+        validateStatus={errorMessage ? 'error' : ''}
+        help={errorMessage}
         rules={[
           {
             required: true,
@@ -66,10 +52,12 @@ const LoginForm = ({setUser, setIsAuthenticated, setIsRegistered}) => {
           }
         ]}
       >
-        <Input prefix={<UserOutlined />} placeholder="Email" />
+        <Input prefix={<MailOutlined />} placeholder="Email" />
       </Form.Item>
       <Form.Item
         name="password"
+        validateStatus={errorMessage ? 'error' : ''}
+        help={errorMessage}
         rules={[
           {
             required: true,
@@ -78,13 +66,6 @@ const LoginForm = ({setUser, setIsAuthenticated, setIsRegistered}) => {
         ]}
       >
         <Input prefix={<LockOutlined />} type="password" placeholder="Password" />
-      </Form.Item>
-      <Form.Item>
-        <Flex justify="space-between" align="center">
-          <Form.Item name="remember" valuePropName="checked" noStyle>
-            <Checkbox>Remember me</Checkbox>
-          </Form.Item>
-        </Flex>
       </Form.Item>
 
       <Form.Item>

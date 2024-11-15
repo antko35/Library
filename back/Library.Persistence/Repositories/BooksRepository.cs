@@ -13,8 +13,17 @@ namespace Library.Persistence.Repositories
     {
         public BooksRepository(LibraryDbContext context) : base(context) { }
       
-        public async Task<List<BookEntity>> GetByPage(int page, int pageSize)
+        public async Task<List<BookEntity>> GetByPage(int page, int pageSize, Guid? authorId = null, Guid? genreId = null)
         {
+            IQueryable<BookEntity> query = context.Books.AsNoTracking();
+            if (authorId.HasValue)
+            {
+                query.Where(a => a.Id == authorId);
+            }
+            if (genreId.HasValue)
+            {
+                query.Where(g => g. == genreId);
+            }
             return await context.Books
                 .AsNoTracking()
                 .OrderBy(x => x.Title)

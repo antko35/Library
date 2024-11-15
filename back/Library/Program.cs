@@ -1,4 +1,5 @@
 using FluentValidation;
+using FluentValidation.AspNetCore;
 using Library.API;
 using Library.Application.Authorization;
 using Library.Application.Contracts.RequestValidation;
@@ -15,7 +16,7 @@ using Library.Core.Abstractions;
 using Library.Core.Abstractions.IInfrastructure;
 using Library.Core.Abstractions.IRepository;
 using Library.Core.Contracts.Genre;
-using Library.Core.Enums;
+using Library.Core.Enums;   
 using Library.Persistence;
 using Library.Persistence.Repositories;
 using Library.Persistence.UnitOfWork;

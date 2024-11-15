@@ -1,41 +1,23 @@
 import React from 'react';
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { LockOutlined, UserOutlined, MailOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input } from 'antd';
+import { useAuth } from '../../context/AuthContext';
 
-const RegisterForm = ({ setUser, setIsAuthenticated, setIsRegistered }) => {
+const RegisterForm = ({setIsRegistered }) => {
+
+  const {emailError, usernameError, register } = useAuth();
+
   const onFinish = async (values) => {
     console.log('Received values of form: ', values);
-    
-    // Отправка данных на сервер для регистрации
-    try {
-      const response = await fetch('https://localhost:7040/User/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: values.Email,
-          userName :values.Username,
-          password: values.password,
-        }),
-      });
 
-      const responseText = await response.text(); // Получаем текст ответа
-      console.log('Server response:', responseText);
-
-      if (response.ok) {
-        console.log('Registration successful');
-        setIsRegistered(true);
-        alert('Successfull Registered ');
-        //setUser({ name: data.username, email: loginData.email });
-        //setIsAuthenticated(true);
-
-      } else {
-        console.error('Registration failed:');
-      }
-    } catch (error) {
-      console.error('Error during registration:', error);
-    }
+    const registerData = {
+      username: values.username,
+      email: values.email,
+      password: values.password,
+    };
+    console.log(registerData);
+ 
+    await register(registerData);
   };
 
   return (
@@ -58,11 +40,13 @@ const RegisterForm = ({ setUser, setIsAuthenticated, setIsRegistered }) => {
         Registration
       </div>
       <Form.Item
-        name="Email"
+        name="email"
+        validateStatus={emailError ? 'error' : ''}
+        help={emailError}
         rules={[
           {
             required: true,
-            message: 'Please input your Email!',
+            message: 'Please input email!',
           },
           {
             type: 'email',
@@ -70,15 +54,17 @@ const RegisterForm = ({ setUser, setIsAuthenticated, setIsRegistered }) => {
           }
         ]}
       >
-        <Input prefix={<UserOutlined />} placeholder="Email" />
+        <Input prefix={<MailOutlined /> } placeholder="Email" />
       </Form.Item>
 
       <Form.Item
-        name="Username"
+        name="username"
+        validateStatus={usernameError ? 'error' : ''}
+        help={usernameError}
         rules={[
           {
             required: true,
-            message: 'Please input your Username!',
+            message: 'Please input username!',
           }
         ]}
       >
@@ -90,11 +76,11 @@ const RegisterForm = ({ setUser, setIsAuthenticated, setIsRegistered }) => {
         rules={[
           {
             required: true,
-            message: 'Please input your Password!',
+            message: 'Please input password!',
           },
         ]}
       >
-        <Input prefix={<LockOutlined />} type="password" placeholder="Password" />
+        <Input prefix={<LockOutlined />} type="redPassword" placeholder="Password" />
       </Form.Item>
 
       <Form.Item>

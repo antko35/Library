@@ -13,6 +13,7 @@ namespace Library.Core.Entities
         public string Email { get; set; } = string.Empty;
         public string UserName { get; set; } = string.Empty;
         public string PasswordHash { get; set; } = string.Empty;
+        [JsonIgnore]
         public ICollection<RoleEntity> Roles { get; set; } = new List<RoleEntity>();
 
         [JsonIgnore] // убрать циклы

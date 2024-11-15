@@ -34,7 +34,7 @@ namespace Library.Application.Use_Cases.User
             var user = await _userRepository.Get(userEntity);
             if (user == null)
             {
-                throw new Exception("invalid data");
+                throw new Exception("Invalid email or password");
             }
 
             var encodedJwt = _jWTService.Gerenate(user);

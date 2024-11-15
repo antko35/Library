@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import BookCard from '../BookCard/BookCard'; // Импортируем компонент карточки книги
-import { Row, Col, Pagination, Spin, Empty } from 'antd'; // Добавляем компонент Empty для пустого состояния
+import { Row, Col, Pagination, Spin, Empty,Select, Button,Flex } from 'antd'; // Добавляем компонент Empty для пустого состояния
+import { useAuth } from '../../context/AuthContext';
+import AddAuthor from '../AddAuthor/AddAuthor';
+import AddGenre from '../AddGenre/AddGenre';
+import AdminTools from '../AdminTools/AdminTools';
+const { Option } = Select;
 
 const BookList = () => {
   const [books, setBooks] = useState([]);
@@ -11,6 +16,10 @@ const BookList = () => {
   const [pageSize, setPageSize] = useState(5); // Количество элементов на странице
   const [totalBooks, setTotalBooks] = useState(0); // Общее количество книг
 
+  const [selectedGenre, setSelectedGenre] = useState(null);
+  const [selectedAuthor, setSelectedAuthor] = useState(null);
+
+  const {user} = useAuth();
   // Функция для получения жанров
   const fetchGenres = async () => {
     try {
@@ -30,7 +39,7 @@ const BookList = () => {
   // Функция для получения авторов
   const fetchAuthors = async () => {
     try {
-      const response = await fetch('https://localhost:7040/Author', {
+      const response = await fetch('https://localhost:7040/Author', { 
         method: 'GET',
         credentials: 'include',
       });
@@ -116,6 +125,9 @@ const BookList = () => {
     }
   };
 
+  const [isModalVisible, setIsModalVisible] = useState(false); // for author
+  const [isModalGenreVisible, setIsModalGenreVisible] = useState(false);
+
   return (
     <div>
       {loading ? (
@@ -126,10 +138,39 @@ const BookList = () => {
             <Empty description="No books found" />
           ) : (
             <>
+            {user.isAdmin && (
+              <AdminTools setIsModalVisible={setIsModalVisible} setIsModalGenreVisible={setIsModalGenreVisible} />
+            )}
+              <div style={{ marginBottom: '20px', display: 'flex', justifyContent: 'space-between' }}>
+                <Select 
+                  placeholder="Select Genre" 
+                  style={{ width: '200px' }} 
+                  onChange={value => setSelectedGenre(value)} 
+                  allowClear
+                >
+                  {genres.map(genre => (
+                    <Option key={genre.id} value={genre.genre}>{genre.genre}</Option>
+                  ))}
+                </Select>
+                <Select 
+                  placeholder="Select Author" 
+                  style={{ width: '200px' }} 
+                  onChange={value => setSelectedAuthor(value)} 
+                  allowClear
+                >
+                  {authors.map(author => (
+                    <Option key={author.id} value={`${author.name} ${author.surname}`}>
+                      {`${author.name} ${author.surname}`}
+                    </Option>
+                  ))}
+                </Select>
+              </div>
+              
               <Row
                 gutter={[16, 32]} // Отступы между колонками
                 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
               >
+                
                 {books.map((book) => (
                   <Col
                     key={book.id}
@@ -141,6 +182,7 @@ const BookList = () => {
                     }}
                   >
                     <BookCard
+                      id = {book.id}
                       title={book.title}
                       author={book.authorName}
                       genre={book.genreName}
@@ -162,6 +204,8 @@ const BookList = () => {
                   pageSizeOptions={[5, 10, 20, 50]}
                 />
               </div>
+              <AddAuthor visible={isModalVisible} onClose={() => setIsModalVisible(false)} />
+              <AddGenre visible={isModalGenreVisible} onClose={() => setIsModalGenreVisible(false)} />
             </>
           )}
         </>

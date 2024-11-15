@@ -37,6 +37,7 @@ namespace Library.API.Controllers
                 var userId = User.Claims.First(x => x.Type == "UserId").Value;
                 Guid UserId = Guid.Parse(userId);
                 var response = await _infoUseCase.Execute(UserId);
+                response.Role = User.Claims.First(x => x.Type == "Role").Value;
                 return Ok(response);
         }
 

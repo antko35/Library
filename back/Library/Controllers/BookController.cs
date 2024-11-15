@@ -64,9 +64,9 @@ namespace Library.API.Controllers
 
         [HttpGet]
         [Route("getBypage/{page:int}/{pageSize:int}")]
-        public async Task<ActionResult<List<ResponseBookDto>>> GetPage(int page, int pageSize)
+        public async Task<ActionResult<List<ResponseBookDto>>> GetPage(int page, int pageSize, string author, string genre)
         {
-            var books = await _getBooksByPageUseCase.Execute(page, pageSize);
+            var books = await _getBooksByPageUseCase.Execute(page, pageSize,author,genre);
             return Ok(books);
         }
 

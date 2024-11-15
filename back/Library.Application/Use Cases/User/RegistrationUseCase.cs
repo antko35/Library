@@ -29,10 +29,21 @@ namespace Library.Application.Use_Cases.User
         {
             await _validationService.ValidateAsync(registerDto);
             var user = await _userRepository.GetByEmail(registerDto.Email);
+            var userByName = await _userRepository.GetByUsername(registerDto.UserName);
+            if (user != null && userByName != null)
+            {
+                throw new Exception("Email and Username already in use");
+            }
+            if (userByName != null)
+            {
+                throw new Exception("Username already in use");
+            }
             if (user != null)
             {
-                throw new Exception("Invalid email");
+                throw new Exception("Email already in use");
             }
+
+
             var userEntity = _mapper.Map<UserEntity>(registerDto);
 
             var userRole = await _userRepository.GetRole(Role.User); //для создания админа изменить здесь

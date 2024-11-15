@@ -1,12 +1,22 @@
 import React from 'react';
 import { Card, Col, Row,Button } from 'antd'; 
+import { useNavigate } from 'react-router-dom';
 
-const MyBookCard = ({ title, author, genre, returnDate, coverImagePath, onReturn }) => {
+const MyBookCard = ({ id,title, author, genre, returnDate, coverImagePath, onReturn }) => {
+  const navigate = useNavigate();
   const availability = returnDate === null ? 'Available' : `Booked until ${returnDate}`;
   const isAvailable = returnDate === null;
 
+  const handleClick = () =>{
+    navigate(`/book/${id}`);
+  }
+
   return (
-    <Card hoverable style={{ width: "30%"}}>
+    <Card 
+      hoverable 
+      style={{ width: "30%"}} 
+      onClick={handleClick}
+    >
       <Row gutter={16}>
         <Col span={8}> {}
           <img 
@@ -21,7 +31,12 @@ const MyBookCard = ({ title, author, genre, returnDate, coverImagePath, onReturn
           <p>Status: {availability}</p>
 
           {!isAvailable && (
-            <Button type="primary" onClick={onReturn}>
+            <Button 
+            type="primary" 
+            onClick= {(e) =>{
+              e.stopPropagation();
+              onReturn();
+              }}>
               Return
             </Button>
           )}

@@ -115,6 +115,7 @@ const MyBookList = () => {
                   style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
                 >
                   <MyBookCard
+                    id={book.id}
                     title={book.title}
                     author={book.authorName}
                     genre={book.genreName}
