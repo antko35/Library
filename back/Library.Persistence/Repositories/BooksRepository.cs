@@ -45,9 +45,9 @@ namespace Library.Persistence.Repositories
             await context.Books
                 .Where(x => x.Id == id)
                 .ExecuteUpdateAsync(setters => setters
-                .SetProperty(b => b.UserId, userId)
+                //.SetProperty(b => b.UserId, userId)
                 .SetProperty(b => b.BorrowDate, DateOnly.FromDateTime(DateTime.Now))
-                .SetProperty(b => b.ReturnDate, DateOnly.FromDateTime(DateTime.Now.AddDays(7)))
+                //.SetProperty(b => b.ReturnDate, DateOnly.FromDateTime(DateTime.Now.AddDays(7)))
                 );
         }
 
@@ -56,9 +56,9 @@ namespace Library.Persistence.Repositories
             await context.Books
                 .Where(x => x.Id == id)
                 .ExecuteUpdateAsync(setters => setters
-                .SetProperty(b => b.UserId, (Guid?)null)
+                //.SetProperty(b => b.UserId, (Guid?)null)
                 .SetProperty(b => b.BorrowDate, (DateOnly?)null)
-                .SetProperty(b => b.ReturnDate, (DateOnly?)null)
+                //.SetProperty(b => b.ReturnDate, (DateOnly?)null)
                 );
         }
 

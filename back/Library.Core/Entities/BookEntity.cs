@@ -18,10 +18,10 @@ namespace Library.Core.Entities
         public Guid AuthorId { get; set; }
         public AuthorEntity? Author { get; set; }
         public DateOnly? BorrowDate { get; set; }
-        public DateOnly? ReturnDate { get; set; }
+        //public DateOnly? ReturnDate { get; set; }
         public string? CoverImagePath { get; set; } = string.Empty;
 
-        public Guid? UserId { get; set; }
-        public UserEntity? User { get; set; }
+        //public Guid? UserId { get; set; }
+        public ICollection<UserEntity?> Users { get; set; } = new List<UserEntity?>();
     }
 }

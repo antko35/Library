@@ -22,6 +22,7 @@ namespace Library.Persistence
         public DbSet<AuthorEntity> Authors { get; set; }
         public DbSet<GenreEntity> Genres { get; set; }
         public DbSet<UserEntity> Users { get; set; }
+        public DbSet<CommentEntity> Comments { get; set; }
         public DbSet<RoleEntity> Roles { get; set; }
         public DbSet<UserRoleEntity> UserRole { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)

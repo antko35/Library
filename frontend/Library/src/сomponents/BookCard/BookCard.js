@@ -35,7 +35,7 @@ const BookCard = ({ id,title, author, genre, returnDate, coverImagePath, onBorro
                 e.stopPropagation();
                 onBorrow();
                 }}>
-              Borrow
+              Add to Profile
             </Button>
           )}
         </Col>
