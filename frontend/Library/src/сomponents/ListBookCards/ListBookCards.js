@@ -141,7 +141,7 @@ const BookList = () => {
             {user.isAdmin && (
               <AdminTools setIsModalVisible={setIsModalVisible} setIsModalGenreVisible={setIsModalGenreVisible} />
             )}
-              <div style={{ marginBottom: '20px', display: 'flex', justifyContent: 'space-between' }}>
+              {/* <div style={{ marginBottom: '20px', display: 'flex', justifyContent: 'space-between' }}>
                 <Select 
                   placeholder="Select Genre" 
                   style={{ width: '200px' }} 
@@ -164,7 +164,7 @@ const BookList = () => {
                     </Option>
                   ))}
                 </Select>
-              </div>
+              </div> */}
               
               <Row
                 gutter={[16, 32]} // Отступы между колонками

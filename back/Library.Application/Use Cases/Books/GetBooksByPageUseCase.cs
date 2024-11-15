@@ -18,7 +18,7 @@ namespace Library.Application.Use_Cases.Books
             _mapper = mapper;
             _unitOfWork = unitOfWork;
         }
-        public async Task<List<ResponseBookDto>> Execute(int page, int pageSize, string author, string genre)
+        public async Task<List<ResponseBookDto>> Execute(int page, int pageSize)
         {
             var books = await _unitOfWork.BookRepository.GetByPage(page, pageSize);
             var booksDto = _mapper.Map<List<ResponseBookDto>>(books);
