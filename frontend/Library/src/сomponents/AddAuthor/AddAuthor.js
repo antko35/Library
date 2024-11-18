@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Modal, Button, List, Input, Spin, DatePicker, message  } from 'antd';
+//import moment from 'moment';
+import dayjs from 'dayjs';
 
 const AddAuthor = ({ visible, onClose }) => {
   const [authors, setAuthors] = useState([]);
@@ -7,7 +9,7 @@ const AddAuthor = ({ visible, onClose }) => {
   const [newAuthorName, setNewAuthorName] = useState('');
   const [newAuthorSurname, setNewAuthorSurname] = useState('');
   const [newAuthorCountry, setNewAuthorCountry] = useState('');
-  const [newAuthorBirthDate, setNewAuthorBirthDate] = useState(null); 
+  const [newAuthorBirthDate, setNewAuthorBirthDate] = useState(''); 
 
   const fetchAuthors = async () => {
     setLoading(true);
@@ -47,13 +49,12 @@ const AddAuthor = ({ visible, onClose }) => {
     });
   };
 
+
   const handleAddAuthor = async () => {
     if (!newAuthorName || !newAuthorSurname || !newAuthorBirthDate || !newAuthorCountry) {
       message.error('Please, fill all fields.');
       return;
     }
-    
-
     try {
       await fetch('https://localhost:7040/Author', {
         method: 'POST',
@@ -65,7 +66,7 @@ const AddAuthor = ({ visible, onClose }) => {
       setNewAuthorName('');
       setNewAuthorSurname('');
       setNewAuthorCountry('');
-      setNewAuthorBirthDate(null);
+      setNewAuthorBirthDate('');
     } catch (error) {
       console.error('Error adding author:', error);
     }
@@ -108,10 +109,19 @@ const AddAuthor = ({ visible, onClose }) => {
           />
           <DatePicker
             placeholder="Дата рождения"
-            value={newAuthorBirthDate}
-            onChange={(date) => setNewAuthorBirthDate(date)} // Устанавливаем дату рождения
-            style={{ marginBottom: '10px', width: '100%' }} // Задаем ширину для DatePicker
-          />
+            value={newAuthorBirthDate ? dayjs(newAuthorBirthDate, 'YYYY-MM-DD') : null} // Parse the string into a Day.js object
+            format={'MM/DD/YYYY'}
+            onChange={(date) => {
+            if (date) {
+              const formattedDate = date.format('YYYY-MM-DD'); // Format using Day.js
+              console.log('Formatted Date:', formattedDate);
+              setNewAuthorBirthDate(formattedDate); // Save formatted date
+            } else {
+              setNewAuthorBirthDate(''); // Handle null case
+            }
+            }}
+            style={{ marginBottom: '10px', width: '100%' }}
+          />;
           <Button type="primary" onClick={handleAddAuthor} style={{ marginBottom: '20px' }}>
             Add Author
           </Button>
