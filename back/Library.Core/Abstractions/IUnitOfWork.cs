@@ -10,6 +10,7 @@ namespace Library.Core.Abstractions
         IBooksRepository BookRepository { get; }
         IGenreRepository GenreRepository { get; }
         IUserRepository UserRepository { get; }
+        ICommentRepository CommentRepository { get; }
 
         void Dispose();
         Task Save();

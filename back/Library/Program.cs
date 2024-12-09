@@ -10,6 +10,7 @@ using Library.Application.Mapping;
 using Library.Application.Services;
 using Library.Application.Use_Cases.Author;
 using Library.Application.Use_Cases.Books;
+using Library.Application.Use_Cases.Comment;
 using Library.Application.Use_Cases.Genre;
 using Library.Application.Use_Cases.User;
 using Library.Core.Abstractions;
@@ -106,6 +107,10 @@ builder.Services.AddScoped<GetAllAuthorsUseCase>();
 builder.Services.AddScoped<GetAuthorByIdUseCase>();
 builder.Services.AddScoped<GetBooksByAuthorUseCase>();
 builder.Services.AddScoped<UpdateAuthorUseCase>();
+
+builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+builder.Services.AddScoped<GetCommentsByBookUseCase>();
+builder.Services.AddScoped<GetCommentsCountUseCase>();
 
 builder.Services.AddValidatorsFromAssemblyContaining<LoginRequestUserDtoValidator>();
 

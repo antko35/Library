@@ -5,6 +5,7 @@ import useFetchBook from '../../hooks/useFetchBook';
 import useAuthors from '../../hooks/useAuthors';
 import useGenres from '../../hooks/useGenres';
 import { Center } from '@chakra-ui/react';
+import Comments from '../../сomponents/Comments/Comments';
 
 const { Title, Paragraph } = Typography;
 const { Option } = Select;
@@ -124,6 +125,7 @@ const BookPage = ({ isAdmin }) => {
           </Col>
         </Row>
       )}
+      <Comments bookId={book.id} />
     </Card>
   );
 };

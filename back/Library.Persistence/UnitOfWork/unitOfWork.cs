@@ -19,6 +19,7 @@ namespace Library.Persistence.UnitOfWork
         private IBooksRepository bookRepository;
         private IGenreRepository genreRepository;
         private IUserRepository userRepository;
+        private ICommentRepository commentRepository;
 
 
         public UnitOfWork(LibraryDbContext context)
@@ -62,6 +63,14 @@ namespace Library.Persistence.UnitOfWork
             }
         }
 
+        public ICommentRepository CommentRepository
+        {
+            get 
+            {
+                commentRepository ??= new CommentRepository(_context);
+                return commentRepository;
+            }
+        }
  
 
         public async Task Save()
