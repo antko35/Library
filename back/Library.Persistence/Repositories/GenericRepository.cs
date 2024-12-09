@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 using Library.Core.Entities;
 using Library.Core.Abstractions.IRepository;
+using System.Text;
+using Npgsql;
 
 namespace Library.Persistence.Repositories
 {
@@ -10,6 +12,7 @@ namespace Library.Persistence.Repositories
     {
         internal LibraryDbContext context;
         internal DbSet<TEntity> dbSet;
+        public string tableName = typeof(TEntity).Name.Replace("Entity", string.Empty) + 's';
 
         public GenericRepository(LibraryDbContext context)
         {
@@ -17,38 +20,80 @@ namespace Library.Persistence.Repositories
             dbSet = context.Set<TEntity>();
         }
 
+        /* public virtual async Task<IEnumerable<TEntity>> Get(
+             Expression<Func<TEntity, bool>> filter = null,
+             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+             string includeProperties = "")
+         {
+             IQueryable<TEntity> query = dbSet;
+
+             if (filter != null)
+             {
+                 query = query.Where(filter);
+             }
+
+             foreach (var includeProperty in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+             {
+                 query = query.Include(includeProperty);
+             }
+
+             if (orderBy != null)
+             {
+                 return await orderBy(query).ToListAsync();
+             }
+             else
+             {
+                 return await query.ToListAsync();
+             }
+         }*/
+
         public virtual async Task<IEnumerable<TEntity>> Get(
-            Expression<Func<TEntity, bool>> filter = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            string includeProperties = "")
+        string filter = null,
+        string orderBy = null,
+        string includeProperties = null)
         {
-            IQueryable<TEntity> query = dbSet;
 
-            if (filter != null)
+
+            var sql = new StringBuilder($"SELECT * FROM public.\"{tableName}\"");
+
+
+
+
+            if (!string.IsNullOrEmpty(filter))
             {
-                query = query.Where(filter);
+                sql.Append($" WHERE {filter}");
             }
 
-            foreach (var includeProperty in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            if (!string.IsNullOrEmpty(orderBy))
+
             {
-                query = query.Include(includeProperty);
+                sql.Append($" ORDER BY {orderBy}");
             }
 
-            if (orderBy != null)
-            {
-                return await orderBy(query).ToListAsync();
-            }
-            else
-            {
-                return await query.ToListAsync();
-            }
+            return await dbSet.FromSqlRaw(sql.ToString()).ToListAsync();
         }
 
         public virtual async Task<TEntity?> GetByID(object id)
         {
-
-            return await dbSet.AsNoTracking().FirstOrDefaultAsync(x => x.Id == (Guid)id);
+            var sql = new StringBuilder($@" SELECT *
+            FROM ""{tableName}"" AS b
+            WHERE b.""Id"" = @id
+            LIMIT 1");
+            var idParameter = new NpgsqlParameter("@id", NpgsqlTypes.NpgsqlDbType.Uuid)
+            {
+                Value = (Guid)id
+            };
+            var entity = await dbSet.FromSqlRaw(sql.ToString(), idParameter)
+                .AsNoTracking()
+                .FirstOrDefaultAsync();
+            return entity;
+            //return await dbSet.AsNoTracking().FirstOrDefaultAsync(x => x.Id == (Guid)id);
         }
+
+        /* {
+
+             return await dbSet.AsNoTracking().FirstOrDefaultAsync(x => x.Id == (Guid)id);
+         }*/
 
         public virtual async Task Insert(TEntity entity)
         {
