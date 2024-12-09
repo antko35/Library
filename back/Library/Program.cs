@@ -111,6 +111,7 @@ builder.Services.AddScoped<UpdateAuthorUseCase>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<GetCommentsByBookUseCase>();
 builder.Services.AddScoped<GetCommentsCountUseCase>();
+builder.Services.AddScoped<CreateCommentUseCase>();
 
 builder.Services.AddValidatorsFromAssemblyContaining<LoginRequestUserDtoValidator>();
 
