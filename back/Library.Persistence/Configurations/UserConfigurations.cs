@@ -16,6 +16,8 @@ namespace Library.Persistence.Configurations
         {
             builder.HasKey(g => g.Id);
 
+           
+             
            /* builder
                 .HasOne(u => u.Role)
                 .WithMany(r => r.Users)

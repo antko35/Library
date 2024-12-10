@@ -25,6 +25,7 @@ namespace Library.Persistence
         public DbSet<CommentEntity> Comments { get; set; }
         public DbSet<RoleEntity> Roles { get; set; }
         public DbSet<UserRoleEntity> UserRole { get; set; }
+        //public DbSet<UserBookEntity> UserBook { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -34,6 +35,7 @@ namespace Library.Persistence
             modelBuilder.ApplyConfiguration(new UserConfigurations());
             modelBuilder.ApplyConfiguration(new RoleConfigurations());
             modelBuilder.ApplyConfiguration(new UserConfigurations());
+           // modelBuilder.ApplyConfiguration(new UserBookConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

@@ -13,9 +13,11 @@ namespace Library.Application.Use_Cases.Books
     public class BorrowBookUseCase
     {
         private readonly IBooksRepository _booksRepository;
+        private readonly IUnitOfWork _unitOfWork;
         public BorrowBookUseCase( IUnitOfWork unitOfWork)
         {
             _booksRepository = unitOfWork.BookRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task Execute(Guid bookId, Guid userId)
@@ -27,6 +29,7 @@ namespace Library.Application.Use_Cases.Books
             }
 
             await _booksRepository.BorrowBook(bookId, userId);
+            await _unitOfWork.Save();
         }
     }
 }

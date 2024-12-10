@@ -149,6 +149,21 @@ namespace Library.Persistence.Migrations
                     b.ToTable("Roles");
                 });
 
+            modelBuilder.Entity("Library.Core.Entities.UserBookEntity", b =>
+                {
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("BookId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("UserId", "BookId");
+
+                    b.HasIndex("BookId");
+
+                    b.ToTable("UserBook");
+                });
+
             modelBuilder.Entity("Library.Core.Entities.UserEntity", b =>
                 {
                     b.Property<Guid>("Id")
@@ -237,6 +252,25 @@ namespace Library.Persistence.Migrations
                 });
 
             modelBuilder.Entity("Library.Core.Entities.CommentEntity", b =>
+                {
+                    b.HasOne("Library.Core.Entities.BookEntity", "Book")
+                        .WithMany()
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Library.Core.Entities.UserEntity", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Book");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Library.Core.Entities.UserBookEntity", b =>
                 {
                     b.HasOne("Library.Core.Entities.BookEntity", "Book")
                         .WithMany()

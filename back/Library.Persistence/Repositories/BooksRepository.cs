@@ -15,15 +15,7 @@ namespace Library.Persistence.Repositories
       
         public async Task<List<BookEntity>> GetByPage(int page, int pageSize)
         {
-            /*IQueryable<BookEntity> query = context.Books.AsNoTracking();
-            if (authorId.HasValue)
-            {
-                query.Where(a => a.Id == authorId);
-            }
-            if (genreId.HasValue)
-            {
-                query.Where(g => g. == genreId);
-            }*/
+           
             return await context.Books
                 .AsNoTracking()
                 .OrderBy(x => x.Title)
@@ -42,13 +34,19 @@ namespace Library.Persistence.Repositories
         }
         public async Task BorrowBook(Guid id, Guid userId)
         {
-            await context.Books
-                .Where(x => x.Id == id)
-                .ExecuteUpdateAsync(setters => setters
-                //.SetProperty(b => b.UserId, userId)
-                .SetProperty(b => b.BorrowDate, DateOnly.FromDateTime(DateTime.Now))
-                //.SetProperty(b => b.ReturnDate, DateOnly.FromDateTime(DateTime.Now.AddDays(7)))
-                );
+            /* await context.Books
+                 .Where(x => x.Id == id)
+                 .ExecuteUpdateAsync(setters => setters
+                 //.SetProperty(b => b.UserId, userId)
+                 .SetProperty(b => b.BorrowDate, DateOnly.FromDateTime(DateTime.Now))
+                 //.SetProperty(b => b.ReturnDate, DateOnly.FromDateTime(DateTime.Now.AddDays(7)))
+                 );*/
+            var book = await context.Books.FirstOrDefaultAsync(x => x.Id == id) ?? throw new ArgumentNullException();
+
+            var user = await context.Users.Include(u => u.Books).FirstOrDefaultAsync(u => u.Id == userId);
+
+            user.Books.Add(book);
+
         }
 
         public async Task ReturnBook(Guid id)

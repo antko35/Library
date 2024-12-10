@@ -46,6 +46,7 @@ const Comments = ({ bookId }) => {
   };
 
   const handleAddComment = async (values) => {
+
     const { comment, rate } = values;
     setAddingComment(true);
     try {
@@ -64,6 +65,7 @@ const Comments = ({ bookId }) => {
 
       // Обновляем список комментариев
       fetchComments(currentPage);
+
     } catch (error) {
       notification.error({
         message: "Ошибка добавления",
