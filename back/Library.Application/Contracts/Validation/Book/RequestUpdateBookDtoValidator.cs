@@ -17,7 +17,7 @@ namespace Library.Application.Contracts.Validation.Book
 
             RuleFor(x => x.Description)
                 .NotEmpty().WithMessage("Description is required.")
-                .MaximumLength(200).WithMessage("Description must not exceed 200 characters.");
+                .MaximumLength(500).WithMessage("Description must not exceed 500 characters.");
 
             RuleFor(x => x.ISBN)
                 .NotEmpty().WithMessage("ISBN is required.")
