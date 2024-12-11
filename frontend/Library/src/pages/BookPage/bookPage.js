@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { Button, Card, Typography, Input, Form, Spin, Row, Col, Select } from 'antd';
+import { useParams, useNavigate } from 'react-router-dom';
+import { Button, Card, Typography, Input, Form, Spin, Row, Col, Select, Modal } from 'antd';
 import useFetchBook from '../../hooks/useFetchBook';
 import useAuthors from '../../hooks/useAuthors';
 import useGenres from '../../hooks/useGenres';
@@ -18,19 +18,41 @@ const BookPage = ({ isAdmin }) => {
   const { genres, loading: loadingGenres, error: errorGenres } = useGenres();
   const { authors, loading: loadingAuthors, error: errorAuthors } = useAuthors();
 
+  const navigate = useNavigate();
+
   const handleEdit = () => {
     setIsEditing(true);
     form.setFieldsValue(book); // Заполняем форму текущими данными книги
   };
 
+  const handleDelete = () => {
+    Modal.confirm({
+      title: 'Вы уверены?',
+      content: 'Это действие не может быть отменено.',
+      okText: 'Да',
+      okType: 'danger',
+      cancelText: 'Нет',
+      onOk: async () => {
+        try {
+          await fetch(`https://localhost:7040/Books/delete/${book.id}`, {
+            method: 'DELETE',
+            credentials: 'include',
+          });
+          navigate('/books');
+        } catch (error) {
+          console.error('Error deleting book:', error);
+        }
+      },
+    });
+  };
   const handleSave = async (values) => {
 
     const updatedValues = {
       id: book.id,
       isbn: book.isbn,
-      ...values, // Остальные поля добавляются после id и isbn
+      ...values, 
     };
-    // Сохранение изменений на сервере
+
     try {
       await fetch(`https://localhost:7040/Books/update`, {
         method: 'PUT',
@@ -120,6 +142,11 @@ const BookPage = ({ isAdmin }) => {
             {isAdmin && (
               <Button type="primary" onClick={handleEdit} style={{ marginTop: 16 }}>
                 Edit
+              </Button>
+            )}
+            {isAdmin && (
+              <Button type="primary" danger onClick={handleDelete} style={{ marginLeft : 15 , marginTop: 16 }}>
+                Delete
               </Button>
             )}
           </Col>
