@@ -1,7 +1,7 @@
 import React from 'react';
 import {  Box, Text } from '@chakra-ui/react'; // or the appropriate component library
 import { Flex,Button} from 'antd';
-const AdminTools = ({ setIsModalVisible, setIsModalGenreVisible }) => {
+const AdminTools = ({ setIsModalVisible, setIsModalGenreVisible, setIsModalBookVisible }) => {
   return (
     <div wrap style={{
           display: 'flex',
@@ -22,7 +22,7 @@ const AdminTools = ({ setIsModalVisible, setIsModalGenreVisible }) => {
         Admin Tools
       </Text>
       <Flex gap="small" wrap="wrap" justify="center" align="center">
-        <Button>Add book</Button>
+        <Button onClick={() => setIsModalBookVisible(true)}>Create books</Button>
         <Button onClick={() => setIsModalVisible(true)}>Manage authors</Button>
         <Button onClick={() => setIsModalGenreVisible(true)}>Manage genres</Button>
       </Flex>

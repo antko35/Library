@@ -4,6 +4,7 @@ import { Row, Col, Pagination, Spin, Empty,Select, Button,Flex } from 'antd'; //
 import { useAuth } from '../../context/AuthContext';
 import AddAuthor from '../AddAuthor/AddAuthor';
 import AddGenre from '../AddGenre/AddGenre';
+import AddBook from '../AddBook/AddBook';
 import AdminTools from '../AdminTools/AdminTools';
 const { Option } = Select;
 
@@ -125,8 +126,31 @@ const BookList = () => {
     }
   };
 
+  const handleCreateBook = async (values) =>{
+    try {
+      const response = await fetch('https://localhost:7040/Books/create', {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(values),
+      });
+      if (response.ok) {
+        fetchBooks(page, pageSize);
+        console.log('Book successfully created!');
+        return response;
+        setIsModalBookVisible(false);
+      } else {
+        console.error('Error creating the book.');
+      }
+    } catch (error) {
+      console.error('Failed to create the book.', error);
+    }
+  }
   const [isModalVisible, setIsModalVisible] = useState(false); // for author
   const [isModalGenreVisible, setIsModalGenreVisible] = useState(false);
+  const [isModalBookVisible, setIsModalBookVisible] = useState(false);
 
   return (
     <div>
@@ -139,7 +163,7 @@ const BookList = () => {
           ) : (
             <>
             {user.isAdmin && (
-              <AdminTools setIsModalVisible={setIsModalVisible} setIsModalGenreVisible={setIsModalGenreVisible} />
+              <AdminTools setIsModalVisible={setIsModalVisible} setIsModalGenreVisible={setIsModalGenreVisible} setIsModalBookVisible={setIsModalBookVisible} />
             )}
               <Row
                 gutter={[16, 32]} // Отступы между колонками
@@ -181,6 +205,7 @@ const BookList = () => {
               </div>
               <AddAuthor visible={isModalVisible} onClose={() => setIsModalVisible(false)} />
               <AddGenre visible={isModalGenreVisible} onClose={() => setIsModalGenreVisible(false)} />
+              <AddBook visible={isModalBookVisible} onCreate ={handleCreateBook} onClose={() => setIsModalBookVisible(false)} />
             </>
           )}
         </>
