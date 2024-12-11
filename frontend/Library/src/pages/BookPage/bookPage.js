@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Button, Card, Typography, Input, Form, Spin, Row, Col, Select, Modal } from 'antd';
+import { Button, Card, Typography, Input, Form, Spin, Row, Col, Select, Modal, Upload, message } from 'antd';
+import { UploadOutlined } from "@ant-design/icons";
 import useFetchBook from '../../hooks/useFetchBook';
 import useAuthors from '../../hooks/useAuthors';
 import useGenres from '../../hooks/useGenres';
 import { Center } from '@chakra-ui/react';
 import Comments from '../../сomponents/Comments/Comments';
+import axios from "axios";
 
 const { Title, Paragraph } = Typography;
 const { Option } = Select;
@@ -17,6 +19,9 @@ const BookPage = ({ isAdmin }) => {
   const [form] = Form.useForm();
   const { genres, loading: loadingGenres, error: errorGenres } = useGenres();
   const { authors, loading: loadingAuthors, error: errorAuthors } = useAuthors();
+  const [imageUrl, setImageUrl] = useState(null);
+  const [imageFile, setImageFile] = useState(null);
+  const [uploading, setUploading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -45,8 +50,8 @@ const BookPage = ({ isAdmin }) => {
       },
     });
   };
-  const handleSave = async (values) => {
 
+  const handleSave = async (values) => {
     const updatedValues = {
       id: book.id,
       isbn: book.isbn,
@@ -54,7 +59,7 @@ const BookPage = ({ isAdmin }) => {
     };
 
     try {
-      await fetch(`https://localhost:7040/Books/update`, {
+      var response = await fetch(`https://localhost:7040/Books/update`, {
         method: 'PUT',
         credentials: 'include',
         headers: {
@@ -63,12 +68,42 @@ const BookPage = ({ isAdmin }) => {
         body: JSON.stringify(updatedValues),
       });
       console.log(updatedValues);
-
-      //setBook(values); // Обновляем данные о книге
+      const data = await response.json();
+      console.log(data);
+      if (imageFile) {
+        await handleUploadImage(imageFile, data.id); // Используем ID книги
+      }
       loadBookData();
       setIsEditing(false);
     } catch (error) {
       console.error('Ошибка при сохранении изменений:', error);
+    }
+  };
+
+  const handleUploadImage = async (file, bookId) => {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    setUploading(true);
+    try {
+      console.log("Uploading");
+      await axios.post(`https://localhost:7040/Books/upload-cover/${bookId}`, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+        withCredentials: true,
+      });
+      message.success("Обложка загружена успешно");
+    } catch (error) {
+      message.error("Ошибка загрузки обложки");
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const handleFileChange = (info) => {
+    if (info.file && info.file.originFileObj) {
+      const objectUrl = URL.createObjectURL(info.file.originFileObj);
+      setImageUrl(objectUrl); // Предпросмотр изображения
+      setImageFile(info.file.originFileObj); // Сохранение файла для последующей загрузки
     }
   };
 
@@ -103,6 +138,22 @@ const BookPage = ({ isAdmin }) => {
           <Form.Item name="description" label="Description">
             <Input.TextArea rows={4} />
           </Form.Item>
+
+          <Form.Item label="Обложка">
+          <Upload
+            customRequest={() => false}
+            onChange={handleFileChange}
+            showUploadList={true}
+            accept="image/*"
+          >
+            <Button icon={<UploadOutlined />} loading={uploading}>
+              Загрузить изображение
+            </Button>
+          </Upload>
+          {imageUrl && <img src={imageUrl} alt="Обложка" style={{ marginTop: 10, maxHeight: 200 }} />}
+        </Form.Item>
+
+
           <Button type="primary" htmlType="submit">Save</Button>
           <Button onClick={() => setIsEditing(false)} style={{ marginLeft: 8 }}>Cancle</Button>
         </Form>
