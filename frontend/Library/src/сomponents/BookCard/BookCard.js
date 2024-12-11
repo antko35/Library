@@ -2,10 +2,10 @@ import React from 'react';
 import { Card, Col, Row, Button} from 'antd'; 
 import { useNavigate } from 'react-router-dom';
 
-const BookCard = ({ id,title, author, genre, returnDate, coverImagePath, onBorrow }) => {
+const BookCard = ({ id,title, author, genre, inProfile, coverImagePath, onBorrow }) => {
   const navigate = useNavigate();
-  const availability = returnDate === null ? 'Available' : `booked until ${returnDate}`;
-  const isAvailable = returnDate === null;
+  const availability = inProfile === false ? 'Available' : `In profile`;
+  const isAvailable = inProfile === false;
 
   const handleClick = () =>{
     navigate(`/book/${id}`);

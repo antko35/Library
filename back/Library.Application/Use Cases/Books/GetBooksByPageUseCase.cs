@@ -18,10 +18,23 @@ namespace Library.Application.Use_Cases.Books
             _mapper = mapper;
             _unitOfWork = unitOfWork;
         }
-        public async Task<List<ResponseBookDto>> Execute(int page, int pageSize)
+        public async Task<List<ResponseBookDto>> Execute(int page, int pageSize, string userId)
         {
+            var UserId = Guid.Parse(userId);
             var books = await _unitOfWork.BookRepository.GetByPage(page, pageSize);
             var booksDto = _mapper.Map<List<ResponseBookDto>>(books);
+
+            var user = await _unitOfWork.UserRepository.GetInfo(UserId);
+            if (user == null)
+                throw new Exception("Пользователь не найден");
+
+            var userBookIds = user.Books.Select(b => b.Id).ToHashSet();
+
+            foreach (var bookDto in booksDto)
+            {
+                bookDto.InProfile = userBookIds.Contains(bookDto.Id);
+            }
+
             return booksDto;
         }
     }

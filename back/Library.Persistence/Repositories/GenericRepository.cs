@@ -53,11 +53,7 @@ namespace Library.Persistence.Repositories
         string includeProperties = null)
         {
 
-
             var sql = new StringBuilder($"SELECT * FROM public.\"{tableName}\"");
-
-
-
 
             if (!string.IsNullOrEmpty(filter))
             {
@@ -95,6 +91,10 @@ namespace Library.Persistence.Repositories
              return await dbSet.AsNoTracking().FirstOrDefaultAsync(x => x.Id == (Guid)id);
          }*/
 
+        /*public virtual async Task<IEnumerable<TEntity>> GetWithTracking(Guid Id)
+        {
+            var entity = context.
+        }*/
         public virtual async Task Insert(TEntity entity)
         {
             await dbSet.AddAsync(entity);

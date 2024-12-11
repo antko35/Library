@@ -28,7 +28,7 @@ const MyBookCard = ({ id,title, author, genre, returnDate, coverImagePath, onRet
         <Col span={16}> { }
           <Card.Meta title={title} description={`By ${author}`} />
           <p>Genre: {genre}</p>
-          <p>Status: {availability}</p>
+          
 
           {!isAvailable && (
             <Button 
@@ -37,7 +37,7 @@ const MyBookCard = ({ id,title, author, genre, returnDate, coverImagePath, onRet
               e.stopPropagation();
               onReturn();
               }}>
-              Return
+              Убрать из профиля
             </Button>
           )}
         </Col>

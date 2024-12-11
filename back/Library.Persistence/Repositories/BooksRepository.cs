@@ -34,13 +34,7 @@ namespace Library.Persistence.Repositories
         }
         public async Task BorrowBook(Guid id, Guid userId)
         {
-            /* await context.Books
-                 .Where(x => x.Id == id)
-                 .ExecuteUpdateAsync(setters => setters
-                 //.SetProperty(b => b.UserId, userId)
-                 .SetProperty(b => b.BorrowDate, DateOnly.FromDateTime(DateTime.Now))
-                 //.SetProperty(b => b.ReturnDate, DateOnly.FromDateTime(DateTime.Now.AddDays(7)))
-                 );*/
+
             var book = await context.Books.FirstOrDefaultAsync(x => x.Id == id) ?? throw new ArgumentNullException();
 
             var user = await context.Users.Include(u => u.Books).FirstOrDefaultAsync(u => u.Id == userId);
@@ -49,15 +43,13 @@ namespace Library.Persistence.Repositories
 
         }
 
-        public async Task ReturnBook(Guid id)
+        public async Task ReturnBook(Guid id, Guid userId)
         {
-            await context.Books
-                .Where(x => x.Id == id)
-                .ExecuteUpdateAsync(setters => setters
-                //.SetProperty(b => b.UserId, (Guid?)null)
-                .SetProperty(b => b.BorrowDate, (DateOnly?)null)
-                //.SetProperty(b => b.ReturnDate, (DateOnly?)null)
-                );
+            var book = await context.Books.FirstAsync(x => x.Id == id);
+            var user = await context.Users.Include(x => x.Books).FirstAsync(x => x.Id == userId);
+
+            user.Books.Remove(book);
+           
         }
 
         public async Task UploadCover(Guid bookd, string fileName)

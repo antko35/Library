@@ -66,7 +66,8 @@ namespace Library.API.Controllers
         [Route("getBypage/{page:int}/{pageSize:int}")]
         public async Task<ActionResult<List<ResponseBookDto>>> GetPage(int page, int pageSize)
         {
-            var books = await _getBooksByPageUseCase.Execute(page, pageSize);
+            var userId = User.Claims.First(x => x.Type == "UserId").Value;
+            var books = await _getBooksByPageUseCase.Execute(page, pageSize, userId);
             return Ok(books);
         }
 

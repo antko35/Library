@@ -26,16 +26,10 @@ namespace Library.Application.Use_Cases.Books
             {
                 throw new KeyNotFoundException("Book doesnt exist");
             }
-            /*if (book.UserId == null)
-            {
-                throw new Exception("Book wasn't borrowed");
-            }
-            if (book.UserId != userId)
-            {
-                throw new Exception("This user did not take this book");
-            }*/
+            
 
-            await _booksRepository.ReturnBook(bookId);
+            await _booksRepository.ReturnBook(bookId, userId);
+            await _unitOfWork.Save();
         }
     }
 }

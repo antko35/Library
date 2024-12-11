@@ -141,31 +141,6 @@ const BookList = () => {
             {user.isAdmin && (
               <AdminTools setIsModalVisible={setIsModalVisible} setIsModalGenreVisible={setIsModalGenreVisible} />
             )}
-              {/* <div style={{ marginBottom: '20px', display: 'flex', justifyContent: 'space-between' }}>
-                <Select 
-                  placeholder="Select Genre" 
-                  style={{ width: '200px' }} 
-                  onChange={value => setSelectedGenre(value)} 
-                  allowClear
-                >
-                  {genres.map(genre => (
-                    <Option key={genre.id} value={genre.genre}>{genre.genre}</Option>
-                  ))}
-                </Select>
-                <Select 
-                  placeholder="Select Author" 
-                  style={{ width: '200px' }} 
-                  onChange={value => setSelectedAuthor(value)} 
-                  allowClear
-                >
-                  {authors.map(author => (
-                    <Option key={author.id} value={`${author.name} ${author.surname}`}>
-                      {`${author.name} ${author.surname}`}
-                    </Option>
-                  ))}
-                </Select>
-              </div> */}
-              
               <Row
                 gutter={[16, 32]} // Отступы между колонками
                 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
@@ -186,7 +161,7 @@ const BookList = () => {
                       title={book.title}
                       author={book.authorName}
                       genre={book.genreName}
-                      returnDate={book.returnDate}
+                      inProfile={book.inProfile}
                       coverImagePath={book.coverImagePath}
                       onBorrow={() => handleBorrow(book.id)}
                     />

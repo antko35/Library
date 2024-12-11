@@ -8,7 +8,7 @@ namespace Library.Core.Abstractions.IRepository
         Task<BookEntity?> GetByISBN(string isbn);
         Task<List<BookEntity>> GetByPage(int page, int pageSize);
         Task<int> GetCount();
-        Task ReturnBook(Guid id);
+        Task ReturnBook(Guid id, Guid userId);
         Task UploadCover(Guid bookd, string fileName);
     }
 }
