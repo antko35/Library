@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Modal, Button, List, Input, Spin, DatePicker, message  } from 'antd';
 
-const AddAuthor = ({ visible, onClose }) => {
-  const [authors, setAuthors] = useState([]);
+const AddAuthor = ({ authors,setAuthors, visible, onClose }) => {
+  //const [authors, setAuthors] = useState([]);
   const [loading, setLoading] = useState(false);
   const [newAuthorName, setNewAuthorName] = useState('');
   const [newAuthorSurname, setNewAuthorSurname] = useState('');
@@ -28,11 +28,11 @@ const AddAuthor = ({ visible, onClose }) => {
   const handleDelete = async (authorId) => {
     // Подтверждение перед удалением
     Modal.confirm({
-      title: 'Are you shure?',
-      content: 'This action cannot be undone.',
-      okText: 'Yes',
+      title: 'Вы уверены?',
+      content: 'Это действие не отменить.',
+      okText: 'Да',
       okType: 'danger',
-      cancelText: 'No',
+      cancelText: 'Нет',
       onOk: async () => {
         try {
           await fetch(`https://localhost:7040/Author/${authorId}`, {
@@ -52,16 +52,18 @@ const AddAuthor = ({ visible, onClose }) => {
       message.error('Please, fill all fields.');
       return;
     }
-    
+    console.log(newAuthorBirthDate);
+    const formattedDate = newAuthorBirthDate.toISOString().split('T')[0];
 
     try {
       await fetch('https://localhost:7040/Author', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: newAuthorName, surname: newAuthorSurname, country: newAuthorCountry, birthDate: newAuthorBirthDate}),
+        body: JSON.stringify({ name: newAuthorName, surname: newAuthorSurname, country: newAuthorCountry, birthDate: formattedDate}),
         credentials: 'include',
       });
       fetchAuthors(); // Refresh authors after adding
+      
       setNewAuthorName('');
       setNewAuthorSurname('');
       setNewAuthorCountry('');

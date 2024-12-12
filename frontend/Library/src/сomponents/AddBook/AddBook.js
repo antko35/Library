@@ -6,56 +6,36 @@ import { json } from "react-router-dom";
 
 const { Option } = Select;
 
-const AddBook = ({ visible, onClose, onCreate }) => {
+const AddBook = ({ genres, authors, visible, onClose, onCreate }) => {
   const [form] = Form.useForm();
-  const [authors, setAuthors] = useState([]);
-  const [genres, setGenres] = useState([]);
   const [uploading, setUploading] = useState(false);
   const [imageUrl, setImageUrl] = useState(null);
   const [imageFile, setImageFile] = useState(null);
 
-  useEffect(() => {
-    // Загрузка авторов и жанров с бэкенда
-    const fetchData = async () => {
-      try {
-        const [authorsResponse, genresResponse] = await Promise.all([
-          axios.get("https://localhost:7040/Author",{withCredentials : true}),
-          axios.get("https://localhost:7040/Genre",{withCredentials : true}),
-        ]);
+  // useEffect(() => {
+  //   // Загрузка авторов и жанров с бэкенда
+  //   const fetchData = async () => {
+  //     try {
+  //       const [authorsResponse, genresResponse] = await Promise.all([
+  //         axios.get("https://localhost:7040/Author",{withCredentials : true}),
+  //         axios.get("https://localhost:7040/Genre",{withCredentials : true}),
+  //       ]);
 
-        const formattedAuthors = authorsResponse.data.map((author) => ({
-            id: author.id,
-            fullName: `${author.name} ${author.surname}`,
-          }));
+  //       const formattedAuthors = authorsResponse.data.map((author) => ({
+  //           id: author.id,
+  //           fullName: `${author.name} ${author.surname}`,
+  //         }));
 
-        setAuthors(formattedAuthors);
-        setGenres(genresResponse.data);
-      } catch (error) {
-        message.error("Ошибка загрузки авторов или жанров");
-      }
-    };
+  //       //setAuthors(formattedAuthors);
+  //       //setGenres(genresResponse.data);
+  //     } catch (error) {
+  //       message.error("Ошибка загрузки авторов или жанров");
+  //     }
+  //   };
 
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
 
-  const handleUpload = async ({ file }) => {
-    const formData = new FormData();
-    formData.append("file", file);
-
-    setUploading(true);
-    try {
-      const response = await axios.post("/api/upload", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-
-      setImageUrl(response.data.imageUrl); // Сохранить URL загруженного изображения
-      message.success("Изображение загружено успешно");
-    } catch (error) {
-      message.error("Ошибка загрузки изображения");
-    } finally {
-      setUploading(false);
-    }
-  };
 
   const handleSubmit = async () => {
     try {
@@ -65,7 +45,7 @@ const AddBook = ({ visible, onClose, onCreate }) => {
       };
 
       var bookResponse = await onCreate(payload);
-      const bookData = await bookResponse.json();
+      var bookData = await bookResponse.json();
       console.log(payload);
       if (imageFile) {
         await handleUploadImage(imageFile, bookData.id); // Используем ID книги
@@ -74,7 +54,8 @@ const AddBook = ({ visible, onClose, onCreate }) => {
       form.resetFields();
       setImageUrl(null);
     } catch (error) {
-      message.error(`Пожалуйста, заполните все обязательные поля. ${error.message}`);
+      console.log(error)
+      message.error(`Пожалуйста, заполните все обязательные поля. ${error}`);
     }
   };
 
@@ -138,7 +119,7 @@ const AddBook = ({ visible, onClose, onCreate }) => {
           <Select placeholder="Выберите автора">
             {authors.map((author) => (
               <Option key={author.id} value={author.id}>
-                {author.fullName}
+                { `${author.name} ${author.surname}`}
               </Option>
             ))}
           </Select>

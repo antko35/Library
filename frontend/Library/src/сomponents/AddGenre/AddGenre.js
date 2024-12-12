@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Modal, Button, List, Input, Spin, message } from 'antd';
 
-const AddGenre = ({ visible, onClose }) => {
-  const [genres, setGenres] = useState([]);
+const AddGenre = ({genres,setGenres, visible, onClose }) => {
+  
   const [loading, setLoading] = useState(false);
   const [newGenreName, setNewGenreName] = useState('');
 

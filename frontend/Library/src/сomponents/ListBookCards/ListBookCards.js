@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import BookCard from '../BookCard/BookCard'; // Импортируем компонент карточки книги
-import { Row, Col, Pagination, Spin, Empty,Select, Button,Flex } from 'antd'; // Добавляем компонент Empty для пустого состояния
+import { Row, Col, Pagination, Spin, Empty,Select, Button,Flex, message } from 'antd'; // Добавляем компонент Empty для пустого состояния
 import { useAuth } from '../../context/AuthContext';
 import AddAuthor from '../AddAuthor/AddAuthor';
 import AddGenre from '../AddGenre/AddGenre';
@@ -142,10 +142,12 @@ const BookList = () => {
         return response;
         setIsModalBookVisible(false);
       } else {
+        
+        //return data;
         console.error('Error creating the book.');
       }
     } catch (error) {
-      console.error('Failed to create the book.', error);
+      console.error('Failed to create the book.', error.message);
     }
   }
   const [isModalVisible, setIsModalVisible] = useState(false); // for author
@@ -203,9 +205,9 @@ const BookList = () => {
                   pageSizeOptions={[5, 10, 20, 50]}
                 />
               </div>
-              <AddAuthor visible={isModalVisible} onClose={() => setIsModalVisible(false)} />
-              <AddGenre visible={isModalGenreVisible} onClose={() => setIsModalGenreVisible(false)} />
-              <AddBook visible={isModalBookVisible} onCreate ={handleCreateBook} onClose={() => setIsModalBookVisible(false)} />
+              <AddAuthor authors={authors} setAuthors={setAuthors} visible={isModalVisible} onClose={() => setIsModalVisible(false)} />
+              <AddGenre genres={genres} setGenres={setGenres} visible={isModalGenreVisible} onClose={() => setIsModalGenreVisible(false)} />
+              <AddBook genres ={genres} authors={authors} visible={isModalBookVisible} onCreate ={handleCreateBook} onClose={() => setIsModalBookVisible(false)} />
             </>
           )}
         </>

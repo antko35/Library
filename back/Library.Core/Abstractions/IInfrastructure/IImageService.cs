@@ -5,6 +5,7 @@ namespace Library.Core.Abstractions.IInfrastructure
 {
     public interface IImageService
     {
+        void DeleteCover(string? CoverImagePath);
         Task<string> UploadCover(BookEntity book, IFormFile file);
     }
 }

@@ -36,5 +36,21 @@ namespace Library.Application.Services
 
             return fileName;
         }
+        public void DeleteCover(string? CoverImagePath)
+        {
+            if (!string.IsNullOrEmpty(CoverImagePath))
+            {
+                var oldFilePath = Path.Combine("wwwroot", "uploads", CoverImagePath);
+
+                // Удаляем старую фотографию, если она существует
+                if (System.IO.File.Exists(oldFilePath))
+                {
+                    System.IO.File.Delete(oldFilePath);
+                }
+
+                
+            }
+            
+        }
     }
 }
