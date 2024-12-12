@@ -13,12 +13,16 @@ namespace Library.Persistence.Repositories
     {
         public BooksRepository(LibraryDbContext context) : base(context) { }
       
-        public async Task<List<BookEntity>> GetByPage(int page, int pageSize)
+        public async Task<List<BookEntity>> GetByPage(int page, int pageSize, string search)
         {
-           
-            return await context.Books
-                .AsNoTracking()
-                .OrderBy(x => x.Title)
+            var query = context.Books.AsNoTracking();
+
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                query = query.Where(x => x.Title.ToLower().Contains(search));
+            }
+            return await query
+                .OrderBy(x => x.Title)  
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();

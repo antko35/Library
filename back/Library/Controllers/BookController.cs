@@ -64,10 +64,10 @@ namespace Library.API.Controllers
 
         [HttpGet]
         [Route("getBypage/{page:int}/{pageSize:int}")]
-        public async Task<ActionResult<List<ResponseBookDto>>> GetPage(int page, int pageSize)
+        public async Task<ActionResult<List<ResponseBookDto>>> GetPage(int page, int pageSize, [FromQuery] string search = "")
         {
             var userId = User.Claims.First(x => x.Type == "UserId").Value;
-            var books = await _getBooksByPageUseCase.Execute(page, pageSize, userId);
+            var books = await _getBooksByPageUseCase.Execute(page, pageSize, userId, search ?? string.Empty);
             return Ok(books);
         }
 

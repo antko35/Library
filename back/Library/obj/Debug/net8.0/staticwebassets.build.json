@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "kP6utfG/EJTZ482wkHe0uTM7d4+D5FAwCSoKsMlYbeg=",
+  "Hash": "gbwlbvd3rim3f9tBYt7Q0pL3HQl0p86n8zOVOkDHNCQ=",
   "Source": "Library.API",
   "BasePath": "_content/Library.API",
   "Mode": "Default",
@@ -1176,12 +1176,12 @@
       "OriginalItemSpec": "wwwroot\\uploads\\05ebfb49-f69c-4568-aff3-00d83b0bffdd.jpeg"
     },
     {
-      "Identity": "C:\\Users\\antko\\modsen\\Library\\back\\Library\\wwwroot\\uploads\\208160c4-98d5-4849-b3e3-804c8b5dec51.png",
+      "Identity": "C:\\Users\\antko\\modsen\\Library\\back\\Library\\wwwroot\\uploads\\2b85c31e-a62c-4d60-b969-cc164551c080.webp",
       "SourceId": "Library.API",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\antko\\modsen\\Library\\back\\Library\\wwwroot\\",
       "BasePath": "_content/Library.API",
-      "RelativePath": "uploads/208160c4-98d5-4849-b3e3-804c8b5dec51.png",
+      "RelativePath": "uploads/2b85c31e-a62c-4d60-b969-cc164551c080.webp",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1192,15 +1192,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\uploads\\208160c4-98d5-4849-b3e3-804c8b5dec51.png"
+      "OriginalItemSpec": "wwwroot\\uploads\\2b85c31e-a62c-4d60-b969-cc164551c080.webp"
     },
     {
-      "Identity": "C:\\Users\\antko\\modsen\\Library\\back\\Library\\wwwroot\\uploads\\4ee015e0-4564-4798-96a3-e1a38e9c1764.png",
+      "Identity": "C:\\Users\\antko\\modsen\\Library\\back\\Library\\wwwroot\\uploads\\3e98da66-4113-46ed-8e71-16c480c73102.webp",
       "SourceId": "Library.API",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\antko\\modsen\\Library\\back\\Library\\wwwroot\\",
       "BasePath": "_content/Library.API",
-      "RelativePath": "uploads/4ee015e0-4564-4798-96a3-e1a38e9c1764.png",
+      "RelativePath": "uploads/3e98da66-4113-46ed-8e71-16c480c73102.webp",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1211,45 +1211,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\uploads\\4ee015e0-4564-4798-96a3-e1a38e9c1764.png"
-    },
-    {
-      "Identity": "C:\\Users\\antko\\modsen\\Library\\back\\Library\\wwwroot\\uploads\\5fabb1ee-05d2-44cc-a1d5-93aabf797d0c.png",
-      "SourceId": "Library.API",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\antko\\modsen\\Library\\back\\Library\\wwwroot\\",
-      "BasePath": "_content/Library.API",
-      "RelativePath": "uploads/5fabb1ee-05d2-44cc-a1d5-93aabf797d0c.png",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\uploads\\5fabb1ee-05d2-44cc-a1d5-93aabf797d0c.png"
-    },
-    {
-      "Identity": "C:\\Users\\antko\\modsen\\Library\\back\\Library\\wwwroot\\uploads\\788f0f88-45dc-477b-b7d9-f1935eb376a3.png",
-      "SourceId": "Library.API",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\antko\\modsen\\Library\\back\\Library\\wwwroot\\",
-      "BasePath": "_content/Library.API",
-      "RelativePath": "uploads/788f0f88-45dc-477b-b7d9-f1935eb376a3.png",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\uploads\\788f0f88-45dc-477b-b7d9-f1935eb376a3.png"
+      "OriginalItemSpec": "wwwroot\\uploads\\3e98da66-4113-46ed-8e71-16c480c73102.webp"
     },
     {
       "Identity": "C:\\Users\\antko\\modsen\\Library\\back\\Library\\wwwroot\\uploads\\89cbc8eb-c21f-40ff-b370-f25a9c5c3ab0.webp",
@@ -1271,12 +1233,12 @@
       "OriginalItemSpec": "wwwroot\\uploads\\89cbc8eb-c21f-40ff-b370-f25a9c5c3ab0.webp"
     },
     {
-      "Identity": "C:\\Users\\antko\\modsen\\Library\\back\\Library\\wwwroot\\uploads\\8d8bbe0a-a383-4541-90df-98a95e834493.png",
+      "Identity": "C:\\Users\\antko\\modsen\\Library\\back\\Library\\wwwroot\\uploads\\8e215d48-a2ec-4467-b3f5-b42744f926d2.webp",
       "SourceId": "Library.API",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\antko\\modsen\\Library\\back\\Library\\wwwroot\\",
       "BasePath": "_content/Library.API",
-      "RelativePath": "uploads/8d8bbe0a-a383-4541-90df-98a95e834493.png",
+      "RelativePath": "uploads/8e215d48-a2ec-4467-b3f5-b42744f926d2.webp",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1287,15 +1249,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\uploads\\8d8bbe0a-a383-4541-90df-98a95e834493.png"
+      "OriginalItemSpec": "wwwroot\\uploads\\8e215d48-a2ec-4467-b3f5-b42744f926d2.webp"
     },
     {
-      "Identity": "C:\\Users\\antko\\modsen\\Library\\back\\Library\\wwwroot\\uploads\\ad06fa95-ab5c-4236-92a0-2545fe0f69f2.webp",
+      "Identity": "C:\\Users\\antko\\modsen\\Library\\back\\Library\\wwwroot\\uploads\\a8720029-7158-41cb-bd9f-2d52d016617e.webp",
       "SourceId": "Library.API",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\antko\\modsen\\Library\\back\\Library\\wwwroot\\",
       "BasePath": "_content/Library.API",
-      "RelativePath": "uploads/ad06fa95-ab5c-4236-92a0-2545fe0f69f2.webp",
+      "RelativePath": "uploads/a8720029-7158-41cb-bd9f-2d52d016617e.webp",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1306,15 +1268,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\uploads\\ad06fa95-ab5c-4236-92a0-2545fe0f69f2.webp"
+      "OriginalItemSpec": "wwwroot\\uploads\\a8720029-7158-41cb-bd9f-2d52d016617e.webp"
     },
     {
-      "Identity": "C:\\Users\\antko\\modsen\\Library\\back\\Library\\wwwroot\\uploads\\b1bb7bb5-a423-46bb-b363-d03fdda2f0da.webp",
+      "Identity": "C:\\Users\\antko\\modsen\\Library\\back\\Library\\wwwroot\\uploads\\c7c33484-83e6-43c0-958b-edac63d75cd4.webp",
       "SourceId": "Library.API",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\antko\\modsen\\Library\\back\\Library\\wwwroot\\",
       "BasePath": "_content/Library.API",
-      "RelativePath": "uploads/b1bb7bb5-a423-46bb-b363-d03fdda2f0da.webp",
+      "RelativePath": "uploads/c7c33484-83e6-43c0-958b-edac63d75cd4.webp",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1325,15 +1287,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\uploads\\b1bb7bb5-a423-46bb-b363-d03fdda2f0da.webp"
+      "OriginalItemSpec": "wwwroot\\uploads\\c7c33484-83e6-43c0-958b-edac63d75cd4.webp"
     },
     {
-      "Identity": "C:\\Users\\antko\\modsen\\Library\\back\\Library\\wwwroot\\uploads\\b9e850d2-6440-4261-bd06-b69de0c06ce0.png",
+      "Identity": "C:\\Users\\antko\\modsen\\Library\\back\\Library\\wwwroot\\uploads\\ce0d1041-032e-44d5-b4f9-12349ac467ba.webp",
       "SourceId": "Library.API",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\antko\\modsen\\Library\\back\\Library\\wwwroot\\",
       "BasePath": "_content/Library.API",
-      "RelativePath": "uploads/b9e850d2-6440-4261-bd06-b69de0c06ce0.png",
+      "RelativePath": "uploads/ce0d1041-032e-44d5-b4f9-12349ac467ba.webp",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1344,26 +1306,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\uploads\\b9e850d2-6440-4261-bd06-b69de0c06ce0.png"
-    },
-    {
-      "Identity": "C:\\Users\\antko\\modsen\\Library\\back\\Library\\wwwroot\\uploads\\bb937c5a-4893-4880-af8b-4821ceebff1f.webp",
-      "SourceId": "Library.API",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\antko\\modsen\\Library\\back\\Library\\wwwroot\\",
-      "BasePath": "_content/Library.API",
-      "RelativePath": "uploads/bb937c5a-4893-4880-af8b-4821ceebff1f.webp",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\uploads\\bb937c5a-4893-4880-af8b-4821ceebff1f.webp"
+      "OriginalItemSpec": "wwwroot\\uploads\\ce0d1041-032e-44d5-b4f9-12349ac467ba.webp"
     },
     {
       "Identity": "C:\\Users\\antko\\modsen\\Library\\back\\Library\\wwwroot\\uploads\\d55c90d4-698f-4bbf-a242-98e2a58b6f22.webp",
@@ -1383,6 +1326,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\uploads\\d55c90d4-698f-4bbf-a242-98e2a58b6f22.webp"
+    },
+    {
+      "Identity": "C:\\Users\\antko\\modsen\\Library\\back\\Library\\wwwroot\\uploads\\fa66d8b5-3205-4b78-84f8-f110d4d1e4cc.png",
+      "SourceId": "Library.API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\antko\\modsen\\Library\\back\\Library\\wwwroot\\",
+      "BasePath": "_content/Library.API",
+      "RelativePath": "uploads/fa66d8b5-3205-4b78-84f8-f110d4d1e4cc.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\fa66d8b5-3205-4b78-84f8-f110d4d1e4cc.png"
     }
   ]
 }

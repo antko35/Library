@@ -1,17 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import BookCard from '../BookCard/BookCard'; // Импортируем компонент карточки книги
-import { Row, Col, Pagination, Spin, Empty,Select, Button,Flex, message } from 'antd'; // Добавляем компонент Empty для пустого состояния
+import { Row, Col, Pagination, Spin, Empty,Select, Button,Flex, message, Input } from 'antd'; // Добавляем компонент Empty для пустого состояния
 import { useAuth } from '../../context/AuthContext';
+import _ from 'lodash';
+import { debounce } from 'lodash';
 import AddAuthor from '../AddAuthor/AddAuthor';
 import AddGenre from '../AddGenre/AddGenre';
 import AddBook from '../AddBook/AddBook';
 import AdminTools from '../AdminTools/AdminTools';
 const { Option } = Select;
 
-const BookList = () => {
+const BookList = ({search}) => {
   const [books, setBooks] = useState([]);
   const [genres, setGenres] = useState([]);
   const [authors, setAuthors] = useState([]);
+  
   const [loading, setLoading] = useState(false); // Состояние для отслеживания загрузки
   const [page, setPage] = useState(1); // Текущая страница
   const [pageSize, setPageSize] = useState(5); // Количество элементов на странице
@@ -21,6 +24,7 @@ const BookList = () => {
   const [selectedAuthor, setSelectedAuthor] = useState(null);
 
   const {user} = useAuth();
+  const { Search } = Input;
   // Функция для получения жанров
   const fetchGenres = async () => {
     try {
@@ -63,11 +67,14 @@ const BookList = () => {
   };
 
   // Функция для получения книг с поддержкой пагинации
-  const fetchBooks = async (page, pageSize) => {
+  const fetchBooks = async (page, pageSize, search) => {
     setLoading(true); // Включаем индикатор загрузки
     try {
+      const requestBody = {
+        search: search,
+    };
       // Корректный URL для запроса с параметрами пагинации
-      const response = await fetch(`https://localhost:7040/Books/getBypage/${page}/${pageSize}`, {
+      const response = await fetch(`https://localhost:7040/Books/getBypage/${page}/${pageSize}/?search=${encodeURIComponent(search)}`, {
         method: 'GET',
         credentials: 'include',
       });
@@ -98,7 +105,7 @@ const BookList = () => {
   };
 
   useEffect(() => {
-    fetchBooks(page, pageSize); // Загружаем книги при изменении страницы
+    fetchBooks(page, pageSize, search); // Загружаем книги при изменении страницы
   }, [page, pageSize]);
 
   // Обработчик изменения страницы
@@ -154,12 +161,26 @@ const BookList = () => {
   const [isModalGenreVisible, setIsModalGenreVisible] = useState(false);
   const [isModalBookVisible, setIsModalBookVisible] = useState(false);
 
+  const debouncedSearch = useCallback(
+    debounce((searchValue) => {
+      //setSearch(searchValue); // Обновляем строку поиска для фактического запроса
+      fetchBooks(1, pageSize, searchValue); // Сбрасываем на первую страницу при новом поиске
+    }, 500), // Задержка в миллисекундах
+    [pageSize]
+  );
+
+  useEffect(() => {
+    debouncedSearch(search); // Запуск debounce при изменении search
+  }, [search, debouncedSearch]);
+  
+
   return (
     <div>
       {loading ? (
         <Spin tip="Loading books..." />
       ) : (
         <>
+       
           {books.length === 0 ? (
             <Empty description="No books found" />
           ) : (
@@ -167,6 +188,7 @@ const BookList = () => {
             {user.isAdmin && (
               <AdminTools setIsModalVisible={setIsModalVisible} setIsModalGenreVisible={setIsModalGenreVisible} setIsModalBookVisible={setIsModalBookVisible} />
             )}
+             
               <Row
                 gutter={[16, 32]} // Отступы между колонками
                 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}

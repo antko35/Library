@@ -18,10 +18,10 @@ namespace Library.Application.Use_Cases.Books
             _mapper = mapper;
             _unitOfWork = unitOfWork;
         }
-        public async Task<List<ResponseBookDto>> Execute(int page, int pageSize, string userId)
+        public async Task<List<ResponseBookDto>> Execute(int page, int pageSize, string userId, string search)
         {
             var UserId = Guid.Parse(userId);
-            var books = await _unitOfWork.BookRepository.GetByPage(page, pageSize);
+            var books = await _unitOfWork.BookRepository.GetByPage(page, pageSize, search);
             var booksDto = _mapper.Map<List<ResponseBookDto>>(books);
 
             var user = await _unitOfWork.UserRepository.GetInfo(UserId);
