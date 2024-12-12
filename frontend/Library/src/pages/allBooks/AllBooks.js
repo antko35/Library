@@ -12,13 +12,13 @@ const AllBooks = () => {
   };
 
   return (
-    <div style={{ padding: '20px' }}>
+    <div style={{ padding: '20px' , textAlign: 'center'  }}>
        <Search
-          placeholder="Search books..."
+          placeholder="Введите название книги или автора"
           allowClear
           value={search}
           onChange={handleSearchChange}
-          style={{ width: '300px' }}
+          style={{ width: '300px'}}
         />
     <BookList search={search} />
 

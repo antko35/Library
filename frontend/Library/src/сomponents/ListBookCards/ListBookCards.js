@@ -163,7 +163,6 @@ const BookList = ({search}) => {
 
   const debouncedSearch = useCallback(
     debounce((searchValue) => {
-      //setSearch(searchValue); // Обновляем строку поиска для фактического запроса
       fetchBooks(1, pageSize, searchValue); // Сбрасываем на первую страницу при новом поиске
     }, 500), // Задержка в миллисекундах
     [pageSize]
@@ -181,14 +180,14 @@ const BookList = ({search}) => {
       ) : (
         <>
        
+          {user.isAdmin && (
+              <AdminTools setIsModalVisible={setIsModalVisible} setIsModalGenreVisible={setIsModalGenreVisible} setIsModalBookVisible={setIsModalBookVisible} />
+            )}
+            
           {books.length === 0 ? (
             <Empty description="No books found" />
           ) : (
             <>
-            {user.isAdmin && (
-              <AdminTools setIsModalVisible={setIsModalVisible} setIsModalGenreVisible={setIsModalGenreVisible} setIsModalBookVisible={setIsModalBookVisible} />
-            )}
-             
               <Row
                 gutter={[16, 32]} // Отступы между колонками
                 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}

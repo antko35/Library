@@ -15,11 +15,13 @@ namespace Library.Persistence.Repositories
       
         public async Task<List<BookEntity>> GetByPage(int page, int pageSize, string search)
         {
-            var query = context.Books.AsNoTracking();
+            var query = context.Books.Include(x =>x.Author).AsNoTracking();
 
             if (!string.IsNullOrWhiteSpace(search))
             {
                 query = query.Where(x => x.Title.ToLower().Contains(search));
+                query = query.Where(x => x.Author.Name.ToLower().Contains(search));
+                query = query.Where(x => x.Author.Surname.ToLower().Contains(search));
             }
             return await query
                 .OrderBy(x => x.Title)  
