@@ -55,7 +55,7 @@ const AddBook = ({ genres, authors, visible, onClose, onCreate }) => {
       setImageUrl(null);
     } catch (error) {
       console.log(error)
-      message.error(`Пожалуйста, заполните все обязательные поля. ${error}`);
+      message.error(`Пожалуйста, заполните все обязательные поля.`);
     }
   };
 
@@ -140,7 +140,7 @@ const AddBook = ({ genres, authors, visible, onClose, onCreate }) => {
         </Form.Item>
 
         
-        <Form.Item name="description" label="Описание">
+        <Form.Item name="description" label="Описание" rules={[{ required: true, message: "Пожалуйста, введите описание" }]} >
           <Input.TextArea placeholder="Введите описание книги" rows={4} />
         </Form.Item>
 

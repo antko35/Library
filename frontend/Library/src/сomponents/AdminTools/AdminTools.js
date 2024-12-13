@@ -1,7 +1,22 @@
 import React from 'react';
 import {  Box, Text } from '@chakra-ui/react'; // or the appropriate component library
-import { Flex,Button} from 'antd';
+import { Flex,Button, message} from 'antd';
 const AdminTools = ({ setIsModalVisible, setIsModalGenreVisible, setIsModalBookVisible }) => {
+
+  const handleSave = async () => {
+   
+    try {
+      console.log("Uploading");
+      await fetch(`https://localhost:7040/Statistics`,{
+        headers: { "Content-Type": "multipart/form-data" },
+        withCredentials: true,
+      });
+      message.success("Данные загружены успешно");
+    } catch (error) {
+      message.error("Данные загружены обложки");
+    } 
+  };
+
   return (
     <div wrap style={{
           display: 'flex',
@@ -22,9 +37,10 @@ const AdminTools = ({ setIsModalVisible, setIsModalGenreVisible, setIsModalBookV
         Admin Tools
       </Text>
       <Flex gap="small" wrap="wrap" justify="center" align="center">
-        <Button onClick={() => setIsModalBookVisible(true)}>Create books</Button>
-        <Button onClick={() => setIsModalVisible(true)}>Manage authors</Button>
-        <Button onClick={() => setIsModalGenreVisible(true)}>Manage genres</Button>
+        <Button onClick={() => setIsModalBookVisible(true)}>Создать книгу</Button>
+        <Button onClick={() => setIsModalVisible(true)}>Управлять авторами</Button>
+        <Button onClick={() => setIsModalGenreVisible(true)}>Управлять жанрами</Button>
+        <Button onClick={() => handleSave()}>Сохранить статитстику</Button>
       </Flex>
     </Box>
     </div>

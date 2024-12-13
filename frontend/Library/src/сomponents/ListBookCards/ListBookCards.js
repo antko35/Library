@@ -122,7 +122,7 @@ const BookList = ({search}) => {
         credentials: 'include', 
       });
       if (response.ok) {
-        fetchBooks(page, pageSize);
+        fetchBooks(page, pageSize, search);
         console.log('Book successfully borrowed!');
 
       } else {
@@ -183,7 +183,7 @@ const BookList = ({search}) => {
           {user.isAdmin && (
               <AdminTools setIsModalVisible={setIsModalVisible} setIsModalGenreVisible={setIsModalGenreVisible} setIsModalBookVisible={setIsModalBookVisible} />
             )}
-            
+
           {books.length === 0 ? (
             <Empty description="No books found" />
           ) : (

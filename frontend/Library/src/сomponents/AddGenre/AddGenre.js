@@ -24,11 +24,11 @@ const AddGenre = ({genres,setGenres, visible, onClose }) => {
 
   const handleDelete = async (genreId) => {
     Modal.confirm({
-      title: 'Are you shure ?',
-      content: 'This action cannot be undone.',
-      okText: 'Yes',
+      title: 'Вы Уверены?',
+      content: 'Это действие нельяз отменить.',
+      okText: 'Да',
       okType: 'danger',
-      cancelText: 'No',
+      cancelText: 'Нет',
       onOk: async () => {
         try {
           await fetch(`https://localhost:7040/Genre/${genreId}`, {
@@ -46,7 +46,7 @@ const AddGenre = ({genres,setGenres, visible, onClose }) => {
   const handleAddGenre = async () => {
     // Проверка на пустое поле
     if (!newGenreName) {
-      message.error('Please, enter genre name.'); // Отображаем сообщение об ошибке
+      message.error('Введите имя автора'); // Отображаем сообщение об ошибке
       return;
     }
 
@@ -73,7 +73,7 @@ const AddGenre = ({genres,setGenres, visible, onClose }) => {
 
   return (
     <Modal
-      title="Manage Genres"
+      title="Управление жанрами"
       visible={visible}
       onCancel={onClose}
       footer={null}
@@ -83,13 +83,13 @@ const AddGenre = ({genres,setGenres, visible, onClose }) => {
       ) : (
         <>
           <Input
-            placeholder="Genre name"
+            placeholder="Жанр"
             value={newGenreName}
             onChange={(e) => setNewGenreName(e.target.value)}
             style={{ marginBottom: '10px' }}
           />
           <Button type="primary" onClick={handleAddGenre} style={{ marginBottom: '20px' }}>
-            Add Genre
+            Добавить жанр
           </Button>
           <div style={{ maxHeight: 200, overflowY: 'auto' }}>
             <List
@@ -99,7 +99,7 @@ const AddGenre = ({genres,setGenres, visible, onClose }) => {
                 <List.Item
                   actions={[
                     <Button type="link" danger onClick={() => handleDelete(genre.id)}>
-                      Delete
+                      Удалить
                     </Button>,
                   ]}
                 >

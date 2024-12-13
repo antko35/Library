@@ -19,9 +19,9 @@ namespace Library.Persistence.Repositories
 
             if (!string.IsNullOrWhiteSpace(search))
             {
-                query = query.Where(x => x.Title.ToLower().Contains(search));
-                query = query.Where(x => x.Author.Name.ToLower().Contains(search));
-                query = query.Where(x => x.Author.Surname.ToLower().Contains(search));
+                query = query.Where(x => x.Title.ToLower().Contains(search) || x.Author.Name.ToLower().Contains(search) || x.Author.Surname.ToLower().Contains(search));
+                //query = query.Where(x => x.Author.Name.ToLower().Contains(search));
+                //query = query.Where(x => x.Author.Surname.ToLower().Contains(search));
             }
             return await query
                 .OrderBy(x => x.Title)  

@@ -30,3 +30,5 @@ C:\Users\antko\modsen\Library\back\Library.Infrastructure\obj\Debug\net8.0\Libra
 C:\Users\antko\modsen\Library\back\Library.Infrastructure\obj\Debug\net8.0\refint\Library.Infrastructure.dll
 C:\Users\antko\modsen\Library\back\Library.Infrastructure\obj\Debug\net8.0\Library.Infrastructure.pdb
 C:\Users\antko\modsen\Library\back\Library.Infrastructure\obj\Debug\net8.0\ref\Library.Infrastructure.dll
+C:\Users\antko\modsen\Library\back\Library.Infrastructure\bin\Debug\net8.0\Library.Persistence.dll
+C:\Users\antko\modsen\Library\back\Library.Infrastructure\bin\Debug\net8.0\Library.Persistence.pdb

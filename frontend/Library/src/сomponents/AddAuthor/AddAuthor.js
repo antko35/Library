@@ -49,7 +49,7 @@ const AddAuthor = ({ authors,setAuthors, visible, onClose }) => {
 
   const handleAddAuthor = async () => {
     if (!newAuthorName || !newAuthorSurname || !newAuthorBirthDate || !newAuthorCountry) {
-      message.error('Please, fill all fields.');
+      message.error('Пожалуйста, заполните все поля.');
       return;
     }
     console.log(newAuthorBirthDate);
@@ -81,7 +81,7 @@ const AddAuthor = ({ authors,setAuthors, visible, onClose }) => {
 
   return (
     <Modal
-      title="Manage Authors"
+      title="Управление авторами"
       visible={visible}
       onCancel={onClose}
       footer={null}
@@ -91,19 +91,19 @@ const AddAuthor = ({ authors,setAuthors, visible, onClose }) => {
       ) : (
         <>
           <Input
-            placeholder="Author Name"
+            placeholder="Имя"
             value={newAuthorName}
             onChange={(e) => setNewAuthorName(e.target.value)}
             style={{ marginBottom: '10px' }}
           />
           <Input
-            placeholder="Author Surname"
+            placeholder="Фамилия"
             value={newAuthorSurname}
             onChange={(e) => setNewAuthorSurname(e.target.value)}
             style={{ marginBottom: '10px' }}
           />
           <Input
-            placeholder="Author country"
+            placeholder="Страна"
             value={newAuthorCountry}
             onChange={(e) => setNewAuthorCountry(e.target.value)}
             style={{ marginBottom: '10px' }}
@@ -115,7 +115,7 @@ const AddAuthor = ({ authors,setAuthors, visible, onClose }) => {
             style={{ marginBottom: '10px', width: '100%' }} // Задаем ширину для DatePicker
           />
           <Button type="primary" onClick={handleAddAuthor} style={{ marginBottom: '20px' }}>
-            Add Author
+            Добавить автора
           </Button>
          
           <List
@@ -126,7 +126,7 @@ const AddAuthor = ({ authors,setAuthors, visible, onClose }) => {
               <List.Item
                 actions={[
                   <Button type="link" danger onClick={() => handleDelete(author.id)}>
-                    Delete
+                    Удалить
                   </Button>,
                 ]}
               >

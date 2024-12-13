@@ -51,6 +51,10 @@
               "target": "Package",
               "version": "[13.0.1, )"
             },
+            "EPPlus": {
+              "target": "Package",
+              "version": "[7.5.2, )"
+            },
             "FluentValidation": {
               "target": "Package",
               "version": "[11.10.0, )"
@@ -198,6 +202,9 @@
             "projectReferences": {
               "C:\\Users\\antko\\modsen\\Library\\back\\Library.Core\\Library.Core.csproj": {
                 "projectPath": "C:\\Users\\antko\\modsen\\Library\\back\\Library.Core\\Library.Core.csproj"
+              },
+              "C:\\Users\\antko\\modsen\\Library\\back\\Library.Persistence\\Library.Persistence.csproj": {
+                "projectPath": "C:\\Users\\antko\\modsen\\Library\\back\\Library.Persistence\\Library.Persistence.csproj"
               }
             }
           }
@@ -215,9 +222,17 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "EPPlus": {
+              "target": "Package",
+              "version": "[7.5.2, )"
+            },
             "FluentValidation.DependencyInjectionExtensions": {
               "target": "Package",
               "version": "[11.10.0, )"
+            },
+            "Npgsql": {
+              "target": "Package",
+              "version": "[8.0.3, )"
             }
           },
           "imports": [
@@ -286,6 +301,10 @@
             "AutoMapper": {
               "target": "Package",
               "version": "[13.0.1, )"
+            },
+            "EPPlus": {
+              "target": "Package",
+              "version": "[7.5.2, )"
             },
             "FluentValidation": {
               "target": "Package",

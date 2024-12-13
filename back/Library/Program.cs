@@ -12,12 +12,14 @@ using Library.Application.Use_Cases.Author;
 using Library.Application.Use_Cases.Books;
 using Library.Application.Use_Cases.Comment;
 using Library.Application.Use_Cases.Genre;
+using Library.Application.Use_Cases.Statistics;
 using Library.Application.Use_Cases.User;
 using Library.Core.Abstractions;
 using Library.Core.Abstractions.IInfrastructure;
 using Library.Core.Abstractions.IRepository;
 using Library.Core.Contracts.Genre;
-using Library.Core.Enums;   
+using Library.Core.Enums;
+using Library.Infrastructure.ExportToExcel;
 using Library.Persistence;
 using Library.Persistence.Repositories;
 using Library.Persistence.UnitOfWork;
@@ -76,6 +78,7 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IImageService,ImageService>();
 builder.Services.AddScoped<IJWTService, JWTService>();
 builder.Services.AddScoped<IValidationService, ValidationService>();
+builder.Services.AddScoped<IUserStatistics,UserStatistics>();
 
 builder.Services.AddScoped<IBooksRepository, BooksRepository>();
 builder.Services.AddScoped<GetAllBooksUseCase>();
@@ -112,6 +115,8 @@ builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<GetCommentsByBookUseCase>();
 builder.Services.AddScoped<GetCommentsCountUseCase>();
 builder.Services.AddScoped<CreateCommentUseCase>();
+
+builder.Services.AddScoped<GetUserStat>(); 
 
 builder.Services.AddValidatorsFromAssemblyContaining<LoginRequestUserDtoValidator>();
 

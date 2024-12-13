@@ -114,10 +114,10 @@ const BookPage = ({ isAdmin }) => {
     <Card>
       {isEditing ? (
         <Form form={form} onFinish={handleSave} layout="vertical">
-          <Form.Item name="title" label="Title">
+          <Form.Item name="title" label="Название">
             <Input />
           </Form.Item>
-          <Form.Item name="authorId" label="Author">
+          <Form.Item name="authorId" label="Автор">
             <Select placeholder="Select an author">
               {authors.map(author => (
                 <Option key={author.id} value={author.id}>
@@ -126,7 +126,7 @@ const BookPage = ({ isAdmin }) => {
               ))}
             </Select>
           </Form.Item>
-          <Form.Item name="genreId" label="Genre">
+          <Form.Item name="genreId" label="Жанр">
             <Select placeholder="Select genre">
               {genres.map(genre => (
                 <Option key={genre.id} value={genre.id}>
@@ -135,7 +135,7 @@ const BookPage = ({ isAdmin }) => {
               ))}
             </Select>
           </Form.Item>
-          <Form.Item name="description" label="Description">
+          <Form.Item name="description" label="Описание">
             <Input.TextArea rows={4} />
           </Form.Item>
 
@@ -154,8 +154,8 @@ const BookPage = ({ isAdmin }) => {
         </Form.Item>
 
 
-          <Button type="primary" htmlType="submit">Save</Button>
-          <Button onClick={() => setIsEditing(false)} style={{ marginLeft: 8 }}>Cancle</Button>
+          <Button type="primary" htmlType="submit">Сохранить</Button>
+          <Button onClick={() => setIsEditing(false)} style={{ marginLeft: 8 }}>Отмена</Button>
         </Form>
       ) : (
         <Row gutter={16} >
@@ -186,18 +186,18 @@ const BookPage = ({ isAdmin }) => {
           </Col>
           <Col xs={24} sm={16} md={18}>
             <Title level={2}>{book.title}</Title>
-            <Paragraph>Author: {book.author?.name + " " + book.author?.surname}</Paragraph>
-            <Paragraph>Genre: {book.genre?.genre}</Paragraph>
+            <Paragraph>Автор: {book.author?.name + " " + book.author?.surname}</Paragraph>
+            <Paragraph>Жанр: {book.genre?.genre}</Paragraph>
             <Paragraph>ISBN: {book.isbn}</Paragraph> 
-            <Paragraph>Description: {book.description}</Paragraph>
+            <Paragraph>Описание: {book.description}</Paragraph>
             {isAdmin && (
               <Button type="primary" onClick={handleEdit} style={{ marginTop: 16 }}>
-                Edit
+                Редактировать
               </Button>
             )}
             {isAdmin && (
               <Button type="primary" danger onClick={handleDelete} style={{ marginLeft : 15 , marginTop: 16 }}>
-                Delete
+                Удалить
               </Button>
             )}
           </Col>

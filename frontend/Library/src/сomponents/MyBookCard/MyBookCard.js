@@ -26,8 +26,8 @@ const MyBookCard = ({ id,title, author, genre, returnDate, coverImagePath, onRet
           />
         </Col>
         <Col span={16}> { }
-          <Card.Meta title={title} description={`By ${author}`} />
-          <p>Genre: {genre}</p>
+          <Card.Meta title={title} description={`Автор: ${author}`} />
+          <p>Жанр: {genre}</p>
           
 
           {!isAvailable && (

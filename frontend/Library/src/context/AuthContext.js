@@ -13,29 +13,29 @@ export const AuthProvider = ({ children }) => {
   const [usernameError, setUsernameError] = useState(null); 
   
 
-  const fetchUserData = async () => {
-    try {
-      const response = await fetch('https://localhost:7040/User/info', {
-        method: 'GET',
-        credentials: 'include', 
-      });
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch('https://localhost:7040/User/info', {
+          method: 'GET',
+          credentials: 'include', 
+        });
 
-      if (response.ok) {
-        const data = await response.json();
-        if(data.role === "Admin"){
-          setUser({name: data.userName,email:data.email, isAdmin:true}); 
+        if (response.ok) {
+          const data = await response.json();
+          if(data.role === "Admin"){
+            setUser({name: data.userName,email:data.email, isAdmin:true}); 
+          }
+          else{
+            setUser({name: data.userName,email:data.email, isAdmin: false }); 
+          }
+          setIsAuthenticated(true );    
         }
-        else{
-          setUser({name: data.userName,email:data.email, isAdmin: false }); 
-        }
-        setIsAuthenticated(true );    
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      } finally {
+        setLoading(false);          
       }
-    } catch (error) {
-      console.error('Error fetching user data:', error);
-    } finally {
-      setLoading(false);          
-    }
-  };
+    };
 
 
   useEffect(() => {
@@ -52,9 +52,8 @@ export const AuthProvider = ({ children }) => {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(loginData),
-          credentials: 'include', // Для получения и отправки куков
+          credentials: 'include', 
         });
-  
         if (response.ok) {
           await fetchUserData();
           setIsAuthenticated(true);
