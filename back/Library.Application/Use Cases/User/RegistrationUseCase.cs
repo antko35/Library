@@ -4,6 +4,7 @@ using Library.Core.Abstractions;
 using Library.Core.Abstractions.IRepository;
 using Library.Core.Entities;
 using Library.Core.Enums;
+using Library.Infrastructure.Email;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,12 +19,14 @@ namespace Library.Application.Use_Cases.User
         private readonly IUserRepository _userRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IValidationService _validationService;
-        public RegistrationUseCase(IMapper mapper, IUnitOfWork unitOfWork, IValidationService validationService)
+        private readonly ISendEmail _sendEmail;
+        public RegistrationUseCase(IMapper mapper, IUnitOfWork unitOfWork, IValidationService validationService, ISendEmail email)
         {
             _mapper = mapper;
             _userRepository = unitOfWork.UserRepository;
             _unitOfWork = unitOfWork;
             _validationService = validationService;
+            _sendEmail = email;
         }
         public async Task Execute(RegisterRequestDto registerDto)
         {
@@ -53,6 +56,9 @@ namespace Library.Application.Use_Cases.User
 
             await _unitOfWork.UserRepository.Insert(userEntity);
             await _unitOfWork.Save();
+
+            _sendEmail.Send(userEntity.Email);
+
         }
     }
 }

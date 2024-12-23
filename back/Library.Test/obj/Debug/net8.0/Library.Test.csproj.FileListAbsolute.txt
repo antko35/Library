@@ -126,3 +126,13 @@ C:\Users\antko\projects\Library\back\Library.Test\bin\Debug\net8.0\zh-Hant\Micro
 C:\Users\antko\projects\Library\back\Library.Test\bin\Debug\net8.0\xunit.runner.visualstudio.testadapter.dll
 C:\Users\antko\projects\Library\back\Library.Test\bin\Debug\net8.0\xunit.runner.reporters.netcoreapp10.dll
 C:\Users\antko\projects\Library\back\Library.Test\bin\Debug\net8.0\xunit.runner.utility.netcoreapp10.dll
+c:\Users\antko\modsen\Library\back\Library.Test\bin\Debug\net8.0\.msCoverageSourceRootsMapping_Library.Test
+c:\Users\antko\modsen\Library\back\Library.Test\obj\Debug\net8.0\Library.Test.csproj.AssemblyReference.cache
+c:\Users\antko\modsen\Library\back\Library.Test\obj\Debug\net8.0\Library.Test.GeneratedMSBuildEditorConfig.editorconfig
+c:\Users\antko\modsen\Library\back\Library.Test\obj\Debug\net8.0\Library.Test.AssemblyInfoInputs.cache
+c:\Users\antko\modsen\Library\back\Library.Test\obj\Debug\net8.0\Library.Test.AssemblyInfo.cs
+c:\Users\antko\modsen\Library\back\Library.Test\obj\Debug\net8.0\Library.Test.csproj.CoreCompileInputs.cache
+c:\Users\antko\modsen\Library\back\Library.Test\obj\Debug\net8.0\Library.Test.sourcelink.json
+c:\Users\antko\modsen\Library\back\Library.Test\obj\Debug\net8.0\Library.Test.dll
+c:\Users\antko\modsen\Library\back\Library.Test\obj\Debug\net8.0\refint\Library.Test.dll
+c:\Users\antko\modsen\Library\back\Library.Test\obj\Debug\net8.0\Library.Test.pdb

@@ -77,8 +77,15 @@ namespace Library.Infrastructure.ExportToExcel
                     bookRow++;
                 }
 
+
                 // Сохранение файла
                 var filePath = Path.Combine(Directory.GetCurrentDirectory(), "LibraryStatistics.xlsx");
+                if (File.Exists(filePath))
+                {
+                    // Удаляем файл, если он существует
+                    File.Delete(filePath);
+                }
+
                 FileInfo excelFile = new FileInfo(filePath);
                 package.SaveAs(excelFile);
 
